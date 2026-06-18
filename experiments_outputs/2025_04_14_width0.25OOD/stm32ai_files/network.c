@@ -1,0 +1,6859 @@
+/**
+  ******************************************************************************
+  * @file    network.c
+  * @author  AST Embedded Analytics Research Platform
+  * @date    Mon Apr 14 15:26:06 2025
+  * @brief   AI Tool Automatic Code Generator for Embedded NN computing
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  ******************************************************************************
+  */
+
+
+#include "network.h"
+#include "network_data.h"
+
+#include "ai_platform.h"
+#include "ai_platform_interface.h"
+#include "ai_math_helpers.h"
+
+#include "core_common.h"
+#include "core_convert.h"
+
+#include "layers.h"
+
+
+
+#undef AI_NET_OBJ_INSTANCE
+#define AI_NET_OBJ_INSTANCE g_network
+ 
+#undef AI_NETWORK_MODEL_SIGNATURE
+#define AI_NETWORK_MODEL_SIGNATURE     "d4a2ca207780305b992d2ab58e12a04e"
+
+#ifndef AI_TOOLS_REVISION_ID
+#define AI_TOOLS_REVISION_ID     ""
+#endif
+
+#undef AI_TOOLS_DATE_TIME
+#define AI_TOOLS_DATE_TIME   "Mon Apr 14 15:26:06 2025"
+
+#undef AI_TOOLS_COMPILE_TIME
+#define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
+
+#undef AI_NETWORK_N_BATCHES
+#define AI_NETWORK_N_BATCHES         (1)
+
+static ai_ptr g_network_activations_map[1] = AI_C_ARRAY_INIT;
+static ai_ptr g_network_weights_map[1] = AI_C_ARRAY_INIT;
+
+
+
+/**  Array declarations section  **********************************************/
+/* Array#0 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_34_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9408, AI_STATIC)
+/* Array#1 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_35_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1568, AI_STATIC)
+/* Array#2 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 176, AI_STATIC)
+/* Array#3 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_36_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1568, AI_STATIC)
+/* Array#4 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#5 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#6 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 512, AI_STATIC)
+/* Array#7 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_39_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#8 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#9 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9408, AI_STATIC)
+/* Array#10 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#11 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_42_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#12 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_43_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#13 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4081, AI_STATIC)
+/* Array#14 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_44_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#15 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1568, AI_STATIC)
+/* Array#16 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9408, AI_STATIC)
+/* Array#17 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_46_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1568, AI_STATIC)
+/* Array#18 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#19 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3136, AI_STATIC)
+/* Array#20 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 312, AI_STATIC)
+/* Array#21 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_49_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#22 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_50_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#23 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#24 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_31_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 528, AI_STATIC)
+/* Array#25 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_52_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#26 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_53_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#27 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_54_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3136, AI_STATIC)
+/* Array#28 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_35_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 272, AI_STATIC)
+/* Array#29 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1176, AI_STATIC)
+/* Array#30 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3920, AI_STATIC)
+/* Array#31 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3920, AI_STATIC)
+/* Array#32 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 352, AI_STATIC)
+/* Array#33 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_58_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#34 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 20, AI_STATIC)
+/* Array#35 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#36 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#37 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_61_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#38 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_62_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#39 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2721, AI_STATIC)
+/* Array#40 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_63_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3920, AI_STATIC)
+/* Array#41 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1176, AI_STATIC)
+/* Array#42 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#43 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_65_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1176, AI_STATIC)
+/* Array#44 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#45 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_67_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#46 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 208, AI_STATIC)
+/* Array#47 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_68_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#48 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_69_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 30, AI_STATIC)
+/* Array#49 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_70_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#50 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 352, AI_STATIC)
+/* Array#51 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_71_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#52 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_72_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#53 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_73_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#54 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 208, AI_STATIC)
+/* Array#55 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_74_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1176, AI_STATIC)
+/* Array#56 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_75_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1176, AI_STATIC)
+/* Array#57 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_76_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#58 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 672, AI_STATIC)
+/* Array#59 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_77_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#60 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_78_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 240, AI_STATIC)
+/* Array#61 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#62 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_79_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5, AI_STATIC)
+/* Array#63 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_81_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5, AI_STATIC)
+/* Array#64 */
+AI_ARRAY_OBJ_DECLARE(
+  conversion_82_output_array, AI_ARRAY_FORMAT_FLOAT|AI_FMT_FLAG_IS_IO,
+  NULL, NULL, 5, AI_STATIC)
+/* Array#65 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5441, AI_STATIC)
+/* Array#66 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#67 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#68 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3136, AI_STATIC)
+/* Array#69 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#70 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#71 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#72 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_50_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 416, AI_STATIC)
+/* Array#73 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#74 */
+AI_ARRAY_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+/* Array#75 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 216, AI_STATIC)
+/* Array#76 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 704, AI_STATIC)
+/* Array#77 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#78 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 576, AI_STATIC)
+/* Array#79 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 496, AI_STATIC)
+/* Array#80 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#81 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#82 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+/* Array#83 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 2, AI_STATIC)
+/* Array#84 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3920, AI_STATIC)
+/* Array#85 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_5_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#86 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_5_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#87 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6801, AI_STATIC)
+/* Array#88 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 128, AI_STATIC)
+/* Array#89 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#90 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3920, AI_STATIC)
+/* Array#91 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 128, AI_STATIC)
+/* Array#92 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#93 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 520, AI_STATIC)
+/* Array#94 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_11_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1152, AI_STATIC)
+/* Array#95 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 20, AI_STATIC)
+/* Array#96 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_11_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#97 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 256, AI_STATIC)
+/* Array#98 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 880, AI_STATIC)
+/* Array#99 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#100 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_13_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 128, AI_STATIC)
+/* Array#101 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 560, AI_STATIC)
+/* Array#102 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_13_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#103 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1728, AI_STATIC)
+/* Array#104 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1296, AI_STATIC)
+/* Array#105 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#106 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#107 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+/* Array#108 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#109 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_67_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 10201, AI_STATIC)
+/* Array#110 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 128, AI_STATIC)
+/* Array#111 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#112 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_67_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#113 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 192, AI_STATIC)
+/* Array#114 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#115 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_69_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 780, AI_STATIC)
+/* Array#116 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_19_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 600, AI_STATIC)
+/* Array#117 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_69_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 30, AI_STATIC)
+/* Array#118 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_19_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#119 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+/* Array#120 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_70_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1320, AI_STATIC)
+/* Array#121 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 6, AI_STATIC)
+/* Array#122 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+/* Array#123 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_74_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 720, AI_STATIC)
+/* Array#124 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#125 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 192, AI_STATIC)
+/* Array#126 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_76_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1296, AI_STATIC)
+/* Array#127 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#128 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_76_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5880, AI_STATIC)
+/* Array#129 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+/* Array#130 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+/* Array#131 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_78_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2880, AI_STATIC)
+/* Array#132 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1200, AI_STATIC)
+/* Array#133 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+/* Array#134 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_78_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 240, AI_STATIC)
+/* Array#135 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 576, AI_STATIC)
+/* Array#136 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 12, AI_STATIC)
+/* Array#137 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_79_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1010, AI_STATIC)
+/* Array#138 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_31_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 576, AI_STATIC)
+/* Array#139 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_31_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+/* Array#140 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_81_scratch0_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 5, AI_STATIC)
+/* Array#141 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_35_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+/* Array#142 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_35_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#143 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 256, AI_STATIC)
+/* Array#144 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#145 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 800, AI_STATIC)
+/* Array#146 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#147 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 256, AI_STATIC)
+/* Array#148 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#149 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 256, AI_STATIC)
+/* Array#150 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 32, AI_STATIC)
+/* Array#151 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 256, AI_STATIC)
+/* Array#152 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#153 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 512, AI_STATIC)
+/* Array#154 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#155 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1600, AI_STATIC)
+/* Array#156 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#157 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_50_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1024, AI_STATIC)
+/* Array#158 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_50_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+/* Array#159 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1024, AI_STATIC)
+/* Array#160 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 64, AI_STATIC)
+/* Array#161 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+/* Array#162 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#163 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1920, AI_STATIC)
+/* Array#164 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#165 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2000, AI_STATIC)
+/* Array#166 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#167 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1600, AI_STATIC)
+/* Array#168 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 20, AI_STATIC)
+/* Array#169 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1600, AI_STATIC)
+/* Array#170 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 80, AI_STATIC)
+/* Array#171 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1920, AI_STATIC)
+/* Array#172 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#173 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2880, AI_STATIC)
+/* Array#174 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#175 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_67_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3000, AI_STATIC)
+/* Array#176 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_67_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#177 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_69_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3600, AI_STATIC)
+/* Array#178 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_69_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 30, AI_STATIC)
+/* Array#179 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_70_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3600, AI_STATIC)
+/* Array#180 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_70_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#181 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_74_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2880, AI_STATIC)
+/* Array#182 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_74_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#183 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_76_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2880, AI_STATIC)
+/* Array#184 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_76_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 120, AI_STATIC)
+/* Array#185 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_78_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 28800, AI_STATIC)
+/* Array#186 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_78_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 240, AI_STATIC)
+/* Array#187 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_79_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1200, AI_STATIC)
+/* Array#188 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_79_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 5, AI_STATIC)
+/* Array#189 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 652, AI_STATIC)
+/* Array#190 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 100352, AI_STATIC)
+/* Array#191 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1552, AI_STATIC)
+/* Array#192 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 25088, AI_STATIC)
+/* Array#193 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 52, AI_STATIC)
+/* Array#194 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2, AI_STATIC)
+/* Array#195 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_5_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 88, AI_STATIC)
+/* Array#196 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 192, AI_STATIC)
+/* Array#197 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+/* Array#198 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_11_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2816, AI_STATIC)
+/* Array#199 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_11_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#200 */
+AI_ARRAY_OBJ_DECLARE(
+  serving_default_input_10_output_array, AI_ARRAY_FORMAT_U8|AI_FMT_FLAG_IS_IO,
+  NULL, NULL, 150528, AI_STATIC)
+/* Array#201 */
+AI_ARRAY_OBJ_DECLARE(
+  conversion_0_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 150529, AI_STATIC)
+/* Array#202 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 224, AI_STATIC)
+/* Array#203 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 100352, AI_STATIC)
+/* Array#204 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_pad_before_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 103968, AI_STATIC)
+/* Array#205 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#206 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 25088, AI_STATIC)
+/* Array#207 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_3_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#208 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2, AI_STATIC)
+/* Array#209 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_13_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+/* Array#210 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_5_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#211 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_6_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#212 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_7_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8, AI_STATIC)
+/* Array#213 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4080, AI_STATIC)
+/* Array#214 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_8_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 25088, AI_STATIC)
+/* Array#215 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 50176, AI_STATIC)
+/* Array#216 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+/* Array#217 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 25088, AI_STATIC)
+/* Array#218 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_11_pad_before_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 26912, AI_STATIC)
+/* Array#219 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_11_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#220 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 256, AI_STATIC)
+/* Array#221 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#222 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_13_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#223 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#224 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_pad_before_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 7200, AI_STATIC)
+/* Array#225 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+/* Array#226 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12544, AI_STATIC)
+/* Array#227 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+/* Array#228 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#229 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_17_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6272, AI_STATIC)
+/* Array#230 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+/* Array#231 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 272, AI_STATIC)
+/* Array#232 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_19_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4704, AI_STATIC)
+/* Array#233 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_20_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#234 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+/* Array#235 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6, AI_STATIC)
+/* Array#236 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#237 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_23_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24, AI_STATIC)
+/* Array#238 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_19_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2041, AI_STATIC)
+/* Array#239 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_25_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4704, AI_STATIC)
+/* Array#240 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1568, AI_STATIC)
+/* Array#241 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_19_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4704, AI_STATIC)
+/* Array#242 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9408, AI_STATIC)
+/* Array#243 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9408, AI_STATIC)
+/* Array#244 */
+AI_ARRAY_OBJ_DECLARE(
+  pool_29_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 48, AI_STATIC)
+/* Array#245 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 156, AI_STATIC)
+/* Array#246 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12, AI_STATIC)
+/* Array#247 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_31_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 48, AI_STATIC)
+/* Array#248 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_32_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 48, AI_STATIC)
+/* Array#249 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 264, AI_STATIC)
+/* Array#250 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_33_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 48, AI_STATIC)
+/**  Array metadata declarations section  *************************************/
+/* Int quant #0 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_34_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #1 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_35_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.07317711412906647f),
+    AI_PACK_INTQ_ZP(1)))
+
+/* Int quant #2 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_36_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.12158146500587463f),
+    AI_PACK_INTQ_ZP(-33)))
+
+/* Int quant #3 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #4 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_38_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #5 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_39_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #6 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_40_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.01542113721370697f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #7 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_27_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #8 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_41_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0050397468730807304f),
+    AI_PACK_INTQ_ZP(-71)))
+
+/* Int quant #9 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_42_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0050397468730807304f),
+    AI_PACK_INTQ_ZP(-71)))
+
+/* Int quant #10 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_43_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #11 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_44_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.021862361580133438f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #12 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_45_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.08092514425516129f),
+    AI_PACK_INTQ_ZP(0)))
+
+/* Int quant #13 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #14 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_46_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.16142117977142334f),
+    AI_PACK_INTQ_ZP(-35)))
+
+/* Int quant #15 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #16 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #17 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_49_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #18 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_50_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.020195281133055687f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #19 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_51_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0043941582553088665f),
+    AI_PACK_INTQ_ZP(-101)))
+
+/* Int quant #20 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_52_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0043941582553088665f),
+    AI_PACK_INTQ_ZP(-101)))
+
+/* Int quant #21 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_53_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #22 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_54_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #23 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_55_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.08287648111581802f),
+    AI_PACK_INTQ_ZP(-1)))
+
+/* Int quant #24 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #25 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_57_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #26 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_58_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #27 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #28 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #29 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_60_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007033840753138065f),
+    AI_PACK_INTQ_ZP(-15)))
+
+/* Int quant #30 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_61_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007033840753138065f),
+    AI_PACK_INTQ_ZP(-15)))
+
+/* Int quant #31 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_62_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #32 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_63_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #33 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_64_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.08424503356218338f),
+    AI_PACK_INTQ_ZP(-8)))
+
+/* Int quant #34 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_38_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #35 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_65_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.13285119831562042f),
+    AI_PACK_INTQ_ZP(-5)))
+
+/* Int quant #36 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #37 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_67_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #38 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_68_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #39 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_69_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #40 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_70_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0065601966343820095f),
+    AI_PACK_INTQ_ZP(-25)))
+
+/* Int quant #41 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_71_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0065601966343820095f),
+    AI_PACK_INTQ_ZP(-25)))
+
+/* Int quant #42 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_72_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #43 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_73_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #44 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_74_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.09489792585372925f),
+    AI_PACK_INTQ_ZP(-3)))
+
+/* Int quant #45 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_75_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.1828026920557022f),
+    AI_PACK_INTQ_ZP(-12)))
+
+/* Int quant #46 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_76_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #47 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_77_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.02189474180340767f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #48 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_78_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #49 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #50 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_79_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.23721013963222504f),
+    AI_PACK_INTQ_ZP(-1)))
+
+/* Int quant #51 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_81_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00390625f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #52 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0065601966343820095f),
+    AI_PACK_INTQ_ZP(-25)))
+
+/* Int quant #53 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007033840753138065f),
+    AI_PACK_INTQ_ZP(-15)))
+
+/* Int quant #54 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #55 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0043941582553088665f),
+    AI_PACK_INTQ_ZP(-101)))
+
+/* Int quant #56 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0050397468730807304f),
+    AI_PACK_INTQ_ZP(-71)))
+
+/* Int quant #57 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00640818290412426f),
+    AI_PACK_INTQ_ZP(-29)))
+
+/* Int quant #58 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #59 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004280236084014177f),
+    AI_PACK_INTQ_ZP(-107)))
+
+/* Int quant #60 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004973467905074358f, 0.013909623958170414f, 0.005103729665279388f, 0.014246820472180843f, 0.009287256747484207f, 0.014638124033808708f, 0.0039029992185533047f, 0.003924029413610697f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #61 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005166958086192608f, 0.0018907177727669477f, 0.0035151790361851454f, 0.002712154993787408f, 0.0030473137740045786f, 0.0016005818033590913f, 0.0017435254994779825f, 0.0016149167204275727f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #62 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 2,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007634272333234549f, 0.004335429985076189f),
+    AI_PACK_INTQ_ZP(0, 0)))
+
+/* Int quant #63 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #64 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_5_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0011564447777345777f, 0.0005566705949604511f, 0.00040034836274571717f, 0.0008551537757739425f, 0.00048334477469325066f, 0.0006056400598026812f, 0.0005654204869642854f, 0.00013456935994327068f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #65 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_9_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0035441378131508827f, 0.0034612836316227913f, 0.0033564367331564426f, 0.0036411001347005367f, 0.003777410602197051f, 0.002730916952714324f, 0.0032228126656264067f, 0.003953041974455118f, 0.003931383136659861f, 0.004183539189398289f, 0.004046698100864887f, 0.0044129942543804646f, 0.004101368598639965f, 0.004400602541863918f, 0.004667132627218962f, 0.005998358130455017f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #66 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_57_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #67 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_10_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.03130130097270012f, 0.036618027836084366f, 0.025883972644805908f, 0.015387201681733131f, 0.05315925180912018f, 0.035963837057352066f, 0.02165832743048668f, 0.04229922220110893f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #68 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_11_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0011065960861742496f, 0.0020038816146552563f, 0.0014877273933961987f, 0.0014897140208631754f, 0.0008018130902200937f, 0.0014856713823974133f, 0.0014616292901337147f, 0.0014310560654848814f, 0.001174410805106163f, 0.000983438570983708f, 0.001665895339101553f, 0.0023343798238784075f, 0.0010170055320486426f, 0.0008238691370934248f, 0.0013386912178248167f, 0.0012890738435089588f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #69 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #70 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0030740094371140003f, 0.003436199389398098f, 0.003387836506590247f, 0.003256461350247264f, 0.003668750636279583f, 0.003281662240624428f, 0.0028691862244158983f, 0.0037457433063536882f, 0.0030535724945366383f, 0.003972472622990608f, 0.0036844280548393726f, 0.003875325433909893f, 0.0036434861831367016f, 0.0031182384118437767f, 0.003809710033237934f, 0.0031399305444210768f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #71 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_13_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.008479285053908825f, 0.00795847736299038f, 0.008708694949746132f, 0.01660752296447754f, 0.012866323813796043f, 0.01673775538802147f, 0.011417512781918049f, 0.01023745909333229f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #72 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0021146328654140234f, 0.0020452383905649185f, 0.0024891288485378027f, 0.002385169267654419f, 0.0023033241741359234f, 0.001660897396504879f, 0.0009435586398467422f, 0.0014201976591721177f, 0.0018448017071932554f, 0.0031353153754025698f, 0.0022663946729153395f, 0.001387705677188933f, 0.0018389589386060834f, 0.001481765997596085f, 0.0009500545565970242f, 0.0010469206608831882f, 0.002343514934182167f, 0.0022629564628005028f, 0.0020013342145830393f, 0.001163190696388483f, 0.0017894386546686292f, 0.0027498400304466486f, 0.0013399309245869517f, 0.0016930251149460673f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #73 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #74 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_15_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0035516212228685617f, 0.003967350348830223f, 0.00396864814683795f, 0.0032023079693317413f, 0.003805022221058607f, 0.003479149891063571f, 0.003913381136953831f, 0.0037211899179965258f, 0.003143519628793001f, 0.002841798821464181f, 0.0030782127287238836f, 0.004150151740759611f, 0.0033262071665376425f, 0.002875654026865959f, 0.0038122243713587523f, 0.0038805361837148666f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #75 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_16_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004902519751340151f, 0.0039379349909722805f, 0.0024072739761322737f, 0.003975675441324711f, 0.003923062235116959f, 0.007314012851566076f, 0.007661961950361729f, 0.0022163905669003725f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #76 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_67_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #77 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_18_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00288063264451921f, 0.0031129992567002773f, 0.0031637991778552532f, 0.0032860315404832363f, 0.0034648659639060497f, 0.0021595600992441177f, 0.0025880122557282448f, 0.0031487024389207363f, 0.003224537707865238f, 0.0011700412724167109f, 0.003837140277028084f, 0.0029719637241214514f, 0.0016636361833661795f, 0.0019618673250079155f, 0.003496121848002076f, 0.003885166021063924f, 0.0030616275034844875f, 0.0032285042107105255f, 0.0033751558512449265f, 0.002735138637945056f, 0.0022391481325030327f, 0.0027950226794928312f, 0.0030766979325562716f, 0.00255123944953084f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #78 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_19_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004558502230793238f, 0.0034058031160384417f, 0.0015391645720228553f, 0.0032938329968601465f, 0.002735636429861188f, 0.005107537843286991f, 0.002196005079895258f, 0.005342492368072271f, 0.003882504068315029f, 0.0074667246080935f, 0.001994028454646468f, 0.002487757708877325f, 0.0023327895905822515f, 0.005560846067965031f, 0.002715594135224819f, 0.003585723228752613f, 0.0023139286786317825f, 0.002784628653898835f, 0.0019796898122876883f, 0.003999669104814529f, 0.0031317544635385275f, 0.006253733765333891f, 0.004258285742253065f, 0.007631287910044193f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #79 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_69_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #80 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_21_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 6,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0034326715394854546f, 0.0038662864826619625f, 0.004790042992681265f, 0.00448521738871932f, 0.004928298760205507f, 0.005621764808893204f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0)))
+
+/* Int quant #81 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_22_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0004969480214640498f, 0.001056547393091023f, 0.0005360613577067852f, 0.0011861564125865698f, 0.0006503072800114751f, 0.0009921296732500196f, 0.0004400462785270065f, 0.0005331132560968399f, 0.0010800397722050548f, 0.0007396095898002386f, 0.0007456613820977509f, 0.0006723664118908346f, 0.0007733289967291057f, 0.0005775499157607555f, 0.00060250487877056f, 0.0007124802214093506f, 0.0007774024270474911f, 0.0008445085841231048f, 0.0006992882117629051f, 0.0009049500222317874f, 0.0008162552840076387f, 0.0008854041807353497f, 0.0007298660348169506f, 0.0007354886620305479f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #82 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_26_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007413840852677822f, 0.007828997448086739f, 0.010394681245088577f, 0.010636260733008385f, 0.009365218691527843f, 0.008522852323949337f, 0.010408563539385796f, 0.009082086384296417f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #83 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_76_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #84 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_27_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0036225675139576197f, 0.003771907649934292f, 0.005147962830960751f, 0.0026043246034532785f, 0.005917591042816639f, 0.00534459762275219f, 0.004530099220573902f, 0.004331948701292276f, 0.003994589205831289f, 0.005139385350048542f, 0.002386200474575162f, 0.003447897033765912f, 0.00580768333747983f, 0.003887623781338334f, 0.004588491749018431f, 0.005471847020089626f, 0.003234426025301218f, 0.0055304523557424545f, 0.004358554724603891f, 0.0037079507019370794f, 0.004730208311229944f, 0.0035051796585321426f, 0.0027078946586698294f, 0.0033527833875268698f, 0.004078802652657032f, 0.0033716957550495863f, 0.004746239632368088f, 0.004948449321091175f, 0.0034261438995599747f, 0.006584813818335533f, 0.0034166143741458654f, 0.005658414680510759f, 0.0044939396902918816f, 0.004442637786269188f, 0.004939457401633263f, 0.00474650738760829f, 0.0038131631445139647f, 0.0047388942912220955f, 0.003078692127019167f, 0.004749773070216179f, 0.005917442496865988f, 0.002506420947611332f, 0.002794776577502489f, 0.005554568953812122f, 0.0032103497069329023f, 0.004055436234921217f, 0.005669059697538614f, 0.003655006643384695f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #85 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0052954102866351604f, 0.003066336503252387f, 0.0036484741140156984f, 0.004619847051799297f, 0.004415698349475861f, 0.004186486825346947f, 0.0028040343895554543f, 0.004846610594540834f, 0.0031285802833735943f, 0.00213172216899693f, 0.002077563665807247f, 0.005369299557060003f, 0.0037982244975864887f, 0.0033874877262860537f, 0.0028677501250058413f, 0.004571901168674231f, 0.003700329689309001f, 0.0032739005982875824f, 0.004633783362805843f, 0.003322913311421871f, 0.0025304541923105717f, 0.004724853206425905f, 0.006761304102838039f, 0.0066792224533855915f, 0.005809304770082235f, 0.004152549896389246f, 0.002855494851246476f, 0.003564738668501377f, 0.005498445127159357f, 0.003075147746130824f, 0.004712874535471201f, 0.0038996399380266666f, 0.006579619366675615f, 0.002198066795244813f, 0.007617882452905178f, 0.00641601299867034f, 0.0040435949340462685f, 0.0036718675401061773f, 0.006923000328242779f, 0.005382235627621412f, 0.0050846063531935215f, 0.003626838093623519f, 0.006094967480748892f, 0.0033057399559766054f, 0.003722984343767166f, 0.005218303296715021f, 0.0036298728082329035f, 0.004987031687051058f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #86 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_78_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #87 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_30_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 12,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00373207894153893f, 0.003077777335420251f, 0.003567424602806568f, 0.003477593883872032f, 0.003351610153913498f, 0.0029871647711843252f, 0.0034949223045259714f, 0.002816403517499566f, 0.0032595773227512836f, 0.003451236058026552f, 0.002646505367010832f, 0.0029306686483323574f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #88 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_31_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006047043716534972f, 0.0007051288266666234f, 0.0006417707772925496f, 0.0006699831574223936f, 0.00047643110156059265f, 0.0005791375297121704f, 0.0007372102118097246f, 0.0007844236679375172f, 0.0007152918842621148f, 0.0005142047884874046f, 0.0005339151248335838f, 0.0006312154582701623f, 0.0005256030708551407f, 0.0006257211789488792f, 0.000603827356826514f, 0.000503560237120837f, 0.0005785028333775699f, 0.0005171236698515713f, 0.0005946618621237576f, 0.0005775504396297038f, 0.0005487470189109445f, 0.000551677483599633f, 0.0006547539378516376f, 0.0006409964407794178f, 0.0006472156965173781f, 0.0005110867787152529f, 0.0006202988442964852f, 0.0006274498300626874f, 0.0007407370139844716f, 0.0004979955847375095f, 0.0006235591717995703f, 0.0005115676904097199f, 0.0006613087025471032f, 0.000468974350951612f, 0.0008802917436696589f, 0.0005785058601759374f, 0.0005489487666636705f, 0.0004618165548890829f, 0.0005468619638122618f, 0.0006781839765608311f, 0.0005614602123387158f, 0.0005287927342578769f, 0.0005095090600661933f, 0.00048155352124013007f, 0.0004997533396817744f, 0.0005958866677246988f, 0.0007587392465211451f, 0.0006070316885598004f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #89 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_35_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.006472635082900524f, 0.006990507245063782f, 0.007785513065755367f, 0.006053129676729441f, 0.005796628538519144f, 0.005582632031291723f, 0.0048665921203792095f, 0.006942029111087322f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #90 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.002333900658413768f, 0.0016725787427276373f, 0.0022423099726438522f, 0.0029336523730307817f, 0.002254478633403778f, 0.0027760134544223547f, 0.003082766430452466f, 0.00263298861682415f, 0.0023667006753385067f, 0.002965600462630391f, 0.0029865901451557875f, 0.0036522469017654657f, 0.001983250491321087f, 0.0038548321463167667f, 0.0023746928200125694f, 0.002766063902527094f, 0.0028870743699371815f, 0.002395280869677663f, 0.003125167218968272f, 0.0022818362340331078f, 0.0030319266952574253f, 0.0028396707493811846f, 0.0035702146124094725f, 0.002326999558135867f, 0.0023070629686117172f, 0.0016116270562633872f, 0.002459634793922305f, 0.0033370070159435272f, 0.0037212171591818333f, 0.002923330059275031f, 0.0020376062020659447f, 0.002180230338126421f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #91 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_38_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005044781602919102f, 0.002285219030454755f, 0.004060790408402681f, 0.0056932345032691956f, 0.0035467965062707663f, 0.002002527005970478f, 0.004266429226845503f, 0.0023380930069833994f, 0.004352672025561333f, 0.0033173237461596727f, 0.004161844961345196f, 0.003525506006553769f, 0.004219499416649342f, 0.004631761461496353f, 0.00215475307777524f, 0.005273204296827316f, 0.00609191320836544f, 0.0025864311028271914f, 0.003568820422515273f, 0.0059854802675545216f, 0.006495820824056864f, 0.0033066265750676394f, 0.0051095373928546906f, 0.004072956275194883f, 0.002615021076053381f, 0.0022228737361729145f, 0.004885328467935324f, 0.005344219971448183f, 0.003718666033819318f, 0.0035612452775239944f, 0.005286586936563253f, 0.00328809698112309f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #92 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_40_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004615738056600094f, 0.0037270491011440754f, 0.0031517106108367443f, 0.003352112602442503f, 0.0033680922351777554f, 0.003363753901794553f, 0.003613096661865711f, 0.0032375366427004337f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #93 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_41_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006330537726171315f, 0.0009532918338663876f, 0.0004763708566315472f, 0.000568100658711046f, 0.0005349473212845623f, 0.0006019797874614596f, 0.0006351738702505827f, 0.0007301744190044701f, 0.0005539695266634226f, 0.0007156315841712058f, 0.0004260007990524173f, 0.0006566126248799264f, 0.0008423589752055705f, 0.0006237137131392956f, 0.0004847522359341383f, 0.0010194280184805393f, 0.0006951466202735901f, 0.0005012214533053339f, 0.00040378578705713153f, 0.0006883220630697906f, 0.0010368038201704621f, 0.0006265221163630486f, 0.0008164046448655427f, 0.0005158712738193572f, 0.0006777828675694764f, 0.0005864024278707802f, 0.0005048352759331465f, 0.0006769045139662921f, 0.0005679541500285268f, 0.0008466329309158027f, 0.000690064684022218f, 0.0006686841370537877f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #94 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_45_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005272542592138052f, 0.007128439377993345f, 0.005618643946945667f, 0.006363765336573124f, 0.009100019000470638f, 0.008481746539473534f, 0.005177896935492754f, 0.007149223238229752f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #95 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 64,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0018836280796676874f, 0.001861309283412993f, 0.002269268501549959f, 0.002047560876235366f, 0.0016765111358836293f, 0.0018527312204241753f, 0.0013790985103696585f, 0.001606890233233571f, 0.002636164193972945f, 0.002417950890958309f, 0.0019281909335404634f, 0.002358726691454649f, 0.0021275184117257595f, 0.002659589285030961f, 0.0022391444072127342f, 0.0030631718691438437f, 0.003015650436282158f, 0.0025124733801931143f, 0.0023895110934972763f, 0.0039518470875918865f, 0.0018325584242120385f, 0.0018224988598376513f, 0.001710345852188766f, 0.002181288320571184f, 0.0015364052960649133f, 0.0015665726969018579f, 0.0023792951833456755f, 0.0021141269244253635f, 0.0037483759224414825f, 0.003103172406554222f, 0.002109740860760212f, 0.0018993254052475095f, 0.0020064411219209433f, 0.0021377112716436386f, 0.0015421903226524591f, 0.0020450924057513475f, 0.0019657756201922894f, 0.002528159413486719f, 0.0032364188227802515f, 0.0016726832836866379f, 0.0016722558066248894f, 0.002121064579114318f, 0.0023854346945881844f, 0.0019682804122567177f, 0.0019319062121212482f, 0.002267724834382534f, 0.0018679877975955606f, 0.002315148012712598f, 0.00199882872402668f, 0.002502061892300844f, 0.001969614764675498f, 0.0021888723131269217f, 0.0017393124289810658f, 0.0023104611318558455f, 0.002360355807468295f, 0.0019171921303495765f, 0.002763874363154173f, 0.0021280976943671703f, 0.0023414178285747766f, 0.002861416433006525f, 0.0017801766516640782f, 0.003479494247585535f, 0.0024429333861917257f, 0.0020061202812939882f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #96 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 64,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.001196765573695302f, 0.0016546634724363685f, 0.002820993773639202f, 0.0035819108597934246f, 0.004375244956463575f, 0.004811310209333897f, 0.0035513262264430523f, 0.0034330582711845636f, 0.002689042594283819f, 0.0033142645843327045f, 0.0027617996092885733f, 0.0045383404940366745f, 0.003014554036781192f, 0.001417611027136445f, 0.003983108326792717f, 0.0033629252575337887f, 0.005546534433960915f, 0.0027216817252337933f, 0.0021228885743767023f, 0.004585767164826393f, 0.005003530532121658f, 0.0048927138559520245f, 0.004379780497401953f, 0.0034082476049661636f, 0.005923580843955278f, 0.0033176455181092024f, 0.005405900068581104f, 0.0052879625000059605f, 0.0018132264958694577f, 0.006231260020285845f, 0.0028860776219516993f, 0.0013485525269061327f, 0.0038956720381975174f, 0.00422351248562336f, 0.0032910688314586878f, 0.0029692945536226034f, 0.003402331843972206f, 0.0023668790236115456f, 0.0029915713239461184f, 0.0033471696078777313f, 0.004226469434797764f, 0.002453588880598545f, 0.0033661057241261005f, 0.001513208611868322f, 0.002192694926634431f, 0.0031367121264338493f, 0.0044142561964690685f, 0.0028540794737637043f, 0.005679940339177847f, 0.0034189801663160324f, 0.0041144113056361675f, 0.004823688417673111f, 0.0029027978889644146f, 0.005232629831880331f, 0.0024399524554610252f, 0.003716481849551201f, 0.003340527880936861f, 0.004821605049073696f, 0.004199698101729155f, 0.004267916548997164f, 0.003029771614819765f, 0.002075191354379058f, 0.002106881234794855f, 0.003140948247164488f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #97 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_50_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.002414373215287924f, 0.002870631404221058f, 0.002307636896148324f, 0.0032876301556825638f, 0.004239178262650967f, 0.0036824094131588936f, 0.0042032101191580296f, 0.003211449831724167f, 0.002682199003174901f, 0.002504562260583043f, 0.0030273308511823416f, 0.0031817122362554073f, 0.0029942202381789684f, 0.002987719140946865f, 0.002336866222321987f, 0.0032742838375270367f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #98 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_51_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 64,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006244803662411869f, 0.0005301283672451973f, 0.00042731952271424234f, 0.0005322046345099807f, 0.000524429720826447f, 0.0004984638653695583f, 0.0005776963662356138f, 0.00046498089795932174f, 0.0005253400886431336f, 0.0008565282332710922f, 0.0004643586289603263f, 0.0005711255944333971f, 0.0005210607778280973f, 0.0004338794096838683f, 0.0005798141937702894f, 0.00048086748574860394f, 0.0006202723598107696f, 0.00043077103327959776f, 0.0008339931955561042f, 0.000703554367646575f, 0.0005854431656189263f, 0.0007268678164109588f, 0.0005489666946232319f, 0.0007089692517183721f, 0.0004599951789714396f, 0.0009077871218323708f, 0.0007445159717462957f, 0.000574666541069746f, 0.0004387711232993752f, 0.0006008130148984492f, 0.0005087231984362006f, 0.0006607275572605431f, 0.00047748733777552843f, 0.0004920005449093878f, 0.0006570738041773438f, 0.0005677102599292994f, 0.0005307123647071421f, 0.00047255741083063185f, 0.0005335218738764524f, 0.0005362265510484576f, 0.00040725921280682087f, 0.0005152851226739585f, 0.0006624158704653382f, 0.0005693237762898207f, 0.0005530407652258873f, 0.0005525031010620296f, 0.0007654381333850324f, 0.0006699113291688263f, 0.0006779070245102048f, 0.0005792682059109211f, 0.0008566643809899688f, 0.0005842340178787708f, 0.0005341927753761411f, 0.0004226630262564868f, 0.0007018666947260499f, 0.0007488761330023408f, 0.0009109473321586847f, 0.0006738039082847536f, 0.0005399751826189458f, 0.0007167037692852318f, 0.0004904172965325415f, 0.0005134380771778524f, 0.0004635854566004127f, 0.000582898675929755f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #99 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_55_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005895668175071478f, 0.005186100024729967f, 0.0038566875737160444f, 0.0051448470912873745f, 0.005571155808866024f, 0.004103741142898798f, 0.005075470544397831f, 0.007544127758592367f, 0.005750405136495829f, 0.005659056361764669f, 0.005445134826004505f, 0.004306820686906576f, 0.006778559647500515f, 0.005520620383322239f, 0.003214597934857011f, 0.003991821315139532f, 0.0036174883134663105f, 0.0053499601781368256f, 0.005822689738124609f, 0.004094264004379511f, 0.005830536130815744f, 0.0051419055089354515f, 0.005138109438121319f, 0.0034830495715141296f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #100 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 80,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0015365765430033207f, 0.003020830685272813f, 0.0018211076967418194f, 0.003723996924236417f, 0.002538620959967375f, 0.0028327740728855133f, 0.0020728895906358957f, 0.0035969179589301348f, 0.0014283070340752602f, 0.0025020840112119913f, 0.0033090938813984394f, 0.001978458371013403f, 0.0018635931191965938f, 0.002451480133458972f, 0.0021513840183615685f, 0.0032327952794730663f, 0.0025854301638901234f, 0.003334775799885392f, 0.00161711813416332f, 0.0025381199084222317f, 0.0022436161525547504f, 0.0019074056763201952f, 0.002174895256757736f, 0.001618591952137649f, 0.0014470148598775268f, 0.003610191633924842f, 0.0018295153276994824f, 0.00218751048669219f, 0.0019838239531964064f, 0.0018187897512689233f, 0.0027320655062794685f, 0.0014004126423969865f, 0.0025523039512336254f, 0.0017608721973374486f, 0.0019160151714459062f, 0.0020823990926146507f, 0.002724205609411001f, 0.0019341406878083944f, 0.002379277255386114f, 0.0021451334469020367f, 0.0020835876930505037f, 0.00220124633051455f, 0.0018705659313127398f, 0.0021020197309553623f, 0.0036013347562402487f, 0.003321659518405795f, 0.0024833790957927704f, 0.0029651878867298365f, 0.0020922371186316013f, 0.0022707877214998007f, 0.003184214700013399f, 0.0028829986695200205f, 0.0022425141651183367f, 0.0018526132917031646f, 0.0021153371781110764f, 0.0023377477191388607f, 0.0016776541015133262f, 0.0022788431961089373f, 0.0039937132969498634f, 0.002223338233307004f, 0.002634373027831316f, 0.0024282515514642f, 0.002167211379855871f, 0.0018173831049352884f, 0.0024696122854948044f, 0.0016565033001825213f, 0.002430471358820796f, 0.0020784775260835886f, 0.0028168908320367336f, 0.0022582102101296186f, 0.0017805659445002675f, 0.0017737605376169086f, 0.002298925770446658f, 0.002053492935374379f, 0.0019567622803151608f, 0.0019767393823713064f, 0.0031105477828532457f, 0.002744389232248068f, 0.002945429179817438f, 0.0016448496608063579f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #101 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_57_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 80,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005260175094008446f, 0.003180434461683035f, 0.002342912135645747f, 0.004275588784366846f, 0.0033442918211221695f, 0.004393955692648888f, 0.002352529438212514f, 0.004939221311360598f, 0.005106158554553986f, 0.0033232795540243387f, 0.0051210299134254456f, 0.006509396247565746f, 0.003415588987991214f, 0.009195870719850063f, 0.002160572912544012f, 0.004115440882742405f, 0.005656628403812647f, 0.002867284929379821f, 0.002744219498708844f, 0.004408345092087984f, 0.005406306125223637f, 0.005982538219541311f, 0.0034421817399561405f, 0.003848089836537838f, 0.0019765212200582027f, 0.0025037620216608047f, 0.002073184819892049f, 0.0022852474357932806f, 0.006534295156598091f, 0.0037759377155452967f, 0.005726872477680445f, 0.006360033992677927f, 0.00659441901370883f, 0.009580401703715324f, 0.005042750854045153f, 0.005232973489910364f, 0.0029342437628656626f, 0.006258854176849127f, 0.0024850659538060427f, 0.0025695362128317356f, 0.0044511593878269196f, 0.004218888469040394f, 0.0036207118537276983f, 0.0033916619140654802f, 0.0033781523816287518f, 0.0038630052004009485f, 0.004182795062661171f, 0.003749766619876027f, 0.0032443306408822536f, 0.0022662002593278885f, 0.0035724141635000706f, 0.0025189074221998453f, 0.00700592715293169f, 0.004618712700903416f, 0.004587688948959112f, 0.0027721943333745003f, 0.0038249155040830374f, 0.0040100025944411755f, 0.005035104230046272f, 0.0032239328138530254f, 0.004313223995268345f, 0.0023506004363298416f, 0.004613272380083799f, 0.006330144125968218f, 0.0019582300446927547f, 0.0029525996651500463f, 0.0026793954893946648f, 0.004549112636595964f, 0.0031252859625965357f, 0.005812834482640028f, 0.0018935868283733726f, 0.0034183021634817123f, 0.002263253554701805f, 0.00470753526315093f, 0.002104333369061351f, 0.004652322269976139f, 0.0037327930331230164f, 0.004417800344526768f, 0.004134182818233967f, 0.0022736419923603535f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #102 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 20,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0039093815721571445f, 0.0021845155861228704f, 0.0030643625650554895f, 0.0022122811060398817f, 0.0023119838442653418f, 0.00310584157705307f, 0.0026010440196841955f, 0.002430310007184744f, 0.002673709997907281f, 0.002472767373546958f, 0.003753212746232748f, 0.002840514527633786f, 0.0021972733084112406f, 0.0023318047169595957f, 0.0023012361489236355f, 0.003060830757021904f, 0.0031157981138676405f, 0.0033613916020840406f, 0.003105092328041792f, 0.002302398905158043f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #103 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_60_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 80,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0003815471427515149f, 0.0003941048926208168f, 0.0003966322692576796f, 0.0004763851757161319f, 0.0006988479872234166f, 0.0006012216908857226f, 0.000541004235856235f, 0.0005305695231072605f, 0.0007120909285731614f, 0.0005223191110417247f, 0.0004886038368567824f, 0.0005556739633902907f, 0.00047868973342701793f, 0.0006527568330056965f, 0.0007068072445690632f, 0.0004168621962890029f, 0.0006864454480819404f, 0.0007726013427600265f, 0.0005393603350967169f, 0.0004362407198641449f, 0.0005152219091542065f, 0.0006482133758254349f, 0.0004725157923530787f, 0.0004323887114878744f, 0.0004881534550804645f, 0.0004894812009297311f, 0.0005740145570598543f, 0.000655579671729356f, 0.00045697600580751896f, 0.0005938066751696169f, 0.0006905310438014567f, 0.0004582485416904092f, 0.0006071903044357896f, 0.00047275409451685846f, 0.00061728002037853f, 0.0006941543542779982f, 0.00038484460674226284f, 0.0005215326091274619f, 0.0004704550083260983f, 0.00035717812716029584f, 0.0005366862751543522f, 0.0004626460140570998f, 0.0006714747869409621f, 0.00042262993520125747f, 0.0005025314167141914f, 0.0006106161745265126f, 0.00043982244096696377f, 0.0006132261478342116f, 0.000532744568772614f, 0.0005825724801979959f, 0.00048201956087723374f, 0.0007956198533065617f, 0.00041614388464950025f, 0.00046565866796299815f, 0.00032106274738907814f, 0.0004027182294521481f, 0.000584318011533469f, 0.0003731425094883889f, 0.000505421485286206f, 0.0005812731687910855f, 0.0004728355852421373f, 0.0007716931286267936f, 0.00038790301186963916f, 0.000554637226741761f, 0.0006777088856324553f, 0.0004075001343153417f, 0.0005411079037003219f, 0.00036195243592374027f, 0.00042274792212992907f, 0.0004536964697763324f, 0.0005304469377733767f, 0.0004624664143193513f, 0.0007300993311218917f, 0.0004671809438150376f, 0.0005349112907424569f, 0.0006026948685757816f, 0.0004705549799837172f, 0.000724400975741446f, 0.0003487558860797435f, 0.00043765391455963254f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #104 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_64_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003648367477580905f, 0.004834326449781656f, 0.00480527663603425f, 0.002876977901905775f, 0.003413197584450245f, 0.0035100127570331097f, 0.004726401064544916f, 0.0047513083554804325f, 0.005383331328630447f, 0.005834979936480522f, 0.0031317693646997213f, 0.004493596963584423f, 0.00415067421272397f, 0.003840627381578088f, 0.006548501551151276f, 0.00362614868208766f, 0.002540355082601309f, 0.006106726825237274f, 0.003631271654739976f, 0.0033199230674654245f, 0.004087699111551046f, 0.005344766192138195f, 0.004410983063280582f, 0.004732942208647728f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #105 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 120,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.002241529291495681f, 0.0018044335301965475f, 0.0014419711660593748f, 0.0021861351560801268f, 0.0014203863684087992f, 0.001644727075472474f, 0.0018917869310826063f, 0.0015560232568532228f, 0.0018637982429936528f, 0.002515076193958521f, 0.0010469835251569748f, 0.0013653076021000743f, 0.001450487645342946f, 0.0023045670241117477f, 0.0022814078256487846f, 0.0013583595864474773f, 0.001507602515630424f, 0.0018355007050558925f, 0.0017875450430437922f, 0.0010263546137139201f, 0.0013164135161787271f, 0.0015614322619512677f, 0.0023623770102858543f, 0.001889189356006682f, 0.0012658810010179877f, 0.0023478930816054344f, 0.0011281046317890286f, 0.0009863970335572958f, 0.0025023084599524736f, 0.002310136565938592f, 0.001410992001183331f, 0.0014747028471902013f, 0.0022723395377397537f, 0.0015854426892474294f, 0.0012235573958605528f, 0.0015251414151862264f, 0.0015293562319129705f, 0.0022788536734879017f, 0.001479143975302577f, 0.0016827863873913884f, 0.0013300117570906878f, 0.0022677232045680285f, 0.0020914904307574034f, 0.0017247364157810807f, 0.0010604152921587229f, 0.0016144273104146123f, 0.00220682704821229f, 0.001632989733479917f, 0.0014271929394453764f, 0.0017351224087178707f, 0.001257794676348567f, 0.0014871022431179881f, 0.0012495428090915084f, 0.002550683682784438f, 0.0019233517814427614f, 0.002088732784613967f, 0.0013189389137551188f, 0.0013285106979310513f, 0.0015798057429492474f, 0.0014223926700651646f, 0.0011759089538827538f, 0.003142306348308921f, 0.0014401727821677923f, 0.0023590978235006332f, 0.0015911923255771399f, 0.0019012721022590995f, 0.0031576468609273434f, 0.0028637489303946495f, 0.00152012228500098f, 0.0012834721710532904f, 0.0016455993754789233f, 0.001438208855688572f, 0.0022249415051192045f, 0.0020461890380829573f, 0.0020561590790748596f, 0.0018612147541716695f, 0.0010418422752991319f, 0.0024009335320442915f, 0.0021582553163170815f, 0.0011914897477254272f, 0.0012993740383535624f, 0.0013198719825595617f, 0.0023350981064140797f, 0.002580109518021345f, 0.0019853829871863127f, 0.001799094956368208f, 0.0013976881746202707f, 0.0014128609327599406f, 0.0018459319835528731f, 0.002489684848114848f, 0.0016188001027330756f, 0.0015261712251231074f, 0.0023431244771927595f, 0.0019292730139568448f, 0.0016541741788387299f, 0.0009178020409308374f, 0.0017374196322634816f, 0.001514434814453125f, 0.0011665916536003351f, 0.0012136460281908512f, 0.0019508482655510306f, 0.0030052182264626026f, 0.0020437391940504313f, 0.002413153415545821f, 0.000850238255225122f, 0.0017522673588246107f, 0.0016711511416360736f, 0.0012954530538991094f, 0.00165793695487082f, 0.0011074672220274806f, 0.001428754418157041f, 0.0013955461326986551f, 0.0013713466469198465f, 0.0024069948121905327f, 0.0025314115919172764f, 0.0017713418928906322f, 0.00199308805167675f, 0.0022961627691984177f, 0.0018216560129076242f, 0.001522944658063352f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #106 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_67_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 120,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0032959736417979f, 0.003495963988825679f, 0.002680996200069785f, 0.00322258030064404f, 0.007473460864275694f, 0.004545140080153942f, 0.005254339426755905f, 0.004352824296802282f, 0.0034491117112338543f, 0.0046711391769349575f, 0.002706533996388316f, 0.004309739451855421f, 0.0017265118658542633f, 0.0028455290012061596f, 0.010473640635609627f, 0.002547347452491522f, 0.004850842524319887f, 0.003893553977832198f, 0.004303730558604002f, 0.002618565456941724f, 0.004724025726318359f, 0.0026617117691785097f, 0.0012552350526675582f, 0.004273689817637205f, 0.0031206810381263494f, 0.002687750617042184f, 0.0021300797816365957f, 0.002762092277407646f, 0.003434214275330305f, 0.00210313661955297f, 0.0026169263292104006f, 0.0018904779572039843f, 0.003873625071719289f, 0.003622078336775303f, 0.0021870597265660763f, 0.0018515787087380886f, 0.0013695338275283575f, 0.004370928276330233f, 0.0019380365265533328f, 0.006914427503943443f, 0.0051438212394714355f, 0.0033821039833128452f, 0.0029350670520216227f, 0.0024931570515036583f, 0.004178890027105808f, 0.006247843615710735f, 0.004268603399395943f, 0.005860340781509876f, 0.0018486555200070143f, 0.00445720786228776f, 0.002659819321706891f, 0.0021391683258116245f, 0.006417184602469206f, 0.0036252893041819334f, 0.0034900354221463203f, 0.003836695570498705f, 0.00497428048402071f, 0.0051428028382360935f, 0.00476567167788744f, 0.0018636188469827175f, 0.002493948908522725f, 0.00391761539503932f, 0.0018099871231243014f, 0.0036999566946178675f, 0.0025774699170142412f, 0.0034325045999139547f, 0.005030532833188772f, 0.002793351886793971f, 0.005667580757290125f, 0.0035104972776025534f, 0.006003518123179674f, 0.0036625026259571314f, 0.002582683227956295f, 0.00251587713137269f, 0.0033060102723538876f, 0.0031931425910443068f, 0.0021076775155961514f, 0.004867979325354099f, 0.005242480896413326f, 0.0021222629584372044f, 0.004036570433527231f, 0.0020019204821437597f, 0.002295237733051181f, 0.002201028633862734f, 0.0021276625338941813f, 0.0034898470621556044f, 0.001750399125739932f, 0.0033103786408901215f, 0.0019447195809334517f, 0.002638992853462696f, 0.002729755826294422f, 0.0021161807235330343f, 0.0028090192936360836f, 0.003724949900060892f, 0.003118436550721526f, 0.013636021874845028f, 0.002925711218267679f, 0.003654609667137265f, 0.002887628274038434f, 0.0025586015544831753f, 0.0023769252002239227f, 0.005814346484839916f, 0.0035390849225223064f, 0.0033122042659670115f, 0.003681379836052656f, 0.002151905559003353f, 0.0021969820372760296f, 0.003153790021315217f, 0.002090859692543745f, 0.0034613534808158875f, 0.0034176527988165617f, 0.0025370323564857244f, 0.004822091199457645f, 0.003840142395347357f, 0.0030161722097545862f, 0.006951887160539627f, 0.0038930275477468967f, 0.006704510655254126f, 0.002335448283702135f, 0.0023316822480410337f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #107 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_69_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 30,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0027865776792168617f, 0.001965261995792389f, 0.0017361624632030725f, 0.002635776298120618f, 0.0017507291631773114f, 0.0027255513705313206f, 0.0019963220693171024f, 0.003026806516572833f, 0.004106969106942415f, 0.002471126848831773f, 0.0023869690485298634f, 0.0028597733471542597f, 0.002570921089500189f, 0.002167632570490241f, 0.0029594218358397484f, 0.003692459315061569f, 0.002612335840240121f, 0.0025263233110308647f, 0.001606003730557859f, 0.0025830334052443504f, 0.001882938202470541f, 0.0018209833651781082f, 0.0018419198459014297f, 0.0028257914818823338f, 0.003969267942011356f, 0.002896413905546069f, 0.0036053459625691175f, 0.0034042007755488157f, 0.0021216562017798424f, 0.0028593936003744602f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #108 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_70_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 120,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00044780451571568847f, 0.0004078948113601655f, 0.0004546450509224087f, 0.00045883364509791136f, 0.0005783230299130082f, 0.00040250824531540275f, 0.0004371696268208325f, 0.0004573568585328758f, 0.0003779034595936537f, 0.0006128254462964833f, 0.0005992187652736902f, 0.0002998726849909872f, 0.000664756924379617f, 0.000580009538680315f, 0.000695711700245738f, 0.0004673779185395688f, 0.0005021042888984084f, 0.0004263638984411955f, 0.0005063203279860318f, 0.00040000639273785055f, 0.0004249853373039514f, 0.00036242156056687236f, 0.0006122599588707089f, 0.0006041036103852093f, 0.0005552401999011636f, 0.0006149440887384117f, 0.0006296780193224549f, 0.0003961368929594755f, 0.00038501652306877077f, 0.00032670467044226825f, 0.0002982087025884539f, 0.0006263396353460848f, 0.0004959097714163363f, 0.0004627563466783613f, 0.0006672272575087845f, 0.000372964859707281f, 0.0004735786060336977f, 0.00042749301064759493f, 0.0007093902095220983f, 0.00048604983021505177f, 0.00038686415064148605f, 0.0004363394109532237f, 0.0005119940033182502f, 0.00035347676021046937f, 0.000535441271495074f, 0.00037321425043046474f, 0.00048356919432990253f, 0.0004213751235511154f, 0.0004900891799479723f, 0.0005297252791933715f, 0.00046287872828543186f, 0.0005168657517060637f, 0.0005929264007136226f, 0.00043034146074205637f, 0.00048197025898844004f, 0.0005238077719695866f, 0.0003872422967106104f, 0.00035710513475351036f, 0.0003543133498169482f, 0.000547147705219686f, 0.0004627446469385177f, 0.00042817959911189973f, 0.000401868688641116f, 0.000457199988886714f, 0.0005746885435655713f, 0.0005709629622288048f, 0.00042706195381470025f, 0.0004304528411012143f, 0.0005826680571772158f, 0.0004055860044900328f, 0.0004068723355885595f, 0.0003752862976398319f, 0.0005666349898092449f, 0.00035270291846245527f, 0.00028420393937267363f, 0.00029503973200917244f, 0.0006173820002004504f, 0.00036908371839672327f, 0.000434218964073807f, 0.0005793084274046123f, 0.0005440347013063729f, 0.000660651596263051f, 0.0004141623212490231f, 0.0004138613003306091f, 0.0007427480304613709f, 0.0003408253542147577f, 0.0005555875250138342f, 0.00042728055268526077f, 0.00032734114211052656f, 0.000788308447226882f, 0.0004025932867079973f, 0.0005132425576448441f, 0.0005708003300242126f, 0.00039222536724992096f, 0.0004600903776008636f, 0.0007556566852144897f, 0.0008299652254208922f, 0.00057332927826792f, 0.0006012561498209834f, 0.0003137345192953944f, 0.00047304193140007555f, 0.00043727923184633255f, 0.00041205709567293525f, 0.0003684220719151199f, 0.0005112862563692033f, 0.00037450160016305745f, 0.0005445710266940296f, 0.0004007194365840405f, 0.00040445904596708715f, 0.0004745112673845142f, 0.00047386583173647523f, 0.00041348114609718323f, 0.00031445518834516406f, 0.0006572174024768174f, 0.0005861528334207833f, 0.0005931705236434937f, 0.0006278623477555811f, 0.0005377657362259924f, 0.0004826598451472819f, 0.00039076333632692695f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #109 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_74_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0032230529468506575f, 0.004258126951754093f, 0.0030058531556278467f, 0.002361241029575467f, 0.003594555426388979f, 0.0016411322867497802f, 0.001661743619479239f, 0.005117068998515606f, 0.0030587248038500547f, 0.0034693069756031036f, 0.001959508052095771f, 0.0025447567459195852f, 0.0019715253729373217f, 0.002027385402470827f, 0.004373903386294842f, 0.00285815866664052f, 0.002553120953962207f, 0.001811632071621716f, 0.00213778018951416f, 0.002500830451026559f, 0.001468633534386754f, 0.003061333205550909f, 0.0031544044613838196f, 0.0023397330660372972f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #110 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_76_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 120,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0011001427192240953f, 0.0015900763683021069f, 0.0012675818288698792f, 0.0012889158679172397f, 0.001217121840454638f, 0.0010772331152111292f, 0.0012095920974388719f, 0.0010328275384381413f, 0.001189645379781723f, 0.001346873352304101f, 0.0018445426831021905f, 0.0009832371724769473f, 0.001468517817556858f, 0.001126107177697122f, 0.0011743427021428943f, 0.0007852723356336355f, 0.0013389403466135263f, 0.0012544038472697139f, 0.0007743213791400194f, 0.0008017261861823499f, 0.0014301867922767997f, 0.0010190964676439762f, 0.0008830351871438324f, 0.0008103876607492566f, 0.0011762790381908417f, 0.0008703223429620266f, 0.0007409243262372911f, 0.0010988486465066671f, 0.0012513096444308758f, 0.0016490622656419873f, 0.0012962168548256159f, 0.0006421197904273868f, 0.0008619564468972385f, 0.0009951697429642081f, 0.001392521196976304f, 0.0006957208970561624f, 0.0007759204017929733f, 0.0007320152362808585f, 0.0007967960555106401f, 0.0013247549068182707f, 0.001162842265330255f, 0.0007284678868018091f, 0.001208641566336155f, 0.0007526382687501609f, 0.001450482290238142f, 0.0007858522585593164f, 0.0010196042712777853f, 0.0012867795303463936f, 0.0011015890631824732f, 0.001426621456630528f, 0.0007379638846032321f, 0.0015426615718752146f, 0.0015287682181224227f, 0.0009813319193199277f, 0.0009131457773037255f, 0.0008836783235892653f, 0.0009387985337525606f, 0.0014786891406401992f, 0.0010356154525652528f, 0.0008697175071574748f, 0.0011917026713490486f, 0.0011412648018449545f, 0.001159254345111549f, 0.0008697147131897509f, 0.0009618406184017658f, 0.0008813667227514088f, 0.0009786555310711265f, 0.0007139353547245264f, 0.0009289385052397847f, 0.0020141033455729485f, 0.0007830255199223757f, 0.0010936574544757605f, 0.0009393710060976446f, 0.000905947177670896f, 0.0010842618066817522f, 0.0010860506445169449f, 0.0008250076207332313f, 0.0011361483484506607f, 0.0015567539958283305f, 0.0009505068301223218f, 0.0011633235262706876f, 0.0014755816664546728f, 0.001228702487424016f, 0.0011679320596158504f, 0.0012012594379484653f, 0.0011401975061744452f, 0.0008592861704528332f, 0.0008384615066461265f, 0.0013151494786143303f, 0.0009771442273631692f, 0.0013087482657283545f, 0.001130307326093316f, 0.0009795516962185502f, 0.0008584135794080794f, 0.0012320807436481118f, 0.0007928759441711009f, 0.0006180988275445998f, 0.0007657584501430392f, 0.0021689455024898052f, 0.0013039195910096169f, 0.0007936720503494143f, 0.000817976426333189f, 0.000826602743472904f, 0.0009051022934727371f, 0.0008186913910321891f, 0.0013824277557432652f, 0.0013045081868767738f, 0.0009433790692128241f, 0.0009839310077950358f, 0.0010761453304439783f, 0.0010526332771405578f, 0.0015634603332728148f, 0.0015051618684083223f, 0.0011310393456369638f, 0.0013207381125539541f, 0.0011146465549245477f, 0.0011187555501237512f, 0.0009248048299923539f, 0.0015021164435893297f, 0.0013246287126094103f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #111 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_78_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 240,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0013784358743578196f, 0.0016549971187487245f, 0.0011730433907359838f, 0.002079588593915105f, 0.0014065434224903584f, 0.0010846464429050684f, 0.0017913401825353503f, 0.0019615772180259228f, 0.0018654228188097477f, 0.0015595462173223495f, 0.002551140496507287f, 0.002056251047179103f, 0.0011840336956083775f, 0.001025148550979793f, 0.0012382302666082978f, 0.0013176464708521962f, 0.0015406088205054402f, 0.001258833333849907f, 0.0015743845142424107f, 0.0018577767768874764f, 0.0017749832477420568f, 0.002401224337518215f, 0.001940296613611281f, 0.002217989880591631f, 0.001889394479803741f, 0.001585489371791482f, 0.001744690933264792f, 0.0021474265959113836f, 0.0015689830761402845f, 0.0011282614432275295f, 0.0013023900100961328f, 0.001617886358872056f, 0.001704509719274938f, 0.0016871445113793015f, 0.0014543735887855291f, 0.0018608566606417298f, 0.0015512777026742697f, 0.00157945416867733f, 0.001601198804564774f, 0.0018331437604501843f, 0.0021359322126954794f, 0.0012273011961951852f, 0.0018938150024041533f, 0.0013852888951078057f, 0.0015409603947773576f, 0.0017714708810672164f, 0.0012680526124313474f, 0.0015008386690169573f, 0.0018184424843639135f, 0.0019544505048543215f, 0.0016471217386424541f, 0.0023357721511274576f, 0.002050834707915783f, 0.0020381540525704622f, 0.0010156481293961406f, 0.001090786186978221f, 0.0012357569066807628f, 0.001257927156984806f, 0.0016773134702816606f, 0.0018423529108986259f, 0.0018558837473392487f, 0.001452089287340641f, 0.002133822301402688f, 0.0018547457875683904f, 0.0017945350846275687f, 0.001241080230101943f, 0.001208797562867403f, 0.0021560967434197664f, 0.001735118916258216f, 0.001945847412571311f, 0.0012724737171083689f, 0.0018145214999094605f, 0.0012539249146357179f, 0.0015919249271973968f, 0.00262295245192945f, 0.0014094463549554348f, 0.0022942847572267056f, 0.001862163539044559f, 0.0015147068770602345f, 0.0010535982437431812f, 0.0015256400220096111f, 0.0012074349215254188f, 0.0017819429049268365f, 0.0019223481649532914f, 0.0016716158716008067f, 0.0023326813243329525f, 0.0018170499242842197f, 0.0012303133262321353f, 0.0022957699839025736f, 0.001283928519114852f, 0.0018076905980706215f, 0.0017682400066405535f, 0.0022361534647643566f, 0.0022614349145442247f, 0.0019920561462640762f, 0.0023453272879123688f, 0.0017552651697769761f, 0.001864696852862835f, 0.00182701600715518f, 0.0010522844968363643f, 0.0018320503877475858f, 0.001173056778497994f, 0.0017594457603991032f, 0.00157603167463094f, 0.0019319439306855202f, 0.0020659933798015118f, 0.001559293013997376f, 0.002278040163218975f, 0.0011984044685959816f, 0.0012556033907458186f, 0.001729271956719458f, 0.00132805819157511f, 0.00148008915130049f, 0.0019205918069928885f, 0.0019402349134907126f, 0.0019804893527179956f, 0.0017288363305851817f, 0.0014144490705803037f, 0.001259858487173915f, 0.001727916649542749f, 0.001792315044440329f, 0.002032777527347207f, 0.0019739356357604265f, 0.001997970510274172f, 0.0017580080311745405f, 0.002112780464813113f, 0.002031282987445593f, 0.002041499363258481f, 0.0016370014054700732f, 0.0019236104562878609f, 0.0014181090518832207f, 0.0028335335664451122f, 0.001957827713340521f, 0.0016134280012920499f, 0.0016997758066281676f, 0.0019482236821204424f, 0.001195351593196392f, 0.002530712401494384f, 0.0017719140741974115f, 0.00119466008618474f, 0.001236278796568513f, 0.0014530769549310207f, 0.0015498955035582185f, 0.0013006164226680994f, 0.0013234294019639492f, 0.001213632756844163f, 0.0018376749940216541f, 0.0015127682127058506f, 0.0018361693946644664f, 0.0019454961875453591f, 0.0016504491213709116f, 0.001384125673212111f, 0.002139754593372345f, 0.0012333752820268273f, 0.0014253858244046569f, 0.0015007893089205027f, 0.0014561429852619767f, 0.0017036510398611426f, 0.0013807070208713412f, 0.0017356860917061567f, 0.0015097465366125107f, 0.002030019648373127f, 0.0012221973156556487f, 0.0012915952829644084f, 0.0014278668677434325f, 0.0014773388393223286f, 0.0012380003463476896f, 0.001697257161140442f, 0.0016950307181105018f, 0.0016475017182528973f, 0.002021343680098653f, 0.001373868202790618f, 0.001771328505128622f, 0.0012285017874091864f, 0.0017204933101311326f, 0.001932622166350484f, 0.0013562983367592096f, 0.0016330432845279574f, 0.001177531317807734f, 0.0017395655158907175f, 0.0019224737770855427f, 0.001722822547890246f, 0.0014798666816204786f, 0.001576942508108914f, 0.0019534341990947723f, 0.0018165279179811478f, 0.0017799132037907839f, 0.0018180276965722442f, 0.0019542863592505455f, 0.001601997297257185f, 0.0016602212563157082f, 0.00160699593834579f, 0.001784485299140215f, 0.0016640509711578488f, 0.0017190560465678573f, 0.0011166835902258754f, 0.002079331548884511f, 0.00184019620064646f, 0.0017027202993631363f, 0.001803446328267455f, 0.0019927101675421f, 0.001818459713831544f, 0.0012425665045157075f, 0.0016507427208125591f, 0.0016487652901560068f, 0.001168509479612112f, 0.001266596489585936f, 0.0013350241351872683f, 0.0016807435313239694f, 0.0012484175385907292f, 0.0020272310357540846f, 0.0016310005448758602f, 0.0014747296227142215f, 0.0024110921658575535f, 0.0017691553803160787f, 0.0012776012299582362f, 0.0012571739498525858f, 0.0018217458855360746f, 0.001584595418535173f, 0.001724184025079012f, 0.001614551292732358f, 0.0016505168750882149f, 0.0011247257934883237f, 0.0019505294039845467f, 0.002172421431168914f, 0.001794881303794682f, 0.002066320274025202f, 0.0015235493192449212f, 0.0010587371652945876f, 0.001242492813616991f, 0.001516460906714201f, 0.001768721966072917f, 0.001894294866360724f, 0.0011674956185743213f, 0.0017808267148211598f, 0.0021507106721401215f, 0.0011169485514983535f, 0.0014984620502218604f, 0.0020209020003676414f, 0.0012589634861797094f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #112 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_79_weights_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 5,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.002362920669838786f, 0.002675855066627264f, 0.002046604175120592f, 0.004372759722173214f, 0.004400754813104868f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0)))
+
+/* Int quant #113 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #114 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #115 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #116 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_11_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #117 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(serving_default_input_10_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_U8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007843137718737125f),
+    AI_PACK_UINTQ_ZP(127)))
+
+/* Int quant #118 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conversion_0_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007843137718737125f),
+    AI_PACK_INTQ_ZP(-1)))
+
+/* Int quant #119 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #120 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_pad_before_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #121 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #122 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #123 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_3_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #124 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #125 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_5_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004280236084014177f),
+    AI_PACK_INTQ_ZP(-107)))
+
+/* Int quant #126 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_6_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004280236084014177f),
+    AI_PACK_INTQ_ZP(-107)))
+
+/* Int quant #127 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_7_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #128 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_8_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.015402039512991905f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #129 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_9_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.011200235225260258f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #130 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #131 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_10_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.11990766227245331f),
+    AI_PACK_INTQ_ZP(-6)))
+
+/* Int quant #132 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_11_pad_before_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.11990766227245331f),
+    AI_PACK_INTQ_ZP(-6)))
+
+/* Int quant #133 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_11_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #134 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #135 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_13_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.1080564484000206f),
+    AI_PACK_INTQ_ZP(8)))
+
+/* Int quant #136 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_15_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #137 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_pad_before_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.1080564484000206f),
+    AI_PACK_INTQ_ZP(8)))
+
+/* Int quant #138 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #139 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_15_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #140 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_16_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.08359844237565994f),
+    AI_PACK_INTQ_ZP(-26)))
+
+/* Int quant #141 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_17_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.15046730637550354f),
+    AI_PACK_INTQ_ZP(-29)))
+
+/* Int quant #142 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_18_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #143 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_19_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #144 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_20_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #145 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_18_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #146 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_21_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.014395316131412983f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #147 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_22_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #148 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_23_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #149 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_25_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #150 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_26_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.09289821237325668f),
+    AI_PACK_INTQ_ZP(-42)))
+
+/* Int quant #151 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_19_scratch1_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #152 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_27_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #153 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #154 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(pool_29_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #155 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_30_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.019265281036496162f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #156 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_31_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00640818290412426f),
+    AI_PACK_INTQ_ZP(-29)))
+
+/* Int quant #157 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_32_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00640818290412426f),
+    AI_PACK_INTQ_ZP(-29)))
+
+/* Int quant #158 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_33_output_array_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003921568859368563f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/**  Tensor declarations section  *********************************************/
+/* Tensor #0 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_34_output, AI_STATIC,
+  0, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 14, 14), AI_STRIDE_INIT(4, 1, 1, 48, 672),
+  1, &eltwise_34_output_array, &eltwise_34_output_array_intq)
+
+/* Tensor #1 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_35_output, AI_STATIC,
+  1, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 14, 14), AI_STRIDE_INIT(4, 1, 1, 8, 112),
+  1, &conv2d_35_output_array, &conv2d_35_output_array_intq)
+
+/* Tensor #2 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_scratch0, AI_STATIC,
+  2, 0x0,
+  AI_SHAPE_INIT(4, 1, 176, 1, 1), AI_STRIDE_INIT(4, 1, 1, 176, 176),
+  1, &conv2d_26_scratch0_array, NULL)
+
+/* Tensor #3 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_36_output, AI_STATIC,
+  3, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 14, 14), AI_STRIDE_INIT(4, 1, 1, 8, 112),
+  1, &eltwise_36_output_array, &eltwise_36_output_array_intq)
+
+/* Tensor #4 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_output, AI_STATIC,
+  4, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 14, 14), AI_STRIDE_INIT(4, 1, 1, 32, 448),
+  1, &conv2d_37_output_array, &conv2d_37_output_array_intq)
+
+/* Tensor #5 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_output, AI_STATIC,
+  5, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 14, 14), AI_STRIDE_INIT(4, 1, 1, 32, 448),
+  1, &conv2d_38_output_array, &conv2d_38_output_array_intq)
+
+/* Tensor #6 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_scratch0, AI_STATIC,
+  6, 0x0,
+  AI_SHAPE_INIT(4, 1, 512, 1, 1), AI_STRIDE_INIT(4, 1, 1, 512, 512),
+  1, &conv2d_27_scratch0_array, NULL)
+
+/* Tensor #7 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_39_output, AI_STATIC,
+  7, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 1, 1, 32, 32),
+  1, &pool_39_output_array, &pool_39_output_array_intq)
+
+/* Tensor #8 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_output, AI_STATIC,
+  8, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 1, 1, 8, 8),
+  1, &conv2d_40_output_array, &conv2d_40_output_array_intq)
+
+/* Tensor #9 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_scratch1, AI_STATIC,
+  9, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 14, 14), AI_STRIDE_INIT(4, 1, 1, 48, 672),
+  1, &conv2d_27_scratch1_array, &conv2d_27_scratch1_array_intq)
+
+/* Tensor #10 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_output, AI_STATIC,
+  10, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 1, 1, 32, 32),
+  1, &conv2d_41_output_array, &conv2d_41_output_array_intq)
+
+/* Tensor #11 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_42_output, AI_STATIC,
+  11, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 1, 1, 32, 32),
+  1, &eltwise_42_output_array, &eltwise_42_output_array_intq)
+
+/* Tensor #12 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_43_output, AI_STATIC,
+  12, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 1, 1, 32, 32),
+  1, &nl_43_output_array, &nl_43_output_array_intq)
+
+/* Tensor #13 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_scratch0, AI_STATIC,
+  13, 0x0,
+  AI_SHAPE_INIT(4, 1, 4081, 1, 1), AI_STRIDE_INIT(4, 1, 1, 4081, 4081),
+  1, &conv2d_28_scratch0_array, NULL)
+
+/* Tensor #14 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_44_output, AI_STATIC,
+  14, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 14, 14), AI_STRIDE_INIT(4, 1, 1, 32, 448),
+  1, &eltwise_44_output_array, &eltwise_44_output_array_intq)
+
+/* Tensor #15 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_output, AI_STATIC,
+  15, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 14, 14), AI_STRIDE_INIT(4, 1, 1, 8, 112),
+  1, &conv2d_45_output_array, &conv2d_45_output_array_intq)
+
+/* Tensor #16 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_scratch1, AI_STATIC,
+  16, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 14, 14), AI_STRIDE_INIT(4, 1, 1, 48, 672),
+  1, &conv2d_28_scratch1_array, &conv2d_28_scratch1_array_intq)
+
+/* Tensor #17 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_46_output, AI_STATIC,
+  17, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 14, 14), AI_STRIDE_INIT(4, 1, 1, 8, 112),
+  1, &eltwise_46_output_array, &eltwise_46_output_array_intq)
+
+/* Tensor #18 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_output, AI_STATIC,
+  18, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 14, 14), AI_STRIDE_INIT(4, 1, 1, 64, 896),
+  1, &conv2d_47_output_array, &conv2d_47_output_array_intq)
+
+/* Tensor #19 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_output, AI_STATIC,
+  19, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 7, 7), AI_STRIDE_INIT(4, 1, 1, 64, 448),
+  1, &conv2d_48_output_array, &conv2d_48_output_array_intq)
+
+/* Tensor #20 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_scratch0, AI_STATIC,
+  20, 0x0,
+  AI_SHAPE_INIT(4, 1, 312, 1, 1), AI_STRIDE_INIT(4, 1, 1, 312, 312),
+  1, &conv2d_30_scratch0_array, NULL)
+
+/* Tensor #21 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_49_output, AI_STATIC,
+  21, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 1, 1, 64, 64),
+  1, &pool_49_output_array, &pool_49_output_array_intq)
+
+/* Tensor #22 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_50_output, AI_STATIC,
+  22, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 1, 1, 16, 16),
+  1, &conv2d_50_output_array, &conv2d_50_output_array_intq)
+
+/* Tensor #23 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_output, AI_STATIC,
+  23, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 1, 1, 64, 64),
+  1, &conv2d_51_output_array, &conv2d_51_output_array_intq)
+
+/* Tensor #24 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_31_scratch0, AI_STATIC,
+  24, 0x0,
+  AI_SHAPE_INIT(4, 1, 528, 1, 1), AI_STRIDE_INIT(4, 1, 1, 528, 528),
+  1, &conv2d_31_scratch0_array, NULL)
+
+/* Tensor #25 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_52_output, AI_STATIC,
+  25, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 1, 1, 64, 64),
+  1, &eltwise_52_output_array, &eltwise_52_output_array_intq)
+
+/* Tensor #26 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_53_output, AI_STATIC,
+  26, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 1, 1, 64, 64),
+  1, &nl_53_output_array, &nl_53_output_array_intq)
+
+/* Tensor #27 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_54_output, AI_STATIC,
+  27, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 7, 7), AI_STRIDE_INIT(4, 1, 1, 64, 448),
+  1, &eltwise_54_output_array, &eltwise_54_output_array_intq)
+
+/* Tensor #28 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_35_scratch0, AI_STATIC,
+  28, 0x0,
+  AI_SHAPE_INIT(4, 1, 272, 1, 1), AI_STRIDE_INIT(4, 1, 1, 272, 272),
+  1, &conv2d_35_scratch0_array, NULL)
+
+/* Tensor #29 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_output, AI_STATIC,
+  29, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 7, 7), AI_STRIDE_INIT(4, 1, 1, 24, 168),
+  1, &conv2d_55_output_array, &conv2d_55_output_array_intq)
+
+/* Tensor #30 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_output, AI_STATIC,
+  30, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 7, 7), AI_STRIDE_INIT(4, 1, 1, 80, 560),
+  1, &conv2d_56_output_array, &conv2d_56_output_array_intq)
+
+/* Tensor #31 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_output, AI_STATIC,
+  31, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 7, 7), AI_STRIDE_INIT(4, 1, 1, 80, 560),
+  1, &conv2d_57_output_array, &conv2d_57_output_array_intq)
+
+/* Tensor #32 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_scratch0, AI_STATIC,
+  32, 0x0,
+  AI_SHAPE_INIT(4, 1, 352, 1, 1), AI_STRIDE_INIT(4, 1, 1, 352, 352),
+  1, &conv2d_37_scratch0_array, NULL)
+
+/* Tensor #33 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_58_output, AI_STATIC,
+  33, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 1, 1, 80, 80),
+  1, &pool_58_output_array, &pool_58_output_array_intq)
+
+/* Tensor #34 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_output, AI_STATIC,
+  34, 0x1,
+  AI_SHAPE_INIT(4, 1, 20, 1, 1), AI_STRIDE_INIT(4, 1, 1, 20, 20),
+  1, &conv2d_59_output_array, &conv2d_59_output_array_intq)
+
+/* Tensor #35 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_scratch1, AI_STATIC,
+  35, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 14, 14), AI_STRIDE_INIT(4, 1, 1, 32, 448),
+  1, &conv2d_37_scratch1_array, &conv2d_37_scratch1_array_intq)
+
+/* Tensor #36 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_output, AI_STATIC,
+  36, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 1, 1, 80, 80),
+  1, &conv2d_60_output_array, &conv2d_60_output_array_intq)
+
+/* Tensor #37 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_61_output, AI_STATIC,
+  37, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 1, 1, 80, 80),
+  1, &eltwise_61_output_array, &eltwise_61_output_array_intq)
+
+/* Tensor #38 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_62_output, AI_STATIC,
+  38, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 1, 1, 80, 80),
+  1, &nl_62_output_array, &nl_62_output_array_intq)
+
+/* Tensor #39 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_scratch0, AI_STATIC,
+  39, 0x0,
+  AI_SHAPE_INIT(4, 1, 2721, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2721, 2721),
+  1, &conv2d_38_scratch0_array, NULL)
+
+/* Tensor #40 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_63_output, AI_STATIC,
+  40, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 7, 7), AI_STRIDE_INIT(4, 1, 1, 80, 560),
+  1, &eltwise_63_output_array, &eltwise_63_output_array_intq)
+
+/* Tensor #41 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_output, AI_STATIC,
+  41, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 7, 7), AI_STRIDE_INIT(4, 1, 1, 24, 168),
+  1, &conv2d_64_output_array, &conv2d_64_output_array_intq)
+
+/* Tensor #42 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_scratch1, AI_STATIC,
+  42, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 14, 14), AI_STRIDE_INIT(4, 1, 1, 32, 448),
+  1, &conv2d_38_scratch1_array, &conv2d_38_scratch1_array_intq)
+
+/* Tensor #43 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_65_output, AI_STATIC,
+  43, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 7, 7), AI_STRIDE_INIT(4, 1, 1, 24, 168),
+  1, &eltwise_65_output_array, &eltwise_65_output_array_intq)
+
+/* Tensor #44 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_output, AI_STATIC,
+  44, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &conv2d_66_output_array, &conv2d_66_output_array_intq)
+
+/* Tensor #45 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_67_output, AI_STATIC,
+  45, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &conv2d_67_output_array, &conv2d_67_output_array_intq)
+
+/* Tensor #46 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_scratch0, AI_STATIC,
+  46, 0x0,
+  AI_SHAPE_INIT(4, 1, 208, 1, 1), AI_STRIDE_INIT(4, 1, 1, 208, 208),
+  1, &conv2d_40_scratch0_array, NULL)
+
+/* Tensor #47 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_68_output, AI_STATIC,
+  47, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 1, 1, 120, 120),
+  1, &pool_68_output_array, &pool_68_output_array_intq)
+
+/* Tensor #48 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_69_output, AI_STATIC,
+  48, 0x1,
+  AI_SHAPE_INIT(4, 1, 30, 1, 1), AI_STRIDE_INIT(4, 1, 1, 30, 30),
+  1, &conv2d_69_output_array, &conv2d_69_output_array_intq)
+
+/* Tensor #49 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_70_output, AI_STATIC,
+  49, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 1, 1, 120, 120),
+  1, &conv2d_70_output_array, &conv2d_70_output_array_intq)
+
+/* Tensor #50 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_scratch0, AI_STATIC,
+  50, 0x0,
+  AI_SHAPE_INIT(4, 1, 352, 1, 1), AI_STRIDE_INIT(4, 1, 1, 352, 352),
+  1, &conv2d_41_scratch0_array, NULL)
+
+/* Tensor #51 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_71_output, AI_STATIC,
+  51, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 1, 1, 120, 120),
+  1, &eltwise_71_output_array, &eltwise_71_output_array_intq)
+
+/* Tensor #52 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_72_output, AI_STATIC,
+  52, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 1, 1, 120, 120),
+  1, &nl_72_output_array, &nl_72_output_array_intq)
+
+/* Tensor #53 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_73_output, AI_STATIC,
+  53, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &eltwise_73_output_array, &eltwise_73_output_array_intq)
+
+/* Tensor #54 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_scratch0, AI_STATIC,
+  54, 0x0,
+  AI_SHAPE_INIT(4, 1, 208, 1, 1), AI_STRIDE_INIT(4, 1, 1, 208, 208),
+  1, &conv2d_45_scratch0_array, NULL)
+
+/* Tensor #55 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_74_output, AI_STATIC,
+  55, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 7, 7), AI_STRIDE_INIT(4, 1, 1, 24, 168),
+  1, &conv2d_74_output_array, &conv2d_74_output_array_intq)
+
+/* Tensor #56 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_75_output, AI_STATIC,
+  56, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 7, 7), AI_STRIDE_INIT(4, 1, 1, 24, 168),
+  1, &eltwise_75_output_array, &eltwise_75_output_array_intq)
+
+/* Tensor #57 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_76_output, AI_STATIC,
+  57, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &conv2d_76_output_array, &conv2d_76_output_array_intq)
+
+/* Tensor #58 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_scratch0, AI_STATIC,
+  58, 0x0,
+  AI_SHAPE_INIT(4, 1, 672, 1, 1), AI_STRIDE_INIT(4, 1, 1, 672, 672),
+  1, &conv2d_47_scratch0_array, NULL)
+
+/* Tensor #59 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_77_output, AI_STATIC,
+  59, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 1, 1, 120, 120),
+  1, &pool_77_output_array, &pool_77_output_array_intq)
+
+/* Tensor #60 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_78_output, AI_STATIC,
+  60, 0x1,
+  AI_SHAPE_INIT(4, 1, 240, 1, 1), AI_STRIDE_INIT(4, 1, 1, 240, 240),
+  1, &conv2d_78_output_array, &conv2d_78_output_array_intq)
+
+/* Tensor #61 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_scratch1, AI_STATIC,
+  61, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 14, 14), AI_STRIDE_INIT(4, 1, 1, 64, 896),
+  1, &conv2d_47_scratch1_array, &conv2d_47_scratch1_array_intq)
+
+/* Tensor #62 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_79_output, AI_STATIC,
+  62, 0x1,
+  AI_SHAPE_INIT(4, 1, 5, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5, 5),
+  1, &conv2d_79_output_array, &conv2d_79_output_array_intq)
+
+/* Tensor #63 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_81_output, AI_STATIC,
+  63, 0x1,
+  AI_SHAPE_INIT(4, 1, 5, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5, 5),
+  1, &nl_81_output_array, &nl_81_output_array_intq)
+
+/* Tensor #64 */
+AI_TENSOR_OBJ_DECLARE(
+  conversion_82_output, AI_STATIC,
+  64, 0x0,
+  AI_SHAPE_INIT(4, 1, 5, 1, 1), AI_STRIDE_INIT(4, 4, 4, 20, 20),
+  1, &conversion_82_output_array, NULL)
+
+/* Tensor #65 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_scratch0, AI_STATIC,
+  65, 0x0,
+  AI_SHAPE_INIT(4, 1, 5441, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5441, 5441),
+  1, &conv2d_48_scratch0_array, NULL)
+
+/* Tensor #66 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6, AI_STATIC,
+  66, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array_intq)
+
+/* Tensor #67 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5, AI_STATIC,
+  67, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array_intq)
+
+/* Tensor #68 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_scratch1, AI_STATIC,
+  68, 0x1,
+  AI_SHAPE_INIT(4, 1, 64, 7, 7), AI_STRIDE_INIT(4, 1, 1, 64, 448),
+  1, &conv2d_48_scratch1_array, &conv2d_48_scratch1_array_intq)
+
+/* Tensor #69 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4, AI_STATIC,
+  69, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array_intq)
+
+/* Tensor #70 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3, AI_STATIC,
+  70, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array_intq)
+
+/* Tensor #71 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2, AI_STATIC,
+  71, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array_intq)
+
+/* Tensor #72 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_50_scratch0, AI_STATIC,
+  72, 0x0,
+  AI_SHAPE_INIT(4, 1, 416, 1, 1), AI_STRIDE_INIT(4, 1, 1, 416, 416),
+  1, &conv2d_50_scratch0_array, NULL)
+
+/* Tensor #73 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1, AI_STATIC,
+  73, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array_intq)
+
+/* Tensor #74 */
+AI_TENSOR_OBJ_DECLARE(
+  EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y, AI_STATIC,
+  74, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array_intq)
+
+/* Tensor #75 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_weights, AI_STATIC,
+  75, 0x1,
+  AI_SHAPE_INIT(4, 3, 3, 3, 8), AI_STRIDE_INIT(4, 1, 3, 24, 72),
+  1, &conv2d_1_weights_array, &conv2d_1_weights_array_intq)
+
+/* Tensor #76 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_scratch0, AI_STATIC,
+  76, 0x0,
+  AI_SHAPE_INIT(4, 1, 704, 1, 1), AI_STRIDE_INIT(4, 1, 1, 704, 704),
+  1, &conv2d_51_scratch0_array, NULL)
+
+/* Tensor #77 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_bias, AI_STATIC,
+  77, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_1_bias_array, NULL)
+
+/* Tensor #78 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_weights, AI_STATIC,
+  78, 0x1,
+  AI_SHAPE_INIT(4, 8, 3, 3, 8), AI_STRIDE_INIT(4, 1, 8, 64, 192),
+  1, &conv2d_2_weights_array, &conv2d_2_weights_array_intq)
+
+/* Tensor #79 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_scratch0, AI_STATIC,
+  79, 0x0,
+  AI_SHAPE_INIT(4, 1, 496, 1, 1), AI_STRIDE_INIT(4, 1, 1, 496, 496),
+  1, &conv2d_55_scratch0_array, NULL)
+
+/* Tensor #80 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_bias, AI_STATIC,
+  80, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_2_bias_array, NULL)
+
+/* Tensor #81 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_weights, AI_STATIC,
+  81, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 2), AI_STRIDE_INIT(4, 1, 8, 16, 16),
+  1, &conv2d_4_weights_array, &conv2d_4_weights_array_intq)
+
+/* Tensor #82 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_scratch0, AI_STATIC,
+  82, 0x0,
+  AI_SHAPE_INIT(4, 1, 896, 1, 1), AI_STRIDE_INIT(4, 1, 1, 896, 896),
+  1, &conv2d_56_scratch0_array, NULL)
+
+/* Tensor #83 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_bias, AI_STATIC,
+  83, 0x0,
+  AI_SHAPE_INIT(4, 1, 2, 1, 1), AI_STRIDE_INIT(4, 4, 4, 8, 8),
+  1, &conv2d_4_bias_array, NULL)
+
+/* Tensor #84 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_scratch1, AI_STATIC,
+  84, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 7, 7), AI_STRIDE_INIT(4, 1, 1, 80, 560),
+  1, &conv2d_56_scratch1_array, &conv2d_56_scratch1_array_intq)
+
+/* Tensor #85 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_5_weights, AI_STATIC,
+  85, 0x1,
+  AI_SHAPE_INIT(4, 2, 1, 1, 8), AI_STRIDE_INIT(4, 1, 2, 16, 16),
+  1, &conv2d_5_weights_array, &conv2d_5_weights_array_intq)
+
+/* Tensor #86 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_5_bias, AI_STATIC,
+  86, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_5_bias_array, NULL)
+
+/* Tensor #87 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_scratch0, AI_STATIC,
+  87, 0x0,
+  AI_SHAPE_INIT(4, 1, 6801, 1, 1), AI_STRIDE_INIT(4, 1, 1, 6801, 6801),
+  1, &conv2d_57_scratch0_array, NULL)
+
+/* Tensor #88 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_weights, AI_STATIC,
+  88, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 16), AI_STRIDE_INIT(4, 1, 8, 128, 128),
+  1, &conv2d_9_weights_array, &conv2d_9_weights_array_intq)
+
+/* Tensor #89 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_bias, AI_STATIC,
+  89, 0x0,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_9_bias_array, NULL)
+
+/* Tensor #90 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_scratch1, AI_STATIC,
+  90, 0x1,
+  AI_SHAPE_INIT(4, 1, 80, 7, 7), AI_STRIDE_INIT(4, 1, 1, 80, 560),
+  1, &conv2d_57_scratch1_array, &conv2d_57_scratch1_array_intq)
+
+/* Tensor #91 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_weights, AI_STATIC,
+  91, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 8), AI_STRIDE_INIT(4, 1, 16, 128, 128),
+  1, &conv2d_10_weights_array, &conv2d_10_weights_array_intq)
+
+/* Tensor #92 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_bias, AI_STATIC,
+  92, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_10_bias_array, NULL)
+
+/* Tensor #93 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_scratch0, AI_STATIC,
+  93, 0x0,
+  AI_SHAPE_INIT(4, 1, 520, 1, 1), AI_STRIDE_INIT(4, 1, 1, 520, 520),
+  1, &conv2d_59_scratch0_array, NULL)
+
+/* Tensor #94 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_11_weights, AI_STATIC,
+  94, 0x1,
+  AI_SHAPE_INIT(4, 8, 3, 3, 16), AI_STRIDE_INIT(4, 1, 8, 128, 384),
+  1, &conv2d_11_weights_array, &conv2d_11_weights_array_intq)
+
+/* Tensor #95 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_scratch1, AI_STATIC,
+  95, 0x1,
+  AI_SHAPE_INIT(4, 1, 20, 1, 1), AI_STRIDE_INIT(4, 1, 1, 20, 20),
+  1, &conv2d_59_scratch1_array, &conv2d_59_scratch1_array_intq)
+
+/* Tensor #96 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_11_bias, AI_STATIC,
+  96, 0x0,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_11_bias_array, NULL)
+
+/* Tensor #97 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_weights, AI_STATIC,
+  97, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 16), AI_STRIDE_INIT(4, 1, 16, 256, 256),
+  1, &conv2d_12_weights_array, &conv2d_12_weights_array_intq)
+
+/* Tensor #98 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_scratch0, AI_STATIC,
+  98, 0x0,
+  AI_SHAPE_INIT(4, 1, 880, 1, 1), AI_STRIDE_INIT(4, 1, 1, 880, 880),
+  1, &conv2d_60_scratch0_array, NULL)
+
+/* Tensor #99 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_bias, AI_STATIC,
+  99, 0x0,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_12_bias_array, NULL)
+
+/* Tensor #100 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_13_weights, AI_STATIC,
+  100, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 8), AI_STRIDE_INIT(4, 1, 16, 128, 128),
+  1, &conv2d_13_weights_array, &conv2d_13_weights_array_intq)
+
+/* Tensor #101 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_scratch0, AI_STATIC,
+  101, 0x0,
+  AI_SHAPE_INIT(4, 1, 560, 1, 1), AI_STRIDE_INIT(4, 1, 1, 560, 560),
+  1, &conv2d_64_scratch0_array, NULL)
+
+/* Tensor #102 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_13_bias, AI_STATIC,
+  102, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_13_bias_array, NULL)
+
+/* Tensor #103 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_weights, AI_STATIC,
+  103, 0x1,
+  AI_SHAPE_INIT(4, 8, 3, 3, 24), AI_STRIDE_INIT(4, 1, 8, 192, 576),
+  1, &conv2d_14_weights_array, &conv2d_14_weights_array_intq)
+
+/* Tensor #104 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_scratch0, AI_STATIC,
+  104, 0x0,
+  AI_SHAPE_INIT(4, 1, 1296, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1296, 1296),
+  1, &conv2d_66_scratch0_array, NULL)
+
+/* Tensor #105 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_bias, AI_STATIC,
+  105, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_14_bias_array, NULL)
+
+/* Tensor #106 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_scratch1, AI_STATIC,
+  106, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &conv2d_66_scratch1_array, &conv2d_66_scratch1_array_intq)
+
+/* Tensor #107 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_weights, AI_STATIC,
+  107, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 16), AI_STRIDE_INIT(4, 1, 24, 384, 384),
+  1, &conv2d_15_weights_array, &conv2d_15_weights_array_intq)
+
+/* Tensor #108 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_bias, AI_STATIC,
+  108, 0x0,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_15_bias_array, NULL)
+
+/* Tensor #109 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_67_scratch0, AI_STATIC,
+  109, 0x0,
+  AI_SHAPE_INIT(4, 1, 10201, 1, 1), AI_STRIDE_INIT(4, 1, 1, 10201, 10201),
+  1, &conv2d_67_scratch0_array, NULL)
+
+/* Tensor #110 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_weights, AI_STATIC,
+  110, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 8), AI_STRIDE_INIT(4, 1, 16, 128, 128),
+  1, &conv2d_16_weights_array, &conv2d_16_weights_array_intq)
+
+/* Tensor #111 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_bias, AI_STATIC,
+  111, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_16_bias_array, NULL)
+
+/* Tensor #112 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_67_scratch1, AI_STATIC,
+  112, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &conv2d_67_scratch1_array, &conv2d_67_scratch1_array_intq)
+
+/* Tensor #113 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_weights, AI_STATIC,
+  113, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 24), AI_STRIDE_INIT(4, 1, 8, 192, 192),
+  1, &conv2d_18_weights_array, &conv2d_18_weights_array_intq)
+
+/* Tensor #114 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_bias, AI_STATIC,
+  114, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_18_bias_array, NULL)
+
+/* Tensor #115 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_69_scratch0, AI_STATIC,
+  115, 0x0,
+  AI_SHAPE_INIT(4, 1, 780, 1, 1), AI_STRIDE_INIT(4, 1, 1, 780, 780),
+  1, &conv2d_69_scratch0_array, NULL)
+
+/* Tensor #116 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_19_weights, AI_STATIC,
+  116, 0x1,
+  AI_SHAPE_INIT(4, 24, 5, 5, 1), AI_STRIDE_INIT(4, 1, 24, 24, 120),
+  1, &conv2d_19_weights_array, &conv2d_19_weights_array_intq)
+
+/* Tensor #117 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_69_scratch1, AI_STATIC,
+  117, 0x1,
+  AI_SHAPE_INIT(4, 1, 30, 1, 1), AI_STRIDE_INIT(4, 1, 1, 30, 30),
+  1, &conv2d_69_scratch1_array, &conv2d_69_scratch1_array_intq)
+
+/* Tensor #118 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_19_bias, AI_STATIC,
+  118, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_19_bias_array, NULL)
+
+/* Tensor #119 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_weights, AI_STATIC,
+  119, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 6), AI_STRIDE_INIT(4, 1, 24, 144, 144),
+  1, &conv2d_21_weights_array, &conv2d_21_weights_array_intq)
+
+/* Tensor #120 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_70_scratch0, AI_STATIC,
+  120, 0x0,
+  AI_SHAPE_INIT(4, 1, 1320, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1320, 1320),
+  1, &conv2d_70_scratch0_array, NULL)
+
+/* Tensor #121 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_bias, AI_STATIC,
+  121, 0x0,
+  AI_SHAPE_INIT(4, 1, 6, 1, 1), AI_STRIDE_INIT(4, 4, 4, 24, 24),
+  1, &conv2d_21_bias_array, NULL)
+
+/* Tensor #122 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_weights, AI_STATIC,
+  122, 0x1,
+  AI_SHAPE_INIT(4, 6, 1, 1, 24), AI_STRIDE_INIT(4, 1, 6, 144, 144),
+  1, &conv2d_22_weights_array, &conv2d_22_weights_array_intq)
+
+/* Tensor #123 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_74_scratch0, AI_STATIC,
+  123, 0x0,
+  AI_SHAPE_INIT(4, 1, 720, 1, 1), AI_STRIDE_INIT(4, 1, 1, 720, 720),
+  1, &conv2d_74_scratch0_array, NULL)
+
+/* Tensor #124 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_bias, AI_STATIC,
+  124, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_22_bias_array, NULL)
+
+/* Tensor #125 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_weights, AI_STATIC,
+  125, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 8), AI_STRIDE_INIT(4, 1, 24, 192, 192),
+  1, &conv2d_26_weights_array, &conv2d_26_weights_array_intq)
+
+/* Tensor #126 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_76_scratch0, AI_STATIC,
+  126, 0x0,
+  AI_SHAPE_INIT(4, 1, 1296, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1296, 1296),
+  1, &conv2d_76_scratch0_array, NULL)
+
+/* Tensor #127 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_bias, AI_STATIC,
+  127, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_26_bias_array, NULL)
+
+/* Tensor #128 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_76_scratch1, AI_STATIC,
+  128, 0x1,
+  AI_SHAPE_INIT(4, 1, 120, 7, 7), AI_STRIDE_INIT(4, 1, 1, 120, 840),
+  1, &conv2d_76_scratch1_array, &conv2d_76_scratch1_array_intq)
+
+/* Tensor #129 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_weights, AI_STATIC,
+  129, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 48), AI_STRIDE_INIT(4, 1, 8, 384, 384),
+  1, &conv2d_27_weights_array, &conv2d_27_weights_array_intq)
+
+/* Tensor #130 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_bias, AI_STATIC,
+  130, 0x0,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_27_bias_array, NULL)
+
+/* Tensor #131 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_78_scratch0, AI_STATIC,
+  131, 0x0,
+  AI_SHAPE_INIT(4, 1, 2880, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2880, 2880),
+  1, &conv2d_78_scratch0_array, NULL)
+
+/* Tensor #132 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_weights, AI_STATIC,
+  132, 0x1,
+  AI_SHAPE_INIT(4, 48, 5, 5, 1), AI_STRIDE_INIT(4, 1, 48, 48, 240),
+  1, &conv2d_28_weights_array, &conv2d_28_weights_array_intq)
+
+/* Tensor #133 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_bias, AI_STATIC,
+  133, 0x0,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_28_bias_array, NULL)
+
+/* Tensor #134 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_78_scratch1, AI_STATIC,
+  134, 0x1,
+  AI_SHAPE_INIT(4, 1, 240, 1, 1), AI_STRIDE_INIT(4, 1, 1, 240, 240),
+  1, &conv2d_78_scratch1_array, &conv2d_78_scratch1_array_intq)
+
+/* Tensor #135 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_weights, AI_STATIC,
+  135, 0x1,
+  AI_SHAPE_INIT(4, 48, 1, 1, 12), AI_STRIDE_INIT(4, 1, 48, 576, 576),
+  1, &conv2d_30_weights_array, &conv2d_30_weights_array_intq)
+
+/* Tensor #136 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_bias, AI_STATIC,
+  136, 0x0,
+  AI_SHAPE_INIT(4, 1, 12, 1, 1), AI_STRIDE_INIT(4, 4, 4, 48, 48),
+  1, &conv2d_30_bias_array, NULL)
+
+/* Tensor #137 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_79_scratch0, AI_STATIC,
+  137, 0x0,
+  AI_SHAPE_INIT(4, 1, 1010, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1010, 1010),
+  1, &conv2d_79_scratch0_array, NULL)
+
+/* Tensor #138 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_31_weights, AI_STATIC,
+  138, 0x1,
+  AI_SHAPE_INIT(4, 12, 1, 1, 48), AI_STRIDE_INIT(4, 1, 12, 576, 576),
+  1, &conv2d_31_weights_array, &conv2d_31_weights_array_intq)
+
+/* Tensor #139 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_31_bias, AI_STATIC,
+  139, 0x0,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_31_bias_array, NULL)
+
+/* Tensor #140 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_81_scratch0, AI_STATIC,
+  140, 0x0,
+  AI_SHAPE_INIT(4, 1, 5, 1, 1), AI_STRIDE_INIT(4, 4, 4, 20, 20),
+  1, &nl_81_scratch0_array, NULL)
+
+/* Tensor #141 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_35_weights, AI_STATIC,
+  141, 0x1,
+  AI_SHAPE_INIT(4, 48, 1, 1, 8), AI_STRIDE_INIT(4, 1, 48, 384, 384),
+  1, &conv2d_35_weights_array, &conv2d_35_weights_array_intq)
+
+/* Tensor #142 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_35_bias, AI_STATIC,
+  142, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_35_bias_array, NULL)
+
+/* Tensor #143 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_weights, AI_STATIC,
+  143, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 32), AI_STRIDE_INIT(4, 1, 8, 256, 256),
+  1, &conv2d_37_weights_array, &conv2d_37_weights_array_intq)
+
+/* Tensor #144 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_bias, AI_STATIC,
+  144, 0x0,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 4, 4, 128, 128),
+  1, &conv2d_37_bias_array, NULL)
+
+/* Tensor #145 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_weights, AI_STATIC,
+  145, 0x1,
+  AI_SHAPE_INIT(4, 32, 5, 5, 1), AI_STRIDE_INIT(4, 1, 32, 32, 160),
+  1, &conv2d_38_weights_array, &conv2d_38_weights_array_intq)
+
+/* Tensor #146 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_bias, AI_STATIC,
+  146, 0x0,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 4, 4, 128, 128),
+  1, &conv2d_38_bias_array, NULL)
+
+/* Tensor #147 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_weights, AI_STATIC,
+  147, 0x1,
+  AI_SHAPE_INIT(4, 32, 1, 1, 8), AI_STRIDE_INIT(4, 1, 32, 256, 256),
+  1, &conv2d_40_weights_array, &conv2d_40_weights_array_intq)
+
+/* Tensor #148 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_bias, AI_STATIC,
+  148, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_40_bias_array, NULL)
+
+/* Tensor #149 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_weights, AI_STATIC,
+  149, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 32), AI_STRIDE_INIT(4, 1, 8, 256, 256),
+  1, &conv2d_41_weights_array, &conv2d_41_weights_array_intq)
+
+/* Tensor #150 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_bias, AI_STATIC,
+  150, 0x0,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 4, 4, 128, 128),
+  1, &conv2d_41_bias_array, NULL)
+
+/* Tensor #151 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_weights, AI_STATIC,
+  151, 0x1,
+  AI_SHAPE_INIT(4, 32, 1, 1, 8), AI_STRIDE_INIT(4, 1, 32, 256, 256),
+  1, &conv2d_45_weights_array, &conv2d_45_weights_array_intq)
+
+/* Tensor #152 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_bias, AI_STATIC,
+  152, 0x0,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_45_bias_array, NULL)
+
+/* Tensor #153 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_weights, AI_STATIC,
+  153, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 64), AI_STRIDE_INIT(4, 1, 8, 512, 512),
+  1, &conv2d_47_weights_array, &conv2d_47_weights_array_intq)
+
+/* Tensor #154 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_bias, AI_STATIC,
+  154, 0x0,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 4, 4, 256, 256),
+  1, &conv2d_47_bias_array, NULL)
+
+/* Tensor #155 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_weights, AI_STATIC,
+  155, 0x1,
+  AI_SHAPE_INIT(4, 64, 5, 5, 1), AI_STRIDE_INIT(4, 1, 64, 64, 320),
+  1, &conv2d_48_weights_array, &conv2d_48_weights_array_intq)
+
+/* Tensor #156 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_bias, AI_STATIC,
+  156, 0x0,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 4, 4, 256, 256),
+  1, &conv2d_48_bias_array, NULL)
+
+/* Tensor #157 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_50_weights, AI_STATIC,
+  157, 0x1,
+  AI_SHAPE_INIT(4, 64, 1, 1, 16), AI_STRIDE_INIT(4, 1, 64, 1024, 1024),
+  1, &conv2d_50_weights_array, &conv2d_50_weights_array_intq)
+
+/* Tensor #158 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_50_bias, AI_STATIC,
+  158, 0x0,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_50_bias_array, NULL)
+
+/* Tensor #159 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_weights, AI_STATIC,
+  159, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 64), AI_STRIDE_INIT(4, 1, 16, 1024, 1024),
+  1, &conv2d_51_weights_array, &conv2d_51_weights_array_intq)
+
+/* Tensor #160 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_bias, AI_STATIC,
+  160, 0x0,
+  AI_SHAPE_INIT(4, 1, 64, 1, 1), AI_STRIDE_INIT(4, 4, 4, 256, 256),
+  1, &conv2d_51_bias_array, NULL)
+
+/* Tensor #161 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_weights, AI_STATIC,
+  161, 0x1,
+  AI_SHAPE_INIT(4, 64, 1, 1, 24), AI_STRIDE_INIT(4, 1, 64, 1536, 1536),
+  1, &conv2d_55_weights_array, &conv2d_55_weights_array_intq)
+
+/* Tensor #162 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_bias, AI_STATIC,
+  162, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_55_bias_array, NULL)
+
+/* Tensor #163 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_weights, AI_STATIC,
+  163, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 80), AI_STRIDE_INIT(4, 1, 24, 1920, 1920),
+  1, &conv2d_56_weights_array, &conv2d_56_weights_array_intq)
+
+/* Tensor #164 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_bias, AI_STATIC,
+  164, 0x0,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 4, 4, 320, 320),
+  1, &conv2d_56_bias_array, NULL)
+
+/* Tensor #165 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_weights, AI_STATIC,
+  165, 0x1,
+  AI_SHAPE_INIT(4, 80, 5, 5, 1), AI_STRIDE_INIT(4, 1, 80, 80, 400),
+  1, &conv2d_57_weights_array, &conv2d_57_weights_array_intq)
+
+/* Tensor #166 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_bias, AI_STATIC,
+  166, 0x0,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 4, 4, 320, 320),
+  1, &conv2d_57_bias_array, NULL)
+
+/* Tensor #167 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_weights, AI_STATIC,
+  167, 0x1,
+  AI_SHAPE_INIT(4, 80, 1, 1, 20), AI_STRIDE_INIT(4, 1, 80, 1600, 1600),
+  1, &conv2d_59_weights_array, &conv2d_59_weights_array_intq)
+
+/* Tensor #168 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_bias, AI_STATIC,
+  168, 0x0,
+  AI_SHAPE_INIT(4, 1, 20, 1, 1), AI_STRIDE_INIT(4, 4, 4, 80, 80),
+  1, &conv2d_59_bias_array, NULL)
+
+/* Tensor #169 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_weights, AI_STATIC,
+  169, 0x1,
+  AI_SHAPE_INIT(4, 20, 1, 1, 80), AI_STRIDE_INIT(4, 1, 20, 1600, 1600),
+  1, &conv2d_60_weights_array, &conv2d_60_weights_array_intq)
+
+/* Tensor #170 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_bias, AI_STATIC,
+  170, 0x0,
+  AI_SHAPE_INIT(4, 1, 80, 1, 1), AI_STRIDE_INIT(4, 4, 4, 320, 320),
+  1, &conv2d_60_bias_array, NULL)
+
+/* Tensor #171 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_weights, AI_STATIC,
+  171, 0x1,
+  AI_SHAPE_INIT(4, 80, 1, 1, 24), AI_STRIDE_INIT(4, 1, 80, 1920, 1920),
+  1, &conv2d_64_weights_array, &conv2d_64_weights_array_intq)
+
+/* Tensor #172 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_bias, AI_STATIC,
+  172, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_64_bias_array, NULL)
+
+/* Tensor #173 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_weights, AI_STATIC,
+  173, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 120), AI_STRIDE_INIT(4, 1, 24, 2880, 2880),
+  1, &conv2d_66_weights_array, &conv2d_66_weights_array_intq)
+
+/* Tensor #174 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_bias, AI_STATIC,
+  174, 0x0,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 4, 4, 480, 480),
+  1, &conv2d_66_bias_array, NULL)
+
+/* Tensor #175 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_67_weights, AI_STATIC,
+  175, 0x1,
+  AI_SHAPE_INIT(4, 120, 5, 5, 1), AI_STRIDE_INIT(4, 1, 120, 120, 600),
+  1, &conv2d_67_weights_array, &conv2d_67_weights_array_intq)
+
+/* Tensor #176 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_67_bias, AI_STATIC,
+  176, 0x0,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 4, 4, 480, 480),
+  1, &conv2d_67_bias_array, NULL)
+
+/* Tensor #177 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_69_weights, AI_STATIC,
+  177, 0x1,
+  AI_SHAPE_INIT(4, 120, 1, 1, 30), AI_STRIDE_INIT(4, 1, 120, 3600, 3600),
+  1, &conv2d_69_weights_array, &conv2d_69_weights_array_intq)
+
+/* Tensor #178 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_69_bias, AI_STATIC,
+  178, 0x0,
+  AI_SHAPE_INIT(4, 1, 30, 1, 1), AI_STRIDE_INIT(4, 4, 4, 120, 120),
+  1, &conv2d_69_bias_array, NULL)
+
+/* Tensor #179 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_70_weights, AI_STATIC,
+  179, 0x1,
+  AI_SHAPE_INIT(4, 30, 1, 1, 120), AI_STRIDE_INIT(4, 1, 30, 3600, 3600),
+  1, &conv2d_70_weights_array, &conv2d_70_weights_array_intq)
+
+/* Tensor #180 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_70_bias, AI_STATIC,
+  180, 0x0,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 4, 4, 480, 480),
+  1, &conv2d_70_bias_array, NULL)
+
+/* Tensor #181 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_74_weights, AI_STATIC,
+  181, 0x1,
+  AI_SHAPE_INIT(4, 120, 1, 1, 24), AI_STRIDE_INIT(4, 1, 120, 2880, 2880),
+  1, &conv2d_74_weights_array, &conv2d_74_weights_array_intq)
+
+/* Tensor #182 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_74_bias, AI_STATIC,
+  182, 0x0,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_74_bias_array, NULL)
+
+/* Tensor #183 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_76_weights, AI_STATIC,
+  183, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 120), AI_STRIDE_INIT(4, 1, 24, 2880, 2880),
+  1, &conv2d_76_weights_array, &conv2d_76_weights_array_intq)
+
+/* Tensor #184 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_76_bias, AI_STATIC,
+  184, 0x0,
+  AI_SHAPE_INIT(4, 1, 120, 1, 1), AI_STRIDE_INIT(4, 4, 4, 480, 480),
+  1, &conv2d_76_bias_array, NULL)
+
+/* Tensor #185 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_78_weights, AI_STATIC,
+  185, 0x1,
+  AI_SHAPE_INIT(4, 120, 1, 1, 240), AI_STRIDE_INIT(4, 1, 120, 28800, 28800),
+  1, &conv2d_78_weights_array, &conv2d_78_weights_array_intq)
+
+/* Tensor #186 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_78_bias, AI_STATIC,
+  186, 0x0,
+  AI_SHAPE_INIT(4, 1, 240, 1, 1), AI_STRIDE_INIT(4, 4, 4, 960, 960),
+  1, &conv2d_78_bias_array, NULL)
+
+/* Tensor #187 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_79_weights, AI_STATIC,
+  187, 0x1,
+  AI_SHAPE_INIT(4, 240, 1, 1, 5), AI_STRIDE_INIT(4, 1, 240, 1200, 1200),
+  1, &conv2d_79_weights_array, &conv2d_79_weights_array_intq)
+
+/* Tensor #188 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_79_bias, AI_STATIC,
+  188, 0x0,
+  AI_SHAPE_INIT(4, 1, 5, 1, 1), AI_STRIDE_INIT(4, 4, 4, 20, 20),
+  1, &conv2d_79_bias_array, NULL)
+
+/* Tensor #189 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_scratch0, AI_STATIC,
+  189, 0x0,
+  AI_SHAPE_INIT(4, 1, 652, 1, 1), AI_STRIDE_INIT(4, 1, 1, 652, 652),
+  1, &conv2d_1_scratch0_array, NULL)
+
+/* Tensor #190 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_scratch1, AI_STATIC,
+  190, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 112, 112), AI_STRIDE_INIT(4, 1, 1, 8, 896),
+  1, &conv2d_1_scratch1_array, &conv2d_1_scratch1_array_intq)
+
+/* Tensor #191 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_scratch0, AI_STATIC,
+  191, 0x0,
+  AI_SHAPE_INIT(4, 1, 1552, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1552, 1552),
+  1, &conv2d_2_scratch0_array, NULL)
+
+/* Tensor #192 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_scratch1, AI_STATIC,
+  192, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 56, 56), AI_STRIDE_INIT(4, 1, 1, 8, 448),
+  1, &conv2d_2_scratch1_array, &conv2d_2_scratch1_array_intq)
+
+/* Tensor #193 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_scratch0, AI_STATIC,
+  193, 0x0,
+  AI_SHAPE_INIT(4, 1, 52, 1, 1), AI_STRIDE_INIT(4, 1, 1, 52, 52),
+  1, &conv2d_4_scratch0_array, NULL)
+
+/* Tensor #194 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_scratch1, AI_STATIC,
+  194, 0x1,
+  AI_SHAPE_INIT(4, 1, 2, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2, 2),
+  1, &conv2d_4_scratch1_array, &conv2d_4_scratch1_array_intq)
+
+/* Tensor #195 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_5_scratch0, AI_STATIC,
+  195, 0x0,
+  AI_SHAPE_INIT(4, 1, 88, 1, 1), AI_STRIDE_INIT(4, 1, 1, 88, 88),
+  1, &conv2d_5_scratch0_array, NULL)
+
+/* Tensor #196 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_scratch0, AI_STATIC,
+  196, 0x0,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 1, 1, 192, 192),
+  1, &conv2d_9_scratch0_array, NULL)
+
+/* Tensor #197 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_scratch0, AI_STATIC,
+  197, 0x0,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 1, 1, 144, 144),
+  1, &conv2d_10_scratch0_array, NULL)
+
+/* Tensor #198 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_11_scratch0, AI_STATIC,
+  198, 0x0,
+  AI_SHAPE_INIT(4, 1, 2816, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2816, 2816),
+  1, &conv2d_11_scratch0_array, NULL)
+
+/* Tensor #199 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_11_scratch1, AI_STATIC,
+  199, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 28, 28), AI_STRIDE_INIT(4, 1, 1, 16, 448),
+  1, &conv2d_11_scratch1_array, &conv2d_11_scratch1_array_intq)
+
+/* Tensor #200 */
+AI_TENSOR_OBJ_DECLARE(
+  serving_default_input_10_output, AI_STATIC,
+  200, 0x1,
+  AI_SHAPE_INIT(4, 1, 3, 224, 224), AI_STRIDE_INIT(4, 1, 1, 3, 672),
+  1, &serving_default_input_10_output_array, &serving_default_input_10_output_array_intq)
+
+/* Tensor #201 */
+AI_TENSOR_OBJ_DECLARE(
+  conversion_0_output, AI_STATIC,
+  201, 0x1,
+  AI_SHAPE_INIT(4, 1, 3, 224, 224), AI_STRIDE_INIT(4, 1, 1, 3, 672),
+  1, &conversion_0_output_array, &conversion_0_output_array_intq)
+
+/* Tensor #202 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_scratch0, AI_STATIC,
+  202, 0x0,
+  AI_SHAPE_INIT(4, 1, 224, 1, 1), AI_STRIDE_INIT(4, 1, 1, 224, 224),
+  1, &conv2d_12_scratch0_array, NULL)
+
+/* Tensor #203 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_output, AI_STATIC,
+  203, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 112, 112), AI_STRIDE_INIT(4, 1, 1, 8, 896),
+  1, &conv2d_1_output_array, &conv2d_1_output_array_intq)
+
+/* Tensor #204 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_pad_before_output, AI_STATIC,
+  204, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 114, 114), AI_STRIDE_INIT(4, 1, 1, 8, 912),
+  1, &conv2d_2_pad_before_output_array, &conv2d_2_pad_before_output_array_intq)
+
+/* Tensor #205 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_scratch1, AI_STATIC,
+  205, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 28, 28), AI_STRIDE_INIT(4, 1, 1, 16, 448),
+  1, &conv2d_12_scratch1_array, &conv2d_12_scratch1_array_intq)
+
+/* Tensor #206 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_output, AI_STATIC,
+  206, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 56, 56), AI_STRIDE_INIT(4, 1, 1, 8, 448),
+  1, &conv2d_2_output_array, &conv2d_2_output_array_intq)
+
+/* Tensor #207 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_3_output, AI_STATIC,
+  207, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 1, 1, 8, 8),
+  1, &pool_3_output_array, &pool_3_output_array_intq)
+
+/* Tensor #208 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_output, AI_STATIC,
+  208, 0x1,
+  AI_SHAPE_INIT(4, 1, 2, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2, 2),
+  1, &conv2d_4_output_array, &conv2d_4_output_array_intq)
+
+/* Tensor #209 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_13_scratch0, AI_STATIC,
+  209, 0x0,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 1, 1, 144, 144),
+  1, &conv2d_13_scratch0_array, NULL)
+
+/* Tensor #210 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_5_output, AI_STATIC,
+  210, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 1, 1, 8, 8),
+  1, &conv2d_5_output_array, &conv2d_5_output_array_intq)
+
+/* Tensor #211 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_6_output, AI_STATIC,
+  211, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 1, 1, 8, 8),
+  1, &eltwise_6_output_array, &eltwise_6_output_array_intq)
+
+/* Tensor #212 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_7_output, AI_STATIC,
+  212, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 1, 1, 8, 8),
+  1, &nl_7_output_array, &nl_7_output_array_intq)
+
+/* Tensor #213 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_scratch0, AI_STATIC,
+  213, 0x0,
+  AI_SHAPE_INIT(4, 1, 4080, 1, 1), AI_STRIDE_INIT(4, 1, 1, 4080, 4080),
+  1, &conv2d_14_scratch0_array, NULL)
+
+/* Tensor #214 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_8_output, AI_STATIC,
+  214, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 56, 56), AI_STRIDE_INIT(4, 1, 1, 8, 448),
+  1, &eltwise_8_output_array, &eltwise_8_output_array_intq)
+
+/* Tensor #215 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_output, AI_STATIC,
+  215, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 56, 56), AI_STRIDE_INIT(4, 1, 1, 16, 896),
+  1, &conv2d_9_output_array, &conv2d_9_output_array_intq)
+
+/* Tensor #216 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_scratch1, AI_STATIC,
+  216, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 28, 28), AI_STRIDE_INIT(4, 1, 1, 24, 672),
+  1, &conv2d_14_scratch1_array, &conv2d_14_scratch1_array_intq)
+
+/* Tensor #217 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_output, AI_STATIC,
+  217, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 56, 56), AI_STRIDE_INIT(4, 1, 1, 8, 448),
+  1, &conv2d_10_output_array, &conv2d_10_output_array_intq)
+
+/* Tensor #218 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_11_pad_before_output, AI_STATIC,
+  218, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 58, 58), AI_STRIDE_INIT(4, 1, 1, 8, 464),
+  1, &conv2d_11_pad_before_output_array, &conv2d_11_pad_before_output_array_intq)
+
+/* Tensor #219 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_11_output, AI_STATIC,
+  219, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 28, 28), AI_STRIDE_INIT(4, 1, 1, 16, 448),
+  1, &conv2d_11_output_array, &conv2d_11_output_array_intq)
+
+/* Tensor #220 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_scratch0, AI_STATIC,
+  220, 0x0,
+  AI_SHAPE_INIT(4, 1, 256, 1, 1), AI_STRIDE_INIT(4, 1, 1, 256, 256),
+  1, &conv2d_15_scratch0_array, NULL)
+
+/* Tensor #221 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_output, AI_STATIC,
+  221, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 28, 28), AI_STRIDE_INIT(4, 1, 1, 16, 448),
+  1, &conv2d_12_output_array, &conv2d_12_output_array_intq)
+
+/* Tensor #222 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_13_output, AI_STATIC,
+  222, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 28, 28), AI_STRIDE_INIT(4, 1, 1, 8, 224),
+  1, &conv2d_13_output_array, &conv2d_13_output_array_intq)
+
+/* Tensor #223 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_scratch1, AI_STATIC,
+  223, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 28, 28), AI_STRIDE_INIT(4, 1, 1, 16, 448),
+  1, &conv2d_15_scratch1_array, &conv2d_15_scratch1_array_intq)
+
+/* Tensor #224 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_pad_before_output, AI_STATIC,
+  224, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 30, 30), AI_STRIDE_INIT(4, 1, 1, 8, 240),
+  1, &conv2d_14_pad_before_output_array, &conv2d_14_pad_before_output_array_intq)
+
+/* Tensor #225 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_output, AI_STATIC,
+  225, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 28, 28), AI_STRIDE_INIT(4, 1, 1, 24, 672),
+  1, &conv2d_14_output_array, &conv2d_14_output_array_intq)
+
+/* Tensor #226 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_output, AI_STATIC,
+  226, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 28, 28), AI_STRIDE_INIT(4, 1, 1, 16, 448),
+  1, &conv2d_15_output_array, &conv2d_15_output_array_intq)
+
+/* Tensor #227 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_scratch0, AI_STATIC,
+  227, 0x0,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 1, 1, 144, 144),
+  1, &conv2d_16_scratch0_array, NULL)
+
+/* Tensor #228 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_output, AI_STATIC,
+  228, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 28, 28), AI_STRIDE_INIT(4, 1, 1, 8, 224),
+  1, &conv2d_16_output_array, &conv2d_16_output_array_intq)
+
+/* Tensor #229 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_17_output, AI_STATIC,
+  229, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 28, 28), AI_STRIDE_INIT(4, 1, 1, 8, 224),
+  1, &eltwise_17_output_array, &eltwise_17_output_array_intq)
+
+/* Tensor #230 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_output, AI_STATIC,
+  230, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 28, 28), AI_STRIDE_INIT(4, 1, 1, 24, 672),
+  1, &conv2d_18_output_array, &conv2d_18_output_array_intq)
+
+/* Tensor #231 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_scratch0, AI_STATIC,
+  231, 0x0,
+  AI_SHAPE_INIT(4, 1, 272, 1, 1), AI_STRIDE_INIT(4, 1, 1, 272, 272),
+  1, &conv2d_18_scratch0_array, NULL)
+
+/* Tensor #232 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_19_output, AI_STATIC,
+  232, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 14, 14), AI_STRIDE_INIT(4, 1, 1, 24, 336),
+  1, &conv2d_19_output_array, &conv2d_19_output_array_intq)
+
+/* Tensor #233 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_20_output, AI_STATIC,
+  233, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 1, 1, 24, 24),
+  1, &pool_20_output_array, &pool_20_output_array_intq)
+
+/* Tensor #234 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_scratch1, AI_STATIC,
+  234, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 28, 28), AI_STRIDE_INIT(4, 1, 1, 24, 672),
+  1, &conv2d_18_scratch1_array, &conv2d_18_scratch1_array_intq)
+
+/* Tensor #235 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_output, AI_STATIC,
+  235, 0x1,
+  AI_SHAPE_INIT(4, 1, 6, 1, 1), AI_STRIDE_INIT(4, 1, 1, 6, 6),
+  1, &conv2d_21_output_array, &conv2d_21_output_array_intq)
+
+/* Tensor #236 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_output, AI_STATIC,
+  236, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 1, 1, 24, 24),
+  1, &conv2d_22_output_array, &conv2d_22_output_array_intq)
+
+/* Tensor #237 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_23_output, AI_STATIC,
+  237, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 1, 1, 24, 24),
+  1, &eltwise_23_output_array, &eltwise_23_output_array_intq)
+
+/* Tensor #238 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_19_scratch0, AI_STATIC,
+  238, 0x0,
+  AI_SHAPE_INIT(4, 1, 2041, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2041, 2041),
+  1, &conv2d_19_scratch0_array, NULL)
+
+/* Tensor #239 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_25_output, AI_STATIC,
+  239, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 14, 14), AI_STRIDE_INIT(4, 1, 1, 24, 336),
+  1, &eltwise_25_output_array, &eltwise_25_output_array_intq)
+
+/* Tensor #240 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_output, AI_STATIC,
+  240, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 14, 14), AI_STRIDE_INIT(4, 1, 1, 8, 112),
+  1, &conv2d_26_output_array, &conv2d_26_output_array_intq)
+
+/* Tensor #241 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_19_scratch1, AI_STATIC,
+  241, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 14, 14), AI_STRIDE_INIT(4, 1, 1, 24, 336),
+  1, &conv2d_19_scratch1_array, &conv2d_19_scratch1_array_intq)
+
+/* Tensor #242 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_output, AI_STATIC,
+  242, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 14, 14), AI_STRIDE_INIT(4, 1, 1, 48, 672),
+  1, &conv2d_27_output_array, &conv2d_27_output_array_intq)
+
+/* Tensor #243 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_output, AI_STATIC,
+  243, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 14, 14), AI_STRIDE_INIT(4, 1, 1, 48, 672),
+  1, &conv2d_28_output_array, &conv2d_28_output_array_intq)
+
+/* Tensor #244 */
+AI_TENSOR_OBJ_DECLARE(
+  pool_29_output, AI_STATIC,
+  244, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 1, 1, 48, 48),
+  1, &pool_29_output_array, &pool_29_output_array_intq)
+
+/* Tensor #245 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_scratch0, AI_STATIC,
+  245, 0x0,
+  AI_SHAPE_INIT(4, 1, 156, 1, 1), AI_STRIDE_INIT(4, 1, 1, 156, 156),
+  1, &conv2d_21_scratch0_array, NULL)
+
+/* Tensor #246 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_output, AI_STATIC,
+  246, 0x1,
+  AI_SHAPE_INIT(4, 1, 12, 1, 1), AI_STRIDE_INIT(4, 1, 1, 12, 12),
+  1, &conv2d_30_output_array, &conv2d_30_output_array_intq)
+
+/* Tensor #247 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_31_output, AI_STATIC,
+  247, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 1, 1, 48, 48),
+  1, &conv2d_31_output_array, &conv2d_31_output_array_intq)
+
+/* Tensor #248 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_32_output, AI_STATIC,
+  248, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 1, 1, 48, 48),
+  1, &eltwise_32_output_array, &eltwise_32_output_array_intq)
+
+/* Tensor #249 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_scratch0, AI_STATIC,
+  249, 0x0,
+  AI_SHAPE_INIT(4, 1, 264, 1, 1), AI_STRIDE_INIT(4, 1, 1, 264, 264),
+  1, &conv2d_22_scratch0_array, NULL)
+
+/* Tensor #250 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_33_output, AI_STATIC,
+  250, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 1, 1, 48, 48),
+  1, &nl_33_output_array, &nl_33_output_array_intq)
+
+
+
+/**  Layer declarations section  **********************************************/
+
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conversion_82_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_81_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conversion_82_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conversion_82_layer, 82,
+  NL_TYPE, 0x0, NULL,
+  nl, node_convert,
+  &conversion_82_chain,
+  NULL, &conversion_82_layer, AI_STATIC, 
+)
+
+
+AI_STATIC_CONST ai_i32 nl_81_nl_params_data[] = { 2037619584, 24, -124 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_81_nl_params, AI_ARRAY_FORMAT_S32,
+    nl_81_nl_params_data, nl_81_nl_params_data, 3, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_81_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_79_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_81_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_81_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_81_layer, 81,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_sm_integer,
+  &nl_81_chain,
+  NULL, &conversion_82_layer, AI_STATIC, 
+  .nl_params = &nl_81_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_79_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_78_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_79_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_79_weights, &conv2d_79_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_79_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_79_layer, 79,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_79_chain,
+  NULL, &nl_81_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_78_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_77_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_78_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_78_weights, &conv2d_78_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_78_scratch0, &conv2d_78_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_78_layer, 78,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_78_chain,
+  NULL, &conv2d_79_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_77_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_76_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_77_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_77_layer, 77,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_77_chain,
+  NULL, &conv2d_78_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_stride = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_76_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_75_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_76_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_76_weights, &conv2d_76_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_76_scratch0, &conv2d_76_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_76_layer, 76,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_76_chain,
+  NULL, &pool_77_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_75_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_65_output, &conv2d_74_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_75_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_75_layer, 75,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_75_chain,
+  NULL, &conv2d_76_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_74_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_73_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_74_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_74_weights, &conv2d_74_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_74_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_74_layer, 74,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_74_chain,
+  NULL, &eltwise_75_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_73_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_67_output, &nl_72_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_73_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_73_layer, 73,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_73_chain,
+  NULL, &conv2d_74_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_72_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -126, -125, -123, -121, -120, -118, -116, -115, -113, -111, -110, -108, -106, -105, -103, -101, -100, -98, -96, -95, -93, -91, -90, -88, -86, -85, -83, -81, -79, -78, -76, -74, -73, -71, -69, -68, -66, -64, -63, -61, -59, -58, -56, -54, -53, -51, -49, -48, -46, -44, -43, -41, -39, -38, -36, -34, -33, -31, -29, -28, -26, -24, -23, -21, -19, -18, -16, -14, -13, -11, -9, -8, -6, -4, -3, -1, 1, 2, 4, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 28, 29, 31, 33, 34, 36, 38, 39, 41, 43, 44, 46, 48, 49, 51, 53, 54, 56, 58, 59, 61, 63, 64, 66, 68, 69, 71, 73, 74, 76, 78, 79, 81, 83, 84, 86, 88, 89, 91, 93, 94, 96, 98, 100, 101, 103, 105, 106, 108, 110, 111, 113, 115, 116, 118, 120, 121, 123, 125, 126 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_72_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_72_nl_params_data, nl_72_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_72_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_71_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_72_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_72_layer, 72,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_72_chain,
+  NULL, &eltwise_73_layer, AI_STATIC, 
+  .nl_params = &nl_72_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_71_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_70_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_71_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_71_layer, 71,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_71_chain,
+  NULL, &nl_72_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_70_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_69_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_70_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_70_weights, &conv2d_70_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_70_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_70_layer, 70,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_70_chain,
+  NULL, &eltwise_71_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_69_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_68_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_69_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_69_weights, &conv2d_69_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_69_scratch0, &conv2d_69_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_69_layer, 69,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_69_chain,
+  NULL, &conv2d_70_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_68_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_67_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_68_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_68_layer, 68,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_68_chain,
+  NULL, &conv2d_69_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_stride = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_67_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_66_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_67_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_67_weights, &conv2d_67_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_67_scratch0, &conv2d_67_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_67_layer, 67,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_dw_sssa8_ch,
+  &conv2d_67_chain,
+  NULL, &pool_68_layer, AI_STATIC, 
+  .groups = 120, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 2, 2, 2, 2), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_66_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_65_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_66_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_66_weights, &conv2d_66_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_66_scratch0, &conv2d_66_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_66_layer, 66,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_66_chain,
+  NULL, &conv2d_67_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_65_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_55_output, &conv2d_64_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_65_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_65_layer, 65,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_65_chain,
+  NULL, &conv2d_66_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_64_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_63_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_64_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_64_weights, &conv2d_64_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_64_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_64_layer, 64,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_64_chain,
+  NULL, &eltwise_65_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_63_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_57_output, &nl_62_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_63_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_63_layer, 63,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_63_chain,
+  NULL, &conv2d_64_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_62_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -126, -124, -123, -121, -119, -117, -115, -114, -112, -110, -108, -106, -105, -103, -101, -99, -98, -96, -94, -92, -90, -89, -87, -85, -83, -81, -80, -78, -76, -74, -72, -71, -69, -67, -65, -63, -62, -60, -58, -56, -54, -53, -51, -49, -47, -45, -44, -42, -40, -38, -37, -35, -33, -31, -29, -28, -26, -24, -22, -20, -19, -17, -15, -13, -11, -10, -8, -6, -4, -2, -1, 1, 3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 21, 23, 24, 26, 28, 30, 32, 33, 35, 37, 39, 41, 42, 44, 46, 48, 50, 51, 53, 55, 57, 59, 60, 62, 64, 66, 68, 69, 71, 73, 75, 76, 78, 80, 82, 84, 85, 87, 89, 91, 93, 94, 96, 98, 100, 102, 103, 105, 107, 109, 111, 112, 114, 116, 118, 120, 121, 123, 125, 127 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_62_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_62_nl_params_data, nl_62_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_62_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_61_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_62_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_62_layer, 62,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_62_chain,
+  NULL, &eltwise_63_layer, AI_STATIC, 
+  .nl_params = &nl_62_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_61_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_60_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_61_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_61_layer, 61,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_61_chain,
+  NULL, &nl_62_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_60_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_59_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_60_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_60_weights, &conv2d_60_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_60_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_60_layer, 60,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_60_chain,
+  NULL, &eltwise_61_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_59_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_58_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_59_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_59_weights, &conv2d_59_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_59_scratch0, &conv2d_59_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_59_layer, 59,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_59_chain,
+  NULL, &conv2d_60_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_58_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_57_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_58_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_58_layer, 58,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_58_chain,
+  NULL, &conv2d_59_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_stride = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_57_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_56_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_57_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_57_weights, &conv2d_57_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_57_scratch0, &conv2d_57_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_57_layer, 57,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_dw_sssa8_ch,
+  &conv2d_57_chain,
+  NULL, &pool_58_layer, AI_STATIC, 
+  .groups = 80, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 2, 2, 2, 2), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_56_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_55_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_56_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_56_weights, &conv2d_56_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_56_scratch0, &conv2d_56_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_56_layer, 56,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_56_chain,
+  NULL, &conv2d_57_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_55_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_54_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_55_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_55_weights, &conv2d_55_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_55_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_55_layer, 55,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_55_chain,
+  NULL, &conv2d_56_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_54_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_48_output, &nl_53_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_54_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_54_layer, 54,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_54_chain,
+  NULL, &conv2d_55_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_53_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -127, -126, -125, -124, -122, -121, -120, -119, -118, -117, -116, -115, -113, -112, -111, -110, -109, -108, -107, -106, -104, -103, -102, -101, -100, -99, -98, -97, -96, -94, -93, -92, -91, -90, -89, -88, -87, -85, -84, -83, -82, -81, -80, -79, -78, -76, -75, -74, -73, -72, -71, -70, -69, -67, -66, -65, -64, -63, -62, -61, -60, -59, -57, -56, -55, -54, -53, -52, -51, -50, -48, -47, -46, -45, -44, -43, -42, -41, -39, -38, -37, -36, -35, -34, -33, -32, -31, -29, -28, -27, -26, -25, -24, -23, -22, -20, -19, -18, -17, -16, -15, -14, -13, -11, -10, -9, -8, -7, -6, -5, -4, -3, -1, 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43, 45, 46, 47, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 64, 65, 66, 67, 68, 69, 70, 71, 73, 74, 75, 76, 77, 78, 79, 80, 82, 83, 84, 85, 86, 87, 88, 89, 90, 92, 93, 94, 95, 96, 97, 98, 99, 101, 102, 103, 104, 105, 106, 107, 108, 110, 111, 112, 113, 114, 115, 116, 117, 119, 120, 121, 122, 123, 124, 125, 126, 127 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_53_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_53_nl_params_data, nl_53_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_53_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_52_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_53_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_53_layer, 53,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_53_chain,
+  NULL, &eltwise_54_layer, AI_STATIC, 
+  .nl_params = &nl_53_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_52_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_51_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_52_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_52_layer, 52,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_52_chain,
+  NULL, &nl_53_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_51_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_50_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_51_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_51_weights, &conv2d_51_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_51_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_51_layer, 51,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_51_chain,
+  NULL, &eltwise_52_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_50_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_49_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_50_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_50_weights, &conv2d_50_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_50_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_50_layer, 50,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_50_chain,
+  NULL, &conv2d_51_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_49_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_48_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_49_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_49_layer, 49,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_49_chain,
+  NULL, &conv2d_50_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_stride = AI_SHAPE_2D_INIT(7, 7), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_48_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_47_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_48_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_48_weights, &conv2d_48_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_48_scratch0, &conv2d_48_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_48_layer, 48,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_dw_sssa8_ch,
+  &conv2d_48_chain,
+  NULL, &pool_49_layer, AI_STATIC, 
+  .groups = 64, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 3, 3), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_47_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_46_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_47_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_47_weights, &conv2d_47_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_47_scratch0, &conv2d_47_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_47_layer, 47,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_47_chain,
+  NULL, &conv2d_48_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_46_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_36_output, &conv2d_45_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_46_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_46_layer, 46,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_46_chain,
+  NULL, &conv2d_47_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_45_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_44_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_45_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_45_weights, &conv2d_45_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_45_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_45_layer, 45,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_45_chain,
+  NULL, &eltwise_46_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_44_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_38_output, &nl_43_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_44_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_44_layer, 44,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_44_chain,
+  NULL, &conv2d_45_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_43_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -127, -125, -124, -123, -122, -120, -119, -118, -116, -115, -114, -113, -111, -110, -109, -107, -106, -105, -104, -102, -101, -100, -98, -97, -96, -95, -93, -92, -91, -89, -88, -87, -86, -84, -83, -82, -80, -79, -78, -77, -75, -74, -73, -71, -70, -69, -68, -66, -65, -64, -62, -61, -60, -59, -57, -56, -55, -53, -52, -51, -50, -48, -47, -46, -44, -43, -42, -41, -39, -38, -37, -35, -34, -33, -32, -30, -29, -28, -26, -25, -24, -23, -21, -20, -19, -17, -16, -15, -14, -12, -11, -10, -8, -7, -6, -5, -3, -2, -1, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 19, 20, 21, 22, 24, 25, 26, 28, 29, 30, 31, 33, 34, 35, 36, 38, 39, 40, 42, 43, 44, 45, 47, 48, 49, 51, 52, 53, 54, 56, 57, 58, 60, 61, 62, 63, 65, 66, 67, 69, 70, 71, 72, 74, 75, 76, 78, 79, 80, 81, 83, 84, 85, 87, 88, 89, 90, 92, 93, 94, 96, 97, 98, 99, 101, 102, 103, 105, 106, 107, 108, 110, 111, 112, 114, 115, 116, 117, 119, 120, 121, 123, 124, 125, 126 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_43_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_43_nl_params_data, nl_43_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_43_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_42_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_43_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_43_layer, 43,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_43_chain,
+  NULL, &eltwise_44_layer, AI_STATIC, 
+  .nl_params = &nl_43_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_42_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_41_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_42_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_42_layer, 42,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_42_chain,
+  NULL, &nl_43_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_41_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_40_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_41_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_41_weights, &conv2d_41_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_41_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_41_layer, 41,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_41_chain,
+  NULL, &eltwise_42_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_40_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_39_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_40_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_40_weights, &conv2d_40_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_40_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_40_layer, 40,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_40_chain,
+  NULL, &conv2d_41_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_39_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_38_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_39_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_39_layer, 39,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_39_chain,
+  NULL, &conv2d_40_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(14, 14), 
+  .pool_stride = AI_SHAPE_2D_INIT(14, 14), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_38_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_37_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_38_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_38_weights, &conv2d_38_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_38_scratch0, &conv2d_38_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_38_layer, 38,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_dw_sssa8_ch,
+  &conv2d_38_chain,
+  NULL, &pool_39_layer, AI_STATIC, 
+  .groups = 32, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 2, 2, 2, 2), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_37_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_36_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_37_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_37_weights, &conv2d_37_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_37_scratch0, &conv2d_37_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_37_layer, 37,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_37_chain,
+  NULL, &conv2d_38_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_36_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_26_output, &conv2d_35_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_36_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_36_layer, 36,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_36_chain,
+  NULL, &conv2d_37_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_35_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_34_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_35_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_35_weights, &conv2d_35_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_35_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_35_layer, 35,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_35_chain,
+  NULL, &eltwise_36_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_34_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_28_output, &nl_33_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_34_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_34_layer, 34,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_34_chain,
+  NULL, &conv2d_35_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_33_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -126, -125, -123, -121, -120, -118, -117, -115, -113, -112, -110, -108, -107, -105, -103, -102, -100, -99, -97, -95, -94, -92, -90, -89, -87, -86, -84, -82, -81, -79, -77, -76, -74, -72, -71, -69, -68, -66, -64, -63, -61, -59, -58, -56, -54, -53, -51, -50, -48, -46, -45, -43, -41, -40, -38, -36, -35, -33, -32, -30, -28, -27, -25, -23, -22, -20, -19, -17, -15, -14, -12, -10, -9, -7, -5, -4, -2, -1, 1, 3, 4, 6, 8, 9, 11, 13, 14, 16, 17, 19, 21, 22, 24, 26, 27, 29, 31, 32, 34, 35, 37, 39, 40, 42, 44, 45, 47, 48, 50, 52, 53, 55, 57, 58, 60, 62, 63, 65, 66, 68, 70, 71, 73, 75, 76, 78, 80, 81, 83, 84, 86, 88, 89, 91, 93, 94, 96, 98, 99, 101, 102, 104, 106, 107, 109, 111, 112, 114, 115, 117, 119, 120, 122, 124, 125, 127 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_33_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_33_nl_params_data, nl_33_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_33_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_32_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_33_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_33_layer, 33,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_33_chain,
+  NULL, &eltwise_34_layer, AI_STATIC, 
+  .nl_params = &nl_33_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_32_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_31_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_32_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_32_layer, 32,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_32_chain,
+  NULL, &nl_33_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_31_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_30_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_31_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_31_weights, &conv2d_31_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_31_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_31_layer, 31,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_31_chain,
+  NULL, &eltwise_32_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_30_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_29_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_30_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_30_weights, &conv2d_30_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_30_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_30_layer, 30,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_30_chain,
+  NULL, &conv2d_31_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_29_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_28_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_29_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_29_layer, 29,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_29_chain,
+  NULL, &conv2d_30_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(14, 14), 
+  .pool_stride = AI_SHAPE_2D_INIT(14, 14), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_28_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_27_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_28_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_28_weights, &conv2d_28_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_28_scratch0, &conv2d_28_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_28_layer, 28,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_dw_sssa8_ch,
+  &conv2d_28_chain,
+  NULL, &pool_29_layer, AI_STATIC, 
+  .groups = 48, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 2, 2, 2, 2), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_27_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_26_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_27_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_27_weights, &conv2d_27_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_27_scratch0, &conv2d_27_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_27_layer, 27,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_27_chain,
+  NULL, &conv2d_28_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_26_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_25_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_26_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_26_weights, &conv2d_26_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_26_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_26_layer, 26,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_26_chain,
+  NULL, &conv2d_27_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_25_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_19_output, &eltwise_23_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_25_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_25_layer, 25,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_25_chain,
+  NULL, &conv2d_26_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_23_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_22_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_23_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_23_layer, 23,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_23_chain,
+  NULL, &eltwise_25_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_22_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_21_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_22_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_22_weights, &conv2d_22_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_22_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_22_layer, 22,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_22_chain,
+  NULL, &eltwise_23_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_21_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_20_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_21_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_21_weights, &conv2d_21_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_21_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_21_layer, 21,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_21_chain,
+  NULL, &conv2d_22_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_20_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_19_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_20_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_20_layer, 20,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_20_chain,
+  NULL, &conv2d_21_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(14, 14), 
+  .pool_stride = AI_SHAPE_2D_INIT(14, 14), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_19_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_18_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_19_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_19_weights, &conv2d_19_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_19_scratch0, &conv2d_19_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_19_layer, 19,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_dw_sssa8_ch,
+  &conv2d_19_chain,
+  NULL, &pool_20_layer, AI_STATIC, 
+  .groups = 24, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 3, 3), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_18_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_17_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_18_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_18_weights, &conv2d_18_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_18_scratch0, &conv2d_18_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_18_layer, 18,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_18_chain,
+  NULL, &conv2d_19_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_17_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_13_output, &conv2d_16_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_17_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_17_layer, 17,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_17_chain,
+  NULL, &conv2d_18_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_16_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_15_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_16_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_16_weights, &conv2d_16_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_16_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_16_layer, 16,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_16_chain,
+  NULL, &eltwise_17_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_15_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_14_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_15_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_15_weights, &conv2d_15_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_15_scratch0, &conv2d_15_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_15_layer, 15,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_15_chain,
+  NULL, &conv2d_16_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_14_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_14_pad_before_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_14_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_14_weights, &conv2d_14_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_14_scratch0, &conv2d_14_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_14_layer, 14,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_deep_3x3_sssa8_ch,
+  &conv2d_14_chain,
+  NULL, &conv2d_15_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+
+AI_STATIC_CONST ai_i8 conv2d_14_pad_before_value_data[] = { 8 };
+AI_ARRAY_OBJ_DECLARE(
+    conv2d_14_pad_before_value, AI_ARRAY_FORMAT_S8,
+    conv2d_14_pad_before_value_data, conv2d_14_pad_before_value_data, 1, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_14_pad_before_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_13_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_14_pad_before_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_14_pad_before_layer, 14,
+  PAD_TYPE, 0x0, NULL,
+  pad, forward_pad,
+  &conv2d_14_pad_before_chain,
+  NULL, &conv2d_14_layer, AI_STATIC, 
+  .value = &conv2d_14_pad_before_value, 
+  .mode = AI_PAD_CONSTANT, 
+  .pads = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_13_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_12_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_13_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_13_weights, &conv2d_13_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_13_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_13_layer, 13,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_13_chain,
+  NULL, &conv2d_14_pad_before_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_12_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_11_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_12_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_12_weights, &conv2d_12_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_12_scratch0, &conv2d_12_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_12_layer, 12,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_12_chain,
+  NULL, &conv2d_13_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_11_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_11_pad_before_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_11_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_11_weights, &conv2d_11_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_11_scratch0, &conv2d_11_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_11_layer, 11,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_deep_sssa8_ch,
+  &conv2d_11_chain,
+  NULL, &conv2d_12_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+
+AI_STATIC_CONST ai_i8 conv2d_11_pad_before_value_data[] = { -6 };
+AI_ARRAY_OBJ_DECLARE(
+    conv2d_11_pad_before_value, AI_ARRAY_FORMAT_S8,
+    conv2d_11_pad_before_value_data, conv2d_11_pad_before_value_data, 1, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_11_pad_before_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_10_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_11_pad_before_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_11_pad_before_layer, 11,
+  PAD_TYPE, 0x0, NULL,
+  pad, forward_pad,
+  &conv2d_11_pad_before_chain,
+  NULL, &conv2d_11_layer, AI_STATIC, 
+  .value = &conv2d_11_pad_before_value, 
+  .mode = AI_PAD_CONSTANT, 
+  .pads = AI_SHAPE_INIT(4, 0, 0, 2, 2), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_10_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_9_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_10_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_10_weights, &conv2d_10_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_10_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_10_layer, 10,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_10_chain,
+  NULL, &conv2d_11_pad_before_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_9_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_8_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_9_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_9_weights, &conv2d_9_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_9_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_9_layer, 9,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_9_chain,
+  NULL, &conv2d_10_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_8_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_2_output, &nl_7_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_8_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_8_layer, 8,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_8_chain,
+  NULL, &conv2d_9_layer, AI_STATIC, 
+  .operation = ai_mul_f32, 
+  .buffer_operation = ai_mul_buffer_INT8, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_7_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -127, -126, -125, -124, -123, -121, -120, -119, -118, -117, -116, -115, -114, -113, -112, -111, -109, -108, -107, -106, -105, -104, -103, -102, -101, -100, -99, -97, -96, -95, -94, -93, -92, -91, -90, -89, -88, -87, -85, -84, -83, -82, -81, -80, -79, -78, -77, -76, -75, -73, -72, -71, -70, -69, -68, -67, -66, -65, -64, -63, -61, -60, -59, -58, -57, -56, -55, -54, -53, -52, -51, -49, -48, -47, -46, -45, -44, -43, -42, -41, -40, -39, -37, -36, -35, -34, -33, -32, -31, -30, -29, -28, -26, -25, -24, -23, -22, -21, -20, -19, -18, -17, -16, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_7_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_7_nl_params_data, nl_7_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_7_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_6_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_7_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_7_layer, 7,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_7_chain,
+  NULL, &eltwise_8_layer, AI_STATIC, 
+  .nl_params = &nl_7_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_6_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_5_output, &EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_6_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_6_layer, 6,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_6_chain,
+  NULL, &nl_7_layer, AI_STATIC, 
+  .operation = ai_min_f32, 
+  .buffer_operation = ai_min_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_5_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_4_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_5_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_5_weights, &conv2d_5_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_5_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_5_layer, 5,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_5_chain,
+  NULL, &eltwise_6_layer, AI_STATIC, 
+  .groups = 1, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_4_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_3_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_4_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_4_weights, &conv2d_4_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_4_scratch0, &conv2d_4_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_4_layer, 4,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_pw_sssa8_ch,
+  &conv2d_4_chain,
+  NULL, &conv2d_5_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  pool_3_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_2_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &pool_3_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  pool_3_layer, 3,
+  POOL_TYPE, 0x0, NULL,
+  pool, forward_ap_integer_INT8,
+  &pool_3_chain,
+  NULL, &conv2d_4_layer, AI_STATIC, 
+  .pool_size = AI_SHAPE_2D_INIT(56, 56), 
+  .pool_stride = AI_SHAPE_2D_INIT(56, 56), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_2_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_2_pad_before_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_2_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_2_weights, &conv2d_2_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_2_scratch0, &conv2d_2_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_2_layer, 2,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_deep_sssa8_ch,
+  &conv2d_2_chain,
+  NULL, &pool_3_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+
+AI_STATIC_CONST ai_i8 conv2d_2_pad_before_value_data[] = { -128 };
+AI_ARRAY_OBJ_DECLARE(
+    conv2d_2_pad_before_value, AI_ARRAY_FORMAT_S8,
+    conv2d_2_pad_before_value_data, conv2d_2_pad_before_value_data, 1, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_2_pad_before_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_1_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_2_pad_before_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_2_pad_before_layer, 2,
+  PAD_TYPE, 0x0, NULL,
+  pad, forward_pad,
+  &conv2d_2_pad_before_chain,
+  NULL, &conv2d_2_layer, AI_STATIC, 
+  .value = &conv2d_2_pad_before_value, 
+  .mode = AI_PAD_CONSTANT, 
+  .pads = AI_SHAPE_INIT(4, 0, 0, 2, 2), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_1_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conversion_0_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_1_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_1_weights, &conv2d_1_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_1_scratch0, &conv2d_1_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_1_layer, 1,
+  OPTIMIZED_CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_rgb_sssa8_ch,
+  &conv2d_1_chain,
+  NULL, &conv2d_2_pad_before_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 2, 2), 
+  .in_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+  .out_ch_format = AI_LAYER_FORMAT_CHANNEL_LAST_VALID, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conversion_0_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &serving_default_input_10_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conversion_0_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conversion_0_layer, 0,
+  NL_TYPE, 0x0, NULL,
+  nl, node_convert_integer,
+  &conversion_0_chain,
+  NULL, &conv2d_1_layer, AI_STATIC, 
+)
+
+
+#if (AI_TOOLS_API_VERSION < AI_TOOLS_API_VERSION_1_5)
+
+AI_NETWORK_OBJ_DECLARE(
+  AI_NET_OBJ_INSTANCE, AI_STATIC,
+  AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
+    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 81856, 1, 1),
+    81856, NULL, NULL),
+  AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
+    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 155704, 1, 1),
+    155704, NULL, NULL),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &serving_default_input_10_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &conversion_82_output),
+  &conversion_0_layer, 0, NULL)
+
+#else
+
+AI_NETWORK_OBJ_DECLARE(
+  AI_NET_OBJ_INSTANCE, AI_STATIC,
+  AI_BUFFER_ARRAY_OBJ_INIT_STATIC(
+  	AI_FLAG_NONE, 1,
+    AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
+      AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 81856, 1, 1),
+      81856, NULL, NULL)
+  ),
+  AI_BUFFER_ARRAY_OBJ_INIT_STATIC(
+  	AI_FLAG_NONE, 1,
+    AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
+      AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 155704, 1, 1),
+      155704, NULL, NULL)
+  ),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &serving_default_input_10_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &conversion_82_output),
+  &conversion_0_layer, 0, NULL)
+
+#endif	/*(AI_TOOLS_API_VERSION < AI_TOOLS_API_VERSION_1_5)*/
+
+
+/******************************************************************************/
+AI_DECLARE_STATIC
+ai_bool network_configure_activations(
+  ai_network* net_ctx, const ai_network_params* params)
+{
+  AI_ASSERT(net_ctx)
+
+  if (ai_platform_get_activations_map(g_network_activations_map, 1, params)) {
+    /* Updating activations (byte) offsets */
+    
+    serving_default_input_10_output_array.data = AI_PTR(g_network_activations_map[0] + 4524);
+    serving_default_input_10_output_array.data_start = AI_PTR(g_network_activations_map[0] + 4524);
+    
+    conversion_0_output_array.data = AI_PTR(g_network_activations_map[0] + 4520);
+    conversion_0_output_array.data_start = AI_PTR(g_network_activations_map[0] + 4520);
+    
+    conv2d_1_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 155052);
+    conv2d_1_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 155052);
+    
+    conv2d_1_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 3616);
+    conv2d_1_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 3616);
+    
+    conv2d_1_output_array.data = AI_PTR(g_network_activations_map[0] + 3616);
+    conv2d_1_output_array.data_start = AI_PTR(g_network_activations_map[0] + 3616);
+    
+    conv2d_2_pad_before_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_2_pad_before_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_2_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 103968);
+    conv2d_2_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 103968);
+    
+    conv2d_2_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 105520);
+    conv2d_2_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 105520);
+    
+    conv2d_2_output_array.data = AI_PTR(g_network_activations_map[0] + 130608);
+    conv2d_2_output_array.data_start = AI_PTR(g_network_activations_map[0] + 130608);
+    
+    pool_3_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_3_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_4_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 8);
+    conv2d_4_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 8);
+    
+    conv2d_4_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 60);
+    conv2d_4_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 60);
+    
+    conv2d_4_output_array.data = AI_PTR(g_network_activations_map[0] + 64);
+    conv2d_4_output_array.data_start = AI_PTR(g_network_activations_map[0] + 64);
+    
+    conv2d_5_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 68);
+    conv2d_5_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 68);
+    
+    conv2d_5_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_5_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_6_output_array.data = AI_PTR(g_network_activations_map[0] + 8);
+    eltwise_6_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8);
+    
+    nl_7_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_7_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_8_output_array.data = AI_PTR(g_network_activations_map[0] + 8);
+    eltwise_8_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8);
+    
+    conv2d_9_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 25096);
+    conv2d_9_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 25096);
+    
+    conv2d_9_output_array.data = AI_PTR(g_network_activations_map[0] + 25288);
+    conv2d_9_output_array.data_start = AI_PTR(g_network_activations_map[0] + 25288);
+    
+    conv2d_10_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_10_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_10_output_array.data = AI_PTR(g_network_activations_map[0] + 144);
+    conv2d_10_output_array.data_start = AI_PTR(g_network_activations_map[0] + 144);
+    
+    conv2d_11_pad_before_output_array.data = AI_PTR(g_network_activations_map[0] + 25232);
+    conv2d_11_pad_before_output_array.data_start = AI_PTR(g_network_activations_map[0] + 25232);
+    
+    conv2d_11_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_11_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_11_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 2816);
+    conv2d_11_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 2816);
+    
+    conv2d_11_output_array.data = AI_PTR(g_network_activations_map[0] + 52144);
+    conv2d_11_output_array.data_start = AI_PTR(g_network_activations_map[0] + 52144);
+    
+    conv2d_12_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_12_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_12_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 224);
+    conv2d_12_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 224);
+    
+    conv2d_12_output_array.data = AI_PTR(g_network_activations_map[0] + 12768);
+    conv2d_12_output_array.data_start = AI_PTR(g_network_activations_map[0] + 12768);
+    
+    conv2d_13_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_13_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_13_output_array.data = AI_PTR(g_network_activations_map[0] + 144);
+    conv2d_13_output_array.data_start = AI_PTR(g_network_activations_map[0] + 144);
+    
+    conv2d_14_pad_before_output_array.data = AI_PTR(g_network_activations_map[0] + 6416);
+    conv2d_14_pad_before_output_array.data_start = AI_PTR(g_network_activations_map[0] + 6416);
+    
+    conv2d_14_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 13616);
+    conv2d_14_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 13616);
+    
+    conv2d_14_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 17696);
+    conv2d_14_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 17696);
+    
+    conv2d_14_output_array.data = AI_PTR(g_network_activations_map[0] + 36512);
+    conv2d_14_output_array.data_start = AI_PTR(g_network_activations_map[0] + 36512);
+    
+    conv2d_15_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 6416);
+    conv2d_15_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 6416);
+    
+    conv2d_15_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 6672);
+    conv2d_15_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 6672);
+    
+    conv2d_15_output_array.data = AI_PTR(g_network_activations_map[0] + 19216);
+    conv2d_15_output_array.data_start = AI_PTR(g_network_activations_map[0] + 19216);
+    
+    conv2d_16_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_16_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_16_output_array.data = AI_PTR(g_network_activations_map[0] + 6416);
+    conv2d_16_output_array.data_start = AI_PTR(g_network_activations_map[0] + 6416);
+    
+    eltwise_17_output_array.data = AI_PTR(g_network_activations_map[0] + 12688);
+    eltwise_17_output_array.data_start = AI_PTR(g_network_activations_map[0] + 12688);
+    
+    conv2d_18_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_18_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_18_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 18960);
+    conv2d_18_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 18960);
+    
+    conv2d_18_output_array.data = AI_PTR(g_network_activations_map[0] + 37776);
+    conv2d_18_output_array.data_start = AI_PTR(g_network_activations_map[0] + 37776);
+    
+    conv2d_19_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_19_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_19_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 2044);
+    conv2d_19_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 2044);
+    
+    conv2d_19_output_array.data = AI_PTR(g_network_activations_map[0] + 6748);
+    conv2d_19_output_array.data_start = AI_PTR(g_network_activations_map[0] + 6748);
+    
+    pool_20_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_20_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_21_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 24);
+    conv2d_21_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 24);
+    
+    conv2d_21_output_array.data = AI_PTR(g_network_activations_map[0] + 180);
+    conv2d_21_output_array.data_start = AI_PTR(g_network_activations_map[0] + 180);
+    
+    conv2d_22_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 188);
+    conv2d_22_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 188);
+    
+    conv2d_22_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_22_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_23_output_array.data = AI_PTR(g_network_activations_map[0] + 24);
+    eltwise_23_output_array.data_start = AI_PTR(g_network_activations_map[0] + 24);
+    
+    eltwise_25_output_array.data = AI_PTR(g_network_activations_map[0] + 48);
+    eltwise_25_output_array.data_start = AI_PTR(g_network_activations_map[0] + 48);
+    
+    conv2d_26_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 4752);
+    conv2d_26_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 4752);
+    
+    conv2d_26_output_array.data = AI_PTR(g_network_activations_map[0] + 4928);
+    conv2d_26_output_array.data_start = AI_PTR(g_network_activations_map[0] + 4928);
+    
+    conv2d_27_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_27_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_27_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 6496);
+    conv2d_27_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 6496);
+    
+    conv2d_27_output_array.data = AI_PTR(g_network_activations_map[0] + 15904);
+    conv2d_27_output_array.data_start = AI_PTR(g_network_activations_map[0] + 15904);
+    
+    conv2d_28_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_28_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_28_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 6496);
+    conv2d_28_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 6496);
+    
+    conv2d_28_output_array.data = AI_PTR(g_network_activations_map[0] + 25312);
+    conv2d_28_output_array.data_start = AI_PTR(g_network_activations_map[0] + 25312);
+    
+    pool_29_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_29_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_30_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 48);
+    conv2d_30_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 48);
+    
+    conv2d_30_output_array.data = AI_PTR(g_network_activations_map[0] + 360);
+    conv2d_30_output_array.data_start = AI_PTR(g_network_activations_map[0] + 360);
+    
+    conv2d_31_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 372);
+    conv2d_31_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 372);
+    
+    conv2d_31_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_31_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_32_output_array.data = AI_PTR(g_network_activations_map[0] + 48);
+    eltwise_32_output_array.data_start = AI_PTR(g_network_activations_map[0] + 48);
+    
+    nl_33_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_33_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_34_output_array.data = AI_PTR(g_network_activations_map[0] + 6496);
+    eltwise_34_output_array.data_start = AI_PTR(g_network_activations_map[0] + 6496);
+    
+    conv2d_35_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_35_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_35_output_array.data = AI_PTR(g_network_activations_map[0] + 272);
+    conv2d_35_output_array.data_start = AI_PTR(g_network_activations_map[0] + 272);
+    
+    eltwise_36_output_array.data = AI_PTR(g_network_activations_map[0] + 1840);
+    eltwise_36_output_array.data_start = AI_PTR(g_network_activations_map[0] + 1840);
+    
+    conv2d_37_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_37_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_37_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 3408);
+    conv2d_37_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 3408);
+    
+    conv2d_37_output_array.data = AI_PTR(g_network_activations_map[0] + 9680);
+    conv2d_37_output_array.data_start = AI_PTR(g_network_activations_map[0] + 9680);
+    
+    conv2d_38_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 3408);
+    conv2d_38_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 3408);
+    
+    conv2d_38_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 15952);
+    conv2d_38_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 15952);
+    
+    conv2d_38_output_array.data = AI_PTR(g_network_activations_map[0] + 22224);
+    conv2d_38_output_array.data_start = AI_PTR(g_network_activations_map[0] + 22224);
+    
+    pool_39_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_39_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_40_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 32);
+    conv2d_40_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 32);
+    
+    conv2d_40_output_array.data = AI_PTR(g_network_activations_map[0] + 240);
+    conv2d_40_output_array.data_start = AI_PTR(g_network_activations_map[0] + 240);
+    
+    conv2d_41_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 248);
+    conv2d_41_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 248);
+    
+    conv2d_41_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_41_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_42_output_array.data = AI_PTR(g_network_activations_map[0] + 32);
+    eltwise_42_output_array.data_start = AI_PTR(g_network_activations_map[0] + 32);
+    
+    nl_43_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_43_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_44_output_array.data = AI_PTR(g_network_activations_map[0] + 3408);
+    eltwise_44_output_array.data_start = AI_PTR(g_network_activations_map[0] + 3408);
+    
+    conv2d_45_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_45_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_45_output_array.data = AI_PTR(g_network_activations_map[0] + 208);
+    conv2d_45_output_array.data_start = AI_PTR(g_network_activations_map[0] + 208);
+    
+    eltwise_46_output_array.data = AI_PTR(g_network_activations_map[0] + 3408);
+    eltwise_46_output_array.data_start = AI_PTR(g_network_activations_map[0] + 3408);
+    
+    conv2d_47_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_47_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_47_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 4976);
+    conv2d_47_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 4976);
+    
+    conv2d_47_output_array.data = AI_PTR(g_network_activations_map[0] + 17520);
+    conv2d_47_output_array.data_start = AI_PTR(g_network_activations_map[0] + 17520);
+    
+    conv2d_48_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_48_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_48_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 5444);
+    conv2d_48_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 5444);
+    
+    conv2d_48_output_array.data = AI_PTR(g_network_activations_map[0] + 8580);
+    conv2d_48_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8580);
+    
+    pool_49_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_49_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_50_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 64);
+    conv2d_50_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 64);
+    
+    conv2d_50_output_array.data = AI_PTR(g_network_activations_map[0] + 480);
+    conv2d_50_output_array.data_start = AI_PTR(g_network_activations_map[0] + 480);
+    
+    conv2d_51_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 496);
+    conv2d_51_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 496);
+    
+    conv2d_51_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_51_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_52_output_array.data = AI_PTR(g_network_activations_map[0] + 64);
+    eltwise_52_output_array.data_start = AI_PTR(g_network_activations_map[0] + 64);
+    
+    nl_53_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_53_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_54_output_array.data = AI_PTR(g_network_activations_map[0] + 64);
+    eltwise_54_output_array.data_start = AI_PTR(g_network_activations_map[0] + 64);
+    
+    conv2d_55_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 3200);
+    conv2d_55_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 3200);
+    
+    conv2d_55_output_array.data = AI_PTR(g_network_activations_map[0] + 3696);
+    conv2d_55_output_array.data_start = AI_PTR(g_network_activations_map[0] + 3696);
+    
+    conv2d_56_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_56_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_56_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 4872);
+    conv2d_56_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 4872);
+    
+    conv2d_56_output_array.data = AI_PTR(g_network_activations_map[0] + 8792);
+    conv2d_56_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8792);
+    
+    conv2d_57_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 12712);
+    conv2d_57_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 12712);
+    
+    conv2d_57_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 4872);
+    conv2d_57_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 4872);
+    
+    conv2d_57_output_array.data = AI_PTR(g_network_activations_map[0] + 19516);
+    conv2d_57_output_array.data_start = AI_PTR(g_network_activations_map[0] + 19516);
+    
+    pool_58_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_58_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_59_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 80);
+    conv2d_59_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 80);
+    
+    conv2d_59_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 600);
+    conv2d_59_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 600);
+    
+    conv2d_59_output_array.data = AI_PTR(g_network_activations_map[0] + 620);
+    conv2d_59_output_array.data_start = AI_PTR(g_network_activations_map[0] + 620);
+    
+    conv2d_60_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 640);
+    conv2d_60_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 640);
+    
+    conv2d_60_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_60_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_61_output_array.data = AI_PTR(g_network_activations_map[0] + 80);
+    eltwise_61_output_array.data_start = AI_PTR(g_network_activations_map[0] + 80);
+    
+    nl_62_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_62_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_63_output_array.data = AI_PTR(g_network_activations_map[0] + 4872);
+    eltwise_63_output_array.data_start = AI_PTR(g_network_activations_map[0] + 4872);
+    
+    conv2d_64_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_64_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_64_output_array.data = AI_PTR(g_network_activations_map[0] + 560);
+    conv2d_64_output_array.data_start = AI_PTR(g_network_activations_map[0] + 560);
+    
+    eltwise_65_output_array.data = AI_PTR(g_network_activations_map[0] + 1736);
+    eltwise_65_output_array.data_start = AI_PTR(g_network_activations_map[0] + 1736);
+    
+    conv2d_66_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_66_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_66_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 2912);
+    conv2d_66_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 2912);
+    
+    conv2d_66_output_array.data = AI_PTR(g_network_activations_map[0] + 8792);
+    conv2d_66_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8792);
+    
+    conv2d_67_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 14672);
+    conv2d_67_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 14672);
+    
+    conv2d_67_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 2912);
+    conv2d_67_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 2912);
+    
+    conv2d_67_output_array.data = AI_PTR(g_network_activations_map[0] + 24876);
+    conv2d_67_output_array.data_start = AI_PTR(g_network_activations_map[0] + 24876);
+    
+    pool_68_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_68_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_69_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 120);
+    conv2d_69_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 120);
+    
+    conv2d_69_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 900);
+    conv2d_69_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 900);
+    
+    conv2d_69_output_array.data = AI_PTR(g_network_activations_map[0] + 932);
+    conv2d_69_output_array.data_start = AI_PTR(g_network_activations_map[0] + 932);
+    
+    conv2d_70_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 2912);
+    conv2d_70_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 2912);
+    
+    conv2d_70_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_70_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_71_output_array.data = AI_PTR(g_network_activations_map[0] + 120);
+    eltwise_71_output_array.data_start = AI_PTR(g_network_activations_map[0] + 120);
+    
+    nl_72_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_72_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    eltwise_73_output_array.data = AI_PTR(g_network_activations_map[0] + 2912);
+    eltwise_73_output_array.data_start = AI_PTR(g_network_activations_map[0] + 2912);
+    
+    conv2d_74_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_74_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_74_output_array.data = AI_PTR(g_network_activations_map[0] + 8792);
+    conv2d_74_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8792);
+    
+    eltwise_75_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    eltwise_75_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_76_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 1176);
+    conv2d_76_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 1176);
+    
+    conv2d_76_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 2472);
+    conv2d_76_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 2472);
+    
+    conv2d_76_output_array.data = AI_PTR(g_network_activations_map[0] + 8352);
+    conv2d_76_output_array.data_start = AI_PTR(g_network_activations_map[0] + 8352);
+    
+    pool_77_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    pool_77_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_78_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 120);
+    conv2d_78_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 120);
+    
+    conv2d_78_scratch1_array.data = AI_PTR(g_network_activations_map[0] + 3000);
+    conv2d_78_scratch1_array.data_start = AI_PTR(g_network_activations_map[0] + 3000);
+    
+    conv2d_78_output_array.data = AI_PTR(g_network_activations_map[0] + 3240);
+    conv2d_78_output_array.data_start = AI_PTR(g_network_activations_map[0] + 3240);
+    
+    conv2d_79_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conv2d_79_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    conv2d_79_output_array.data = AI_PTR(g_network_activations_map[0] + 1012);
+    conv2d_79_output_array.data_start = AI_PTR(g_network_activations_map[0] + 1012);
+    
+    nl_81_scratch0_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    nl_81_scratch0_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    nl_81_output_array.data = AI_PTR(g_network_activations_map[0] + 20);
+    nl_81_output_array.data_start = AI_PTR(g_network_activations_map[0] + 20);
+    
+    conversion_82_output_array.data = AI_PTR(g_network_activations_map[0] + 0);
+    conversion_82_output_array.data_start = AI_PTR(g_network_activations_map[0] + 0);
+    
+    return true;
+  }
+  AI_ERROR_TRAP(net_ctx, INIT_FAILED, NETWORK_ACTIVATIONS);
+  return false;
+}
+
+
+
+/******************************************************************************/
+AI_DECLARE_STATIC
+ai_bool network_configure_weights(
+  ai_network* net_ctx, const ai_network_params* params)
+{
+  AI_ASSERT(net_ctx)
+
+  if (ai_platform_get_weights_map(g_network_weights_map, 1, params)) {
+    /* Updating weights (byte) offsets */
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array.data = AI_PTR(g_network_weights_map[0] + 0);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y6_array.data_start = AI_PTR(g_network_weights_map[0] + 0);
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array.data = AI_PTR(g_network_weights_map[0] + 4);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y5_array.data_start = AI_PTR(g_network_weights_map[0] + 4);
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array.data = AI_PTR(g_network_weights_map[0] + 8);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y4_array.data_start = AI_PTR(g_network_weights_map[0] + 8);
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array.data = AI_PTR(g_network_weights_map[0] + 12);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y3_array.data_start = AI_PTR(g_network_weights_map[0] + 12);
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array.data = AI_PTR(g_network_weights_map[0] + 16);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y2_array.data_start = AI_PTR(g_network_weights_map[0] + 16);
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array.data = AI_PTR(g_network_weights_map[0] + 20);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y1_array.data_start = AI_PTR(g_network_weights_map[0] + 20);
+    
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array.format |= AI_FMT_FLAG_CONST;
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array.data = AI_PTR(g_network_weights_map[0] + 24);
+    EmbeddedNetV1_width0_25_conv2d_14_clip_by_value_Minimum_y_array.data_start = AI_PTR(g_network_weights_map[0] + 24);
+    
+    conv2d_1_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_1_weights_array.data = AI_PTR(g_network_weights_map[0] + 28);
+    conv2d_1_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 28);
+    
+    conv2d_1_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_1_bias_array.data = AI_PTR(g_network_weights_map[0] + 244);
+    conv2d_1_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 244);
+    
+    conv2d_2_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_2_weights_array.data = AI_PTR(g_network_weights_map[0] + 276);
+    conv2d_2_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 276);
+    
+    conv2d_2_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_2_bias_array.data = AI_PTR(g_network_weights_map[0] + 852);
+    conv2d_2_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 852);
+    
+    conv2d_4_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_4_weights_array.data = AI_PTR(g_network_weights_map[0] + 884);
+    conv2d_4_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 884);
+    
+    conv2d_4_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_4_bias_array.data = AI_PTR(g_network_weights_map[0] + 900);
+    conv2d_4_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 900);
+    
+    conv2d_5_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_5_weights_array.data = AI_PTR(g_network_weights_map[0] + 908);
+    conv2d_5_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 908);
+    
+    conv2d_5_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_5_bias_array.data = AI_PTR(g_network_weights_map[0] + 924);
+    conv2d_5_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 924);
+    
+    conv2d_9_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_9_weights_array.data = AI_PTR(g_network_weights_map[0] + 956);
+    conv2d_9_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 956);
+    
+    conv2d_9_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_9_bias_array.data = AI_PTR(g_network_weights_map[0] + 1084);
+    conv2d_9_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 1084);
+    
+    conv2d_10_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_10_weights_array.data = AI_PTR(g_network_weights_map[0] + 1148);
+    conv2d_10_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 1148);
+    
+    conv2d_10_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_10_bias_array.data = AI_PTR(g_network_weights_map[0] + 1276);
+    conv2d_10_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 1276);
+    
+    conv2d_11_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_11_weights_array.data = AI_PTR(g_network_weights_map[0] + 1308);
+    conv2d_11_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 1308);
+    
+    conv2d_11_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_11_bias_array.data = AI_PTR(g_network_weights_map[0] + 2460);
+    conv2d_11_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 2460);
+    
+    conv2d_12_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_12_weights_array.data = AI_PTR(g_network_weights_map[0] + 2524);
+    conv2d_12_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 2524);
+    
+    conv2d_12_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_12_bias_array.data = AI_PTR(g_network_weights_map[0] + 2780);
+    conv2d_12_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 2780);
+    
+    conv2d_13_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_13_weights_array.data = AI_PTR(g_network_weights_map[0] + 2844);
+    conv2d_13_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 2844);
+    
+    conv2d_13_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_13_bias_array.data = AI_PTR(g_network_weights_map[0] + 2972);
+    conv2d_13_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 2972);
+    
+    conv2d_14_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_14_weights_array.data = AI_PTR(g_network_weights_map[0] + 3004);
+    conv2d_14_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 3004);
+    
+    conv2d_14_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_14_bias_array.data = AI_PTR(g_network_weights_map[0] + 4732);
+    conv2d_14_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 4732);
+    
+    conv2d_15_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_15_weights_array.data = AI_PTR(g_network_weights_map[0] + 4828);
+    conv2d_15_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 4828);
+    
+    conv2d_15_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_15_bias_array.data = AI_PTR(g_network_weights_map[0] + 5212);
+    conv2d_15_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 5212);
+    
+    conv2d_16_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_16_weights_array.data = AI_PTR(g_network_weights_map[0] + 5276);
+    conv2d_16_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 5276);
+    
+    conv2d_16_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_16_bias_array.data = AI_PTR(g_network_weights_map[0] + 5404);
+    conv2d_16_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 5404);
+    
+    conv2d_18_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_18_weights_array.data = AI_PTR(g_network_weights_map[0] + 5436);
+    conv2d_18_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 5436);
+    
+    conv2d_18_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_18_bias_array.data = AI_PTR(g_network_weights_map[0] + 5628);
+    conv2d_18_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 5628);
+    
+    conv2d_19_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_19_weights_array.data = AI_PTR(g_network_weights_map[0] + 5724);
+    conv2d_19_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 5724);
+    
+    conv2d_19_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_19_bias_array.data = AI_PTR(g_network_weights_map[0] + 6324);
+    conv2d_19_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 6324);
+    
+    conv2d_21_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_21_weights_array.data = AI_PTR(g_network_weights_map[0] + 6420);
+    conv2d_21_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 6420);
+    
+    conv2d_21_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_21_bias_array.data = AI_PTR(g_network_weights_map[0] + 6564);
+    conv2d_21_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 6564);
+    
+    conv2d_22_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_22_weights_array.data = AI_PTR(g_network_weights_map[0] + 6588);
+    conv2d_22_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 6588);
+    
+    conv2d_22_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_22_bias_array.data = AI_PTR(g_network_weights_map[0] + 6732);
+    conv2d_22_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 6732);
+    
+    conv2d_26_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_26_weights_array.data = AI_PTR(g_network_weights_map[0] + 6828);
+    conv2d_26_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 6828);
+    
+    conv2d_26_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_26_bias_array.data = AI_PTR(g_network_weights_map[0] + 7020);
+    conv2d_26_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 7020);
+    
+    conv2d_27_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_27_weights_array.data = AI_PTR(g_network_weights_map[0] + 7052);
+    conv2d_27_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 7052);
+    
+    conv2d_27_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_27_bias_array.data = AI_PTR(g_network_weights_map[0] + 7436);
+    conv2d_27_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 7436);
+    
+    conv2d_28_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_28_weights_array.data = AI_PTR(g_network_weights_map[0] + 7628);
+    conv2d_28_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 7628);
+    
+    conv2d_28_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_28_bias_array.data = AI_PTR(g_network_weights_map[0] + 8828);
+    conv2d_28_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 8828);
+    
+    conv2d_30_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_30_weights_array.data = AI_PTR(g_network_weights_map[0] + 9020);
+    conv2d_30_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 9020);
+    
+    conv2d_30_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_30_bias_array.data = AI_PTR(g_network_weights_map[0] + 9596);
+    conv2d_30_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 9596);
+    
+    conv2d_31_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_31_weights_array.data = AI_PTR(g_network_weights_map[0] + 9644);
+    conv2d_31_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 9644);
+    
+    conv2d_31_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_31_bias_array.data = AI_PTR(g_network_weights_map[0] + 10220);
+    conv2d_31_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 10220);
+    
+    conv2d_35_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_35_weights_array.data = AI_PTR(g_network_weights_map[0] + 10412);
+    conv2d_35_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 10412);
+    
+    conv2d_35_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_35_bias_array.data = AI_PTR(g_network_weights_map[0] + 10796);
+    conv2d_35_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 10796);
+    
+    conv2d_37_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_37_weights_array.data = AI_PTR(g_network_weights_map[0] + 10828);
+    conv2d_37_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 10828);
+    
+    conv2d_37_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_37_bias_array.data = AI_PTR(g_network_weights_map[0] + 11084);
+    conv2d_37_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 11084);
+    
+    conv2d_38_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_38_weights_array.data = AI_PTR(g_network_weights_map[0] + 11212);
+    conv2d_38_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 11212);
+    
+    conv2d_38_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_38_bias_array.data = AI_PTR(g_network_weights_map[0] + 12012);
+    conv2d_38_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 12012);
+    
+    conv2d_40_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_40_weights_array.data = AI_PTR(g_network_weights_map[0] + 12140);
+    conv2d_40_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 12140);
+    
+    conv2d_40_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_40_bias_array.data = AI_PTR(g_network_weights_map[0] + 12396);
+    conv2d_40_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 12396);
+    
+    conv2d_41_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_41_weights_array.data = AI_PTR(g_network_weights_map[0] + 12428);
+    conv2d_41_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 12428);
+    
+    conv2d_41_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_41_bias_array.data = AI_PTR(g_network_weights_map[0] + 12684);
+    conv2d_41_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 12684);
+    
+    conv2d_45_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_45_weights_array.data = AI_PTR(g_network_weights_map[0] + 12812);
+    conv2d_45_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 12812);
+    
+    conv2d_45_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_45_bias_array.data = AI_PTR(g_network_weights_map[0] + 13068);
+    conv2d_45_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 13068);
+    
+    conv2d_47_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_47_weights_array.data = AI_PTR(g_network_weights_map[0] + 13100);
+    conv2d_47_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 13100);
+    
+    conv2d_47_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_47_bias_array.data = AI_PTR(g_network_weights_map[0] + 13612);
+    conv2d_47_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 13612);
+    
+    conv2d_48_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_48_weights_array.data = AI_PTR(g_network_weights_map[0] + 13868);
+    conv2d_48_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 13868);
+    
+    conv2d_48_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_48_bias_array.data = AI_PTR(g_network_weights_map[0] + 15468);
+    conv2d_48_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 15468);
+    
+    conv2d_50_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_50_weights_array.data = AI_PTR(g_network_weights_map[0] + 15724);
+    conv2d_50_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 15724);
+    
+    conv2d_50_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_50_bias_array.data = AI_PTR(g_network_weights_map[0] + 16748);
+    conv2d_50_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 16748);
+    
+    conv2d_51_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_51_weights_array.data = AI_PTR(g_network_weights_map[0] + 16812);
+    conv2d_51_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 16812);
+    
+    conv2d_51_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_51_bias_array.data = AI_PTR(g_network_weights_map[0] + 17836);
+    conv2d_51_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 17836);
+    
+    conv2d_55_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_55_weights_array.data = AI_PTR(g_network_weights_map[0] + 18092);
+    conv2d_55_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 18092);
+    
+    conv2d_55_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_55_bias_array.data = AI_PTR(g_network_weights_map[0] + 19628);
+    conv2d_55_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 19628);
+    
+    conv2d_56_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_56_weights_array.data = AI_PTR(g_network_weights_map[0] + 19724);
+    conv2d_56_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 19724);
+    
+    conv2d_56_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_56_bias_array.data = AI_PTR(g_network_weights_map[0] + 21644);
+    conv2d_56_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 21644);
+    
+    conv2d_57_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_57_weights_array.data = AI_PTR(g_network_weights_map[0] + 21964);
+    conv2d_57_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 21964);
+    
+    conv2d_57_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_57_bias_array.data = AI_PTR(g_network_weights_map[0] + 23964);
+    conv2d_57_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 23964);
+    
+    conv2d_59_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_59_weights_array.data = AI_PTR(g_network_weights_map[0] + 24284);
+    conv2d_59_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 24284);
+    
+    conv2d_59_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_59_bias_array.data = AI_PTR(g_network_weights_map[0] + 25884);
+    conv2d_59_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 25884);
+    
+    conv2d_60_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_60_weights_array.data = AI_PTR(g_network_weights_map[0] + 25964);
+    conv2d_60_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 25964);
+    
+    conv2d_60_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_60_bias_array.data = AI_PTR(g_network_weights_map[0] + 27564);
+    conv2d_60_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 27564);
+    
+    conv2d_64_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_64_weights_array.data = AI_PTR(g_network_weights_map[0] + 27884);
+    conv2d_64_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 27884);
+    
+    conv2d_64_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_64_bias_array.data = AI_PTR(g_network_weights_map[0] + 29804);
+    conv2d_64_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 29804);
+    
+    conv2d_66_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_66_weights_array.data = AI_PTR(g_network_weights_map[0] + 29900);
+    conv2d_66_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 29900);
+    
+    conv2d_66_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_66_bias_array.data = AI_PTR(g_network_weights_map[0] + 32780);
+    conv2d_66_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 32780);
+    
+    conv2d_67_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_67_weights_array.data = AI_PTR(g_network_weights_map[0] + 33260);
+    conv2d_67_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 33260);
+    
+    conv2d_67_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_67_bias_array.data = AI_PTR(g_network_weights_map[0] + 36260);
+    conv2d_67_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 36260);
+    
+    conv2d_69_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_69_weights_array.data = AI_PTR(g_network_weights_map[0] + 36740);
+    conv2d_69_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 36740);
+    
+    conv2d_69_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_69_bias_array.data = AI_PTR(g_network_weights_map[0] + 40340);
+    conv2d_69_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 40340);
+    
+    conv2d_70_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_70_weights_array.data = AI_PTR(g_network_weights_map[0] + 40460);
+    conv2d_70_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 40460);
+    
+    conv2d_70_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_70_bias_array.data = AI_PTR(g_network_weights_map[0] + 44060);
+    conv2d_70_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 44060);
+    
+    conv2d_74_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_74_weights_array.data = AI_PTR(g_network_weights_map[0] + 44540);
+    conv2d_74_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 44540);
+    
+    conv2d_74_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_74_bias_array.data = AI_PTR(g_network_weights_map[0] + 47420);
+    conv2d_74_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 47420);
+    
+    conv2d_76_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_76_weights_array.data = AI_PTR(g_network_weights_map[0] + 47516);
+    conv2d_76_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 47516);
+    
+    conv2d_76_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_76_bias_array.data = AI_PTR(g_network_weights_map[0] + 50396);
+    conv2d_76_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 50396);
+    
+    conv2d_78_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_78_weights_array.data = AI_PTR(g_network_weights_map[0] + 50876);
+    conv2d_78_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 50876);
+    
+    conv2d_78_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_78_bias_array.data = AI_PTR(g_network_weights_map[0] + 79676);
+    conv2d_78_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 79676);
+    
+    conv2d_79_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_79_weights_array.data = AI_PTR(g_network_weights_map[0] + 80636);
+    conv2d_79_weights_array.data_start = AI_PTR(g_network_weights_map[0] + 80636);
+    
+    conv2d_79_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_79_bias_array.data = AI_PTR(g_network_weights_map[0] + 81836);
+    conv2d_79_bias_array.data_start = AI_PTR(g_network_weights_map[0] + 81836);
+    
+    return true;
+  }
+  AI_ERROR_TRAP(net_ctx, INIT_FAILED, NETWORK_WEIGHTS);
+  return false;
+}
+
+
+/**  PUBLIC APIs SECTION  *****************************************************/
+
+
+AI_DEPRECATED
+AI_API_ENTRY
+ai_bool ai_network_get_info(
+  ai_handle network, ai_network_report* report)
+{
+  ai_network* net_ctx = AI_NETWORK_ACQUIRE_CTX(network);
+
+  if (report && net_ctx)
+  {
+    ai_network_report r = {
+      .model_name        = AI_NETWORK_MODEL_NAME,
+      .model_signature   = AI_NETWORK_MODEL_SIGNATURE,
+      .model_datetime    = AI_TOOLS_DATE_TIME,
+      
+      .compile_datetime  = AI_TOOLS_COMPILE_TIME,
+      
+      .runtime_revision  = ai_platform_runtime_get_revision(),
+      .runtime_version   = ai_platform_runtime_get_version(),
+
+      .tool_revision     = AI_TOOLS_REVISION_ID,
+      .tool_version      = {AI_TOOLS_VERSION_MAJOR, AI_TOOLS_VERSION_MINOR,
+                            AI_TOOLS_VERSION_MICRO, 0x0},
+      .tool_api_version  = AI_STRUCT_INIT,
+
+      .api_version            = ai_platform_api_get_version(),
+      .interface_api_version  = ai_platform_interface_api_get_version(),
+      
+      .n_macc            = 10820768,
+      .n_inputs          = 0,
+      .inputs            = NULL,
+      .n_outputs         = 0,
+      .outputs           = NULL,
+      .params            = AI_STRUCT_INIT,
+      .activations       = AI_STRUCT_INIT,
+      .n_nodes           = 0,
+      .signature         = 0x0,
+    };
+
+    if (!ai_platform_api_get_network_report(network, &r)) return false;
+
+    *report = r;
+    return true;
+  }
+  return false;
+}
+
+
+AI_API_ENTRY
+ai_bool ai_network_get_report(
+  ai_handle network, ai_network_report* report)
+{
+  ai_network* net_ctx = AI_NETWORK_ACQUIRE_CTX(network);
+
+  if (report && net_ctx)
+  {
+    ai_network_report r = {
+      .model_name        = AI_NETWORK_MODEL_NAME,
+      .model_signature   = AI_NETWORK_MODEL_SIGNATURE,
+      .model_datetime    = AI_TOOLS_DATE_TIME,
+      
+      .compile_datetime  = AI_TOOLS_COMPILE_TIME,
+      
+      .runtime_revision  = ai_platform_runtime_get_revision(),
+      .runtime_version   = ai_platform_runtime_get_version(),
+
+      .tool_revision     = AI_TOOLS_REVISION_ID,
+      .tool_version      = {AI_TOOLS_VERSION_MAJOR, AI_TOOLS_VERSION_MINOR,
+                            AI_TOOLS_VERSION_MICRO, 0x0},
+      .tool_api_version  = AI_STRUCT_INIT,
+
+      .api_version            = ai_platform_api_get_version(),
+      .interface_api_version  = ai_platform_interface_api_get_version(),
+      
+      .n_macc            = 10820768,
+      .n_inputs          = 0,
+      .inputs            = NULL,
+      .n_outputs         = 0,
+      .outputs           = NULL,
+      .map_signature     = AI_MAGIC_SIGNATURE,
+      .map_weights       = AI_STRUCT_INIT,
+      .map_activations   = AI_STRUCT_INIT,
+      .n_nodes           = 0,
+      .signature         = 0x0,
+    };
+
+    if (!ai_platform_api_get_network_report(network, &r)) return false;
+
+    *report = r;
+    return true;
+  }
+  return false;
+}
+
+AI_API_ENTRY
+ai_error ai_network_get_error(ai_handle network)
+{
+  return ai_platform_network_get_error(network);
+}
+
+AI_API_ENTRY
+ai_error ai_network_create(
+  ai_handle* network, const ai_buffer* network_config)
+{
+  return ai_platform_network_create(
+    network, network_config, 
+    &AI_NET_OBJ_INSTANCE,
+    AI_TOOLS_API_VERSION_MAJOR, AI_TOOLS_API_VERSION_MINOR, AI_TOOLS_API_VERSION_MICRO);
+}
+
+AI_API_ENTRY
+ai_error ai_network_create_and_init(
+  ai_handle* network, const ai_handle activations[], const ai_handle weights[])
+{
+    ai_error err;
+    ai_network_params params;
+
+    err = ai_network_create(network, AI_NETWORK_DATA_CONFIG);
+    if (err.type != AI_ERROR_NONE)
+        return err;
+    if (ai_network_data_params_get(&params) != true) {
+        err = ai_network_get_error(*network);
+        return err;
+    }
+#if defined(AI_NETWORK_DATA_ACTIVATIONS_COUNT)
+    if (activations) {
+        /* set the addresses of the activations buffers */
+        for (int idx=0;idx<params.map_activations.size;idx++)
+            AI_BUFFER_ARRAY_ITEM_SET_ADDRESS(&params.map_activations, idx, activations[idx]);
+    }
+#endif
+#if defined(AI_NETWORK_DATA_WEIGHTS_COUNT)
+    if (weights) {
+        /* set the addresses of the weight buffers */
+        for (int idx=0;idx<params.map_weights.size;idx++)
+            AI_BUFFER_ARRAY_ITEM_SET_ADDRESS(&params.map_weights, idx, weights[idx]);
+    }
+#endif
+    if (ai_network_init(*network, &params) != true) {
+        err = ai_network_get_error(*network);
+    }
+    return err;
+}
+
+AI_API_ENTRY
+ai_buffer* ai_network_inputs_get(ai_handle network, ai_u16 *n_buffer)
+{
+  if (network == AI_HANDLE_NULL) {
+    network = (ai_handle)&AI_NET_OBJ_INSTANCE;
+    ((ai_network *)network)->magic = AI_MAGIC_CONTEXT_TOKEN;
+  }
+  return ai_platform_inputs_get(network, n_buffer);
+}
+
+AI_API_ENTRY
+ai_buffer* ai_network_outputs_get(ai_handle network, ai_u16 *n_buffer)
+{
+  if (network == AI_HANDLE_NULL) {
+    network = (ai_handle)&AI_NET_OBJ_INSTANCE;
+    ((ai_network *)network)->magic = AI_MAGIC_CONTEXT_TOKEN;
+  }
+  return ai_platform_outputs_get(network, n_buffer);
+}
+
+AI_API_ENTRY
+ai_handle ai_network_destroy(ai_handle network)
+{
+  return ai_platform_network_destroy(network);
+}
+
+AI_API_ENTRY
+ai_bool ai_network_init(
+  ai_handle network, const ai_network_params* params)
+{
+  ai_network* net_ctx = ai_platform_network_init(network, params);
+  if (!net_ctx) return false;
+
+  ai_bool ok = true;
+  ok &= network_configure_weights(net_ctx, params);
+  ok &= network_configure_activations(net_ctx, params);
+
+  ok &= ai_platform_network_post_init(network);
+
+  return ok;
+}
+
+
+AI_API_ENTRY
+ai_i32 ai_network_run(
+  ai_handle network, const ai_buffer* input, ai_buffer* output)
+{
+  return ai_platform_network_process(network, input, output);
+}
+
+AI_API_ENTRY
+ai_i32 ai_network_forward(ai_handle network, const ai_buffer* input)
+{
+  return ai_platform_network_process(network, input, NULL);
+}
+
+
+
+#undef AI_NETWORK_MODEL_SIGNATURE
+#undef AI_NET_OBJ_INSTANCE
+#undef AI_TOOLS_DATE_TIME
+#undef AI_TOOLS_COMPILE_TIME
+

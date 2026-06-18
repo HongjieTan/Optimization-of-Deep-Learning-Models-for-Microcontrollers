@@ -1,0 +1,129 @@
+<<<<<<< HEAD
+Model name : EfficientNetV2
+Dataset : Skin
+[2025-07-28 15:29:52,414][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\metrics
+[2025-07-28 15:29:52,416][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\events.out.tfevents.1753682267.THJ-PC.63052.0.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\metrics
+[2025-07-28 15:29:52,416][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\train_metrics.csv -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\metrics
+[2025-07-28 15:29:52,418][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\train
+[2025-07-28 15:29:52,419][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\train\events.out.tfevents.1753682267.THJ-PC.63052.1.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\train
+[2025-07-28 15:29:52,420][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\validation
+[2025-07-28 15:29:52,421][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\validation\events.out.tfevents.1753682285.THJ-PC.63052.2.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\validation
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['199', '0.8685897588729858', '0.41042113304138184', '0.001', '0.7602564096450806', '1.0467406511306763']
+
+Training runtime : 1924 s
+Average time per epoch : 9.62 s
+
+Float model :
+Accuracy of float model : 78.08 %
+Loss of float model : 0.94 
+
+Float model :
+Accuracy of float model : 82.82 %
+Loss of float model : 0.76 
+[2025-07-28 15:29:59,731][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,732][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\.hydra\config.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,733][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\.hydra\hydra.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,734][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\.hydra\overrides.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,735][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\efficientnet_v2.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,736][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\float_model_confusion_matrix_test_set.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,736][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\float_model_confusion_matrix_validation_set.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,738][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\layers.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,739][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs
+[2025-07-28 15:29:59,741][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\metrics
+[2025-07-28 15:29:59,742][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\events.out.tfevents.1753682267.THJ-PC.63052.0.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\metrics
+[2025-07-28 15:29:59,743][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\train_metrics.csv -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\metrics
+[2025-07-28 15:29:59,744][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\train
+[2025-07-28 15:29:59,745][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\train\events.out.tfevents.1753682267.THJ-PC.63052.1.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\train
+[2025-07-28 15:29:59,747][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\validation
+[2025-07-28 15:29:59,748][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\validation\events.out.tfevents.1753682285.THJ-PC.63052.2.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\validation
+[2025-07-28 15:29:59,748][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\model.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,751][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,752][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\saved_models\best_augmented_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,754][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\saved_models\best_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,756][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\saved_models\last_augmented_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,758][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\stm32ai_main.log -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,759][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\Training_curves.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 784.0 KiB
+Flash weights : 494.02 KiB
+MACCs : 31.53 M
+
+Quantized model :
+Accuracy of quantized model : 81.79 %
+f1 of quantized model : 0.8121997828552815 
+precision of quantized model : 0.824333395586929 
+recall of quantized model : 0.817948717948718 
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 245.64 KiB
+Flash weights : 133.27 KiB
+MACCs : 30.607 M
+=======
+Model name : EfficientNetV2
+Dataset : Skin
+[2025-07-28 15:29:52,414][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\metrics
+[2025-07-28 15:29:52,416][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\events.out.tfevents.1753682267.THJ-PC.63052.0.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\metrics
+[2025-07-28 15:29:52,416][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\train_metrics.csv -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\metrics
+[2025-07-28 15:29:52,418][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\train
+[2025-07-28 15:29:52,419][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\train\events.out.tfevents.1753682267.THJ-PC.63052.1.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\train
+[2025-07-28 15:29:52,420][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\validation
+[2025-07-28 15:29:52,421][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\validation\events.out.tfevents.1753682285.THJ-PC.63052.2.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\tensorboard_logs\validation
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['199', '0.8685897588729858', '0.41042113304138184', '0.001', '0.7602564096450806', '1.0467406511306763']
+
+Training runtime : 1924 s
+Average time per epoch : 9.62 s
+
+Float model :
+Accuracy of float model : 78.08 %
+Loss of float model : 0.94 
+
+Float model :
+Accuracy of float model : 82.82 %
+Loss of float model : 0.76 
+[2025-07-28 15:29:59,731][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,732][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\.hydra\config.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,733][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\.hydra\hydra.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,734][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\.hydra\overrides.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\.hydra
+[2025-07-28 15:29:59,735][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\efficientnet_v2.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,736][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\float_model_confusion_matrix_test_set.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,736][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\float_model_confusion_matrix_validation_set.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,738][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\layers.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,739][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs
+[2025-07-28 15:29:59,741][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\metrics
+[2025-07-28 15:29:59,742][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\events.out.tfevents.1753682267.THJ-PC.63052.0.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\metrics
+[2025-07-28 15:29:59,743][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\metrics\train_metrics.csv -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\metrics
+[2025-07-28 15:29:59,744][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\train
+[2025-07-28 15:29:59,745][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\train\events.out.tfevents.1753682267.THJ-PC.63052.1.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\train
+[2025-07-28 15:29:59,747][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\validation
+[2025-07-28 15:29:59,748][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\logs\validation\events.out.tfevents.1753682285.THJ-PC.63052.2.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\logs\validation
+[2025-07-28 15:29:59,748][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\model.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,751][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,752][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\saved_models\best_augmented_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,754][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\saved_models\best_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,756][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\saved_models\last_augmented_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41\saved_models
+[2025-07-28 15:29:59,758][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\stm32ai_main.log -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+[2025-07-28 15:29:59,759][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_07_28_14_57_41\Training_curves.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\777438690690171049\d757c2266e08473f83da6780a89119d0\artifacts\2025_07_28_14_57_41
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 784.0 KiB
+Flash weights : 494.02 KiB
+MACCs : 31.53 M
+
+Quantized model :
+Accuracy of quantized model : 81.79 %
+f1 of quantized model : 0.8121997828552815 
+precision of quantized model : 0.824333395586929 
+recall of quantized model : 0.817948717948718 
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 245.64 KiB
+Flash weights : 133.27 KiB
+MACCs : 30.607 M
+>>>>>>> 1460700 (com)

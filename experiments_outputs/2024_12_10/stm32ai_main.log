@@ -1,0 +1,27 @@
+Model name : fdmobilenet
+Dataset : Rice2
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['99', '0.8160637617111206', '0.4459824562072754', '0.001', '0.8014705777168274', '0.5046237707138062']
+
+Training runtime : 7690 s
+Average time per epoch : 76.9 s
+
+Float model :
+Accuracy of float model : 81.99 %
+Loss of float model : 0.46 
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 799.0 KiB
+Flash weights : 1871.27 KiB
+MACCs : 40.191 M
+[2024-12-10 13:52:32,471][absl][WARNING] - Found untraced functions such as _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op while saving (showing 5 of 24). These functions will not be directly callable after loading.
+
+Quantized model :
+Accuracy of quantized model : 81.5 %
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 206.88 KiB
+Flash weights : 479.36 KiB
+MACCs : 39.952 M

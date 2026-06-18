@@ -1,0 +1,55 @@
+Model name : MobileNetV3
+Dataset : Rice_Leaf_Disease
+[2025-01-15 10:25:02,755][tensorflow][WARNING] - Callback method `on_train_batch_end` is slow compared to the batch time (batch time: 0.0280s vs `on_train_batch_end` time: 0.0429s). Check your callbacks.
+[2025-01-15 11:06:17,588][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\metrics
+[2025-01-15 11:06:17,589][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\metrics\events.out.tfevents.1736904296.THJ-PC.12744.0.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\metrics
+[2025-01-15 11:06:17,590][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\metrics\train_metrics.csv -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\metrics
+[2025-01-15 11:06:17,591][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\train
+[2025-01-15 11:06:17,591][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\train\events.out.tfevents.1736904296.THJ-PC.12744.1.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\train
+[2025-01-15 11:06:17,592][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\validation
+[2025-01-15 11:06:17,594][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\validation\events.out.tfevents.1736904315.THJ-PC.12744.2.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\tensorboard_logs\validation
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['99', '0.9864063858985901', '0.04380964860320091', '0.001', '0.9570671916007996', '0.15330660343170166']
+
+Training runtime : 2481 s
+Average time per epoch : 24.81 s
+
+Float model :
+Accuracy of float model : 97.63 %
+Loss of float model : 0.08 
+[2025-01-15 11:06:28,332][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\.hydra
+[2025-01-15 11:06:28,333][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\.hydra\config.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\.hydra
+[2025-01-15 11:06:28,337][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\.hydra\hydra.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\.hydra
+[2025-01-15 11:06:28,339][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\.hydra\overrides.yaml -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\.hydra
+[2025-01-15 11:06:28,341][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\float_model_confusion_matrix_validation_set.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36
+[2025-01-15 11:06:28,342][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\layers.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36
+[2025-01-15 11:06:28,342][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs
+[2025-01-15 11:06:28,344][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\metrics
+[2025-01-15 11:06:28,346][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\metrics\events.out.tfevents.1736904296.THJ-PC.12744.0.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\metrics
+[2025-01-15 11:06:28,346][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\metrics\train_metrics.csv -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\metrics
+[2025-01-15 11:06:28,347][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\train
+[2025-01-15 11:06:28,349][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\train\events.out.tfevents.1736904296.THJ-PC.12744.1.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\train
+[2025-01-15 11:06:28,350][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\validation
+[2025-01-15 11:06:28,351][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\logs\validation\events.out.tfevents.1736904315.THJ-PC.12744.2.v2 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\logs\validation
+[2025-01-15 11:06:28,352][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\mobilenet_v3_alpha_0.5.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36
+[2025-01-15 11:06:28,354][root][INFO] - creating E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\saved_models
+[2025-01-15 11:06:28,356][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\saved_models\best_augmented_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\saved_models
+[2025-01-15 11:06:28,362][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\saved_models\best_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\saved_models
+[2025-01-15 11:06:28,366][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\saved_models\last_augmented_model.h5 -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36\saved_models
+[2025-01-15 11:06:28,372][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\stm32ai_main.log -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36
+[2025-01-15 11:06:28,373][root][INFO] - copying E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\2025_01_15_10_24_36\Training_curves.png -> E:\hjTan\Documents\CODE_SPACE\stm32ai-modelzoo-2.0.0\experiments_outputs\mlruns\346417397403045321\600cdbe5be4145299988490f64adea02\artifacts\2025_01_15_10_24_36
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 595.91 KiB
+Flash weights : 2468.61 KiB
+MACCs : 21.358 M
+
+Quantized model :
+Accuracy of quantized model : 97.46 %
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 152.93 KiB
+Flash weights : 634.78 KiB
+MACCs : 20.139 M

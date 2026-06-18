@@ -1,0 +1,27 @@
+Model name : squeezenet
+Dataset : Rice_Leaf_Disease
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['99', '0.917323112487793', '0.19631174206733704', '0.001', '0.8856983780860901', '0.3211519718170166']
+
+Training runtime : 24573 s
+Average time per epoch : 245.73 s
+
+Float model :
+Accuracy of float model : 89.55 %
+Loss of float model : 0.29 
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 3152.38 KiB
+Flash weights : 2842.29 KiB
+MACCs : 268.888 M
+[2024-12-19 18:30:24,293][absl][WARNING] - Found untraced functions such as _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op while saving (showing 5 of 26). These functions will not be directly callable after loading.
+
+Quantized model :
+Accuracy of quantized model : 85.78 %
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 756.25 KiB
+Flash weights : 719.23 KiB
+MACCs : 266.767 M

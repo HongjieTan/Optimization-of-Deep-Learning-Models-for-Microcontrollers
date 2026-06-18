@@ -1,0 +1,5686 @@
+<<<<<<< HEAD
+{
+    "_allocate_inputs": 4,
+    "_allocate_outputs": 4,
+    "cli_parameters": "generate -m E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20\\quantized_models\\quantized_model.tflite -v 0 --allocate-inputs --allocate-outputs --output E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20/stm32ai_files --workspace E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20/stm32ai_files --optimization balanced",
+    "cli_version": {
+        "major": 1,
+        "micro": 0,
+        "minor": 7
+    },
+    "cli_version_str": "1.7.0",
+    "code_size": 0,
+    "compression": {
+        "factor": null,
+        "layers": {}
+    },
+    "date_time": "Tue Jul 22 14:01:15 2025",
+    "error": 0,
+    "error_str": [],
+    "exec_cmd": "generate",
+    "exec_duration": 0.0,
+    "hash": "fe2606fefccd7018d914b0037df5a7f1",
+    "inputs": [
+        "serving_default_input_10"
+    ],
+    "layers": [
+        {
+            "c_id": [
+                0
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "uint8_t"
+                    },
+                    "shape": [
+                        224,
+                        224,
+                        3,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [],
+            "name": "serving_default_input_10",
+            "original": "",
+            "type": "Input"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 301056,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 150529,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        224,
+                        224,
+                        3,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [
+                "serving_default_input_10"
+            ],
+            "name": "conversion_0",
+            "original": "QUANTIZE",
+            "type": "Conversion"
+        },
+        {
+            "c_id": [
+                1
+            ],
+            "extras": {
+                "n_macc": 2709512,
+                "n_params": 224,
+                "psize": 248,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 248
+            },
+            "id": 1,
+            "inputs": [
+                "conversion_0"
+            ],
+            "name": "conv2d_1",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 100352,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 1,
+            "inputs": [
+                "conv2d_1"
+            ],
+            "name": "nl_1_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                2,
+                3
+            ],
+            "extras": {
+                "n_macc": 903176,
+                "n_params": 80,
+                "psize": 104,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 104
+            },
+            "id": 2,
+            "inputs": [
+                "nl_1_nl"
+            ],
+            "name": "conv2d_2",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 100352,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 2,
+            "inputs": [
+                "conv2d_2"
+            ],
+            "name": "nl_2_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                4
+            ],
+            "extras": {
+                "n_macc": 802824,
+                "n_params": 72,
+                "psize": 96,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 96
+            },
+            "id": 3,
+            "inputs": [
+                "nl_2_nl"
+            ],
+            "name": "conv2d_3",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                5
+            ],
+            "extras": {
+                "n_macc": 100352,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 4,
+            "inputs": [
+                "nl_1_nl",
+                "conv2d_3"
+            ],
+            "name": "eltwise_4",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                6
+            ],
+            "extras": {
+                "n_macc": 4816944,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 602112,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 5,
+            "inputs": [
+                "eltwise_4"
+            ],
+            "name": "conv2d_5",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 602112,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 5,
+            "inputs": [
+                "conv2d_5"
+            ],
+            "name": "nl_5_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                8
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 624
+            },
+            "id": 6,
+            "inputs": [
+                "nl_5_nl"
+            ],
+            "name": "pad_6",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                7
+            ],
+            "extras": {
+                "n_macc": 1354800,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 7,
+            "inputs": [
+                "pad_6"
+            ],
+            "name": "conv2d_7",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 7,
+            "inputs": [
+                "conv2d_7"
+            ],
+            "name": "nl_7_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                9
+            ],
+            "extras": {
+                "n_macc": 1204232,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 25088,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 8,
+            "inputs": [
+                "nl_7_nl"
+            ],
+            "name": "conv2d_8",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                10
+            ],
+            "extras": {
+                "n_macc": 1204272,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 9,
+            "inputs": [
+                "conv2d_8"
+            ],
+            "name": "conv2d_9",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 9,
+            "inputs": [
+                "conv2d_9"
+            ],
+            "name": "nl_9_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                11,
+                12
+            ],
+            "extras": {
+                "n_macc": 1354800,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 624
+            },
+            "id": 10,
+            "inputs": [
+                "nl_9_nl"
+            ],
+            "name": "conv2d_10",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 10,
+            "inputs": [
+                "conv2d_10"
+            ],
+            "name": "nl_10_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                13
+            ],
+            "extras": {
+                "n_macc": 1204232,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 25088,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 11,
+            "inputs": [
+                "nl_10_nl"
+            ],
+            "name": "conv2d_11",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                14
+            ],
+            "extras": {
+                "n_macc": 25088,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 25088,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 12,
+            "inputs": [
+                "conv2d_8",
+                "conv2d_11"
+            ],
+            "name": "eltwise_12",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                15
+            ],
+            "extras": {
+                "n_macc": 1204272,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 13,
+            "inputs": [
+                "eltwise_12"
+            ],
+            "name": "conv2d_13",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 13,
+            "inputs": [
+                "conv2d_13"
+            ],
+            "name": "nl_13_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                17
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 624
+            },
+            "id": 14,
+            "inputs": [
+                "nl_13_nl"
+            ],
+            "name": "pad_14",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                16
+            ],
+            "extras": {
+                "n_macc": 338736,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 15,
+            "inputs": [
+                "pad_14"
+            ],
+            "name": "conv2d_15",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 15,
+            "inputs": [
+                "conv2d_15"
+            ],
+            "name": "nl_15_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                18
+            ],
+            "extras": {
+                "n_macc": 301064,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 16,
+            "inputs": [
+                "nl_15_nl"
+            ],
+            "name": "conv2d_16",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                19
+            ],
+            "extras": {
+                "n_macc": 301104,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 17,
+            "inputs": [
+                "conv2d_16"
+            ],
+            "name": "conv2d_17",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 17,
+            "inputs": [
+                "conv2d_17"
+            ],
+            "name": "nl_17_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                20,
+                21
+            ],
+            "extras": {
+                "n_macc": 338736,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 624
+            },
+            "id": 18,
+            "inputs": [
+                "nl_17_nl"
+            ],
+            "name": "conv2d_18",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 18,
+            "inputs": [
+                "conv2d_18"
+            ],
+            "name": "nl_18_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                22
+            ],
+            "extras": {
+                "n_macc": 301064,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 19,
+            "inputs": [
+                "nl_18_nl"
+            ],
+            "name": "conv2d_19",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                23
+            ],
+            "extras": {
+                "n_macc": 6272,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 20,
+            "inputs": [
+                "conv2d_16",
+                "conv2d_19"
+            ],
+            "name": "eltwise_20",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                24
+            ],
+            "extras": {
+                "n_macc": 301104,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 21,
+            "inputs": [
+                "eltwise_20"
+            ],
+            "name": "conv2d_21",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 21,
+            "inputs": [
+                "conv2d_21"
+            ],
+            "name": "nl_21_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                25,
+                26
+            ],
+            "extras": {
+                "n_macc": 338736,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 624
+            },
+            "id": 22,
+            "inputs": [
+                "nl_21_nl"
+            ],
+            "name": "conv2d_22",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 22,
+            "inputs": [
+                "conv2d_22"
+            ],
+            "name": "nl_22_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                27
+            ],
+            "extras": {
+                "n_macc": 301064,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 23,
+            "inputs": [
+                "nl_22_nl"
+            ],
+            "name": "conv2d_23",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                28
+            ],
+            "extras": {
+                "n_macc": 6272,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 24,
+            "inputs": [
+                "eltwise_20",
+                "conv2d_23"
+            ],
+            "name": "eltwise_24",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                29
+            ],
+            "extras": {
+                "n_macc": 301104,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 25,
+            "inputs": [
+                "eltwise_24"
+            ],
+            "name": "conv2d_25",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 25,
+            "inputs": [
+                "conv2d_25"
+            ],
+            "name": "nl_25_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                31
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 624
+            },
+            "id": 26,
+            "inputs": [
+                "nl_25_nl"
+            ],
+            "name": "pad_26",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                30
+            ],
+            "extras": {
+                "n_macc": 84720,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 9408,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 27,
+            "inputs": [
+                "pad_26"
+            ],
+            "name": "conv2d_27",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 9408,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 27,
+            "inputs": [
+                "conv2d_27"
+            ],
+            "name": "nl_27_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                32
+            ],
+            "extras": {
+                "n_macc": 150544,
+                "n_params": 784,
+                "psize": 832,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 832
+            },
+            "id": 28,
+            "inputs": [
+                "nl_27_nl"
+            ],
+            "name": "conv2d_28",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                33
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 29,
+            "inputs": [
+                "conv2d_28"
+            ],
+            "name": "conv2d_29",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 29,
+            "inputs": [
+                "conv2d_29"
+            ],
+            "name": "nl_29_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                34,
+                35
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 30,
+            "inputs": [
+                "nl_29_nl"
+            ],
+            "name": "conv2d_30",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 30,
+            "inputs": [
+                "conv2d_30"
+            ],
+            "name": "nl_30_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                36
+            ],
+            "extras": {
+                "n_macc": 301072,
+                "n_params": 1552,
+                "psize": 1600,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 1600
+            },
+            "id": 31,
+            "inputs": [
+                "nl_30_nl"
+            ],
+            "name": "conv2d_31",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                37
+            ],
+            "extras": {
+                "n_macc": 3136,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 32,
+            "inputs": [
+                "conv2d_28",
+                "conv2d_31"
+            ],
+            "name": "eltwise_32",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                38
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 33,
+            "inputs": [
+                "eltwise_32"
+            ],
+            "name": "conv2d_33",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 33,
+            "inputs": [
+                "conv2d_33"
+            ],
+            "name": "nl_33_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                39,
+                40
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 34,
+            "inputs": [
+                "nl_33_nl"
+            ],
+            "name": "conv2d_34",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 34,
+            "inputs": [
+                "conv2d_34"
+            ],
+            "name": "nl_34_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                41
+            ],
+            "extras": {
+                "n_macc": 301072,
+                "n_params": 1552,
+                "psize": 1600,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 1600
+            },
+            "id": 35,
+            "inputs": [
+                "nl_34_nl"
+            ],
+            "name": "conv2d_35",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                42
+            ],
+            "extras": {
+                "n_macc": 3136,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 36,
+            "inputs": [
+                "eltwise_32",
+                "conv2d_35"
+            ],
+            "name": "eltwise_36",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                43
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 37,
+            "inputs": [
+                "eltwise_36"
+            ],
+            "name": "conv2d_37",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 37,
+            "inputs": [
+                "conv2d_37"
+            ],
+            "name": "nl_37_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                44,
+                45
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 38,
+            "inputs": [
+                "nl_37_nl"
+            ],
+            "name": "conv2d_38",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 38,
+            "inputs": [
+                "conv2d_38"
+            ],
+            "name": "nl_38_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                46
+            ],
+            "extras": {
+                "n_macc": 301072,
+                "n_params": 1552,
+                "psize": 1600,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 1600
+            },
+            "id": 39,
+            "inputs": [
+                "nl_38_nl"
+            ],
+            "name": "conv2d_39",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                47
+            ],
+            "extras": {
+                "n_macc": 3136,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 40,
+            "inputs": [
+                "eltwise_36",
+                "conv2d_39"
+            ],
+            "name": "eltwise_40",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                48
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 41,
+            "inputs": [
+                "eltwise_40"
+            ],
+            "name": "conv2d_41",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 41,
+            "inputs": [
+                "conv2d_41"
+            ],
+            "name": "nl_41_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                49,
+                50
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 42,
+            "inputs": [
+                "nl_41_nl"
+            ],
+            "name": "conv2d_42",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 42,
+            "inputs": [
+                "conv2d_42"
+            ],
+            "name": "nl_42_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                51
+            ],
+            "extras": {
+                "n_macc": 451608,
+                "n_params": 2328,
+                "psize": 2400,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 2400
+            },
+            "id": 43,
+            "inputs": [
+                "nl_42_nl"
+            ],
+            "name": "conv2d_43",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                52
+            ],
+            "extras": {
+                "n_macc": 677520,
+                "n_params": 3600,
+                "psize": 4032,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 4032
+            },
+            "id": 44,
+            "inputs": [
+                "conv2d_43"
+            ],
+            "name": "conv2d_44",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 44,
+            "inputs": [
+                "conv2d_44"
+            ],
+            "name": "nl_44_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                53,
+                54
+            ],
+            "extras": {
+                "n_macc": 254160,
+                "n_params": 1440,
+                "psize": 1872,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 1872
+            },
+            "id": 45,
+            "inputs": [
+                "nl_44_nl"
+            ],
+            "name": "conv2d_45",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 45,
+            "inputs": [
+                "conv2d_45"
+            ],
+            "name": "nl_45_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                55
+            ],
+            "extras": {
+                "n_macc": 677400,
+                "n_params": 3480,
+                "psize": 3552,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 3552
+            },
+            "id": 46,
+            "inputs": [
+                "nl_45_nl"
+            ],
+            "name": "conv2d_46",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                56
+            ],
+            "extras": {
+                "n_macc": 4704,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 47,
+            "inputs": [
+                "conv2d_43",
+                "conv2d_46"
+            ],
+            "name": "eltwise_47",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                57
+            ],
+            "extras": {
+                "n_macc": 677520,
+                "n_params": 3600,
+                "psize": 4032,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 4032
+            },
+            "id": 48,
+            "inputs": [
+                "eltwise_47"
+            ],
+            "name": "conv2d_48",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 48,
+            "inputs": [
+                "conv2d_48"
+            ],
+            "name": "nl_48_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                58,
+                59
+            ],
+            "extras": {
+                "n_macc": 254160,
+                "n_params": 1440,
+                "psize": 1872,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 1872
+            },
+            "id": 49,
+            "inputs": [
+                "nl_48_nl"
+            ],
+            "name": "conv2d_49",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 49,
+            "inputs": [
+                "conv2d_49"
+            ],
+            "name": "nl_49_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                60
+            ],
+            "extras": {
+                "n_macc": 677400,
+                "n_params": 3480,
+                "psize": 3552,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 3552
+            },
+            "id": 50,
+            "inputs": [
+                "nl_49_nl"
+            ],
+            "name": "conv2d_50",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                61
+            ],
+            "extras": {
+                "n_macc": 4704,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 51,
+            "inputs": [
+                "eltwise_47",
+                "conv2d_50"
+            ],
+            "name": "eltwise_51",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                62
+            ],
+            "extras": {
+                "n_macc": 677520,
+                "n_params": 3600,
+                "psize": 4032,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 4032
+            },
+            "id": 52,
+            "inputs": [
+                "eltwise_51"
+            ],
+            "name": "conv2d_52",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 52,
+            "inputs": [
+                "conv2d_52"
+            ],
+            "name": "nl_52_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                64
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 1872
+            },
+            "id": 53,
+            "inputs": [
+                "nl_52_nl"
+            ],
+            "name": "pad_53",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                63
+            ],
+            "extras": {
+                "n_macc": 63648,
+                "n_params": 1440,
+                "psize": 1872,
+                "rom_output": {
+                    "c_size": 7056,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 54,
+            "inputs": [
+                "pad_53"
+            ],
+            "name": "conv2d_54",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 7056,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 54,
+            "inputs": [
+                "conv2d_54"
+            ],
+            "name": "nl_54_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                65
+            ],
+            "extras": {
+                "n_macc": 282280,
+                "n_params": 5800,
+                "psize": 5920,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 5920
+            },
+            "id": 55,
+            "inputs": [
+                "nl_54_nl"
+            ],
+            "name": "conv2d_55",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                66
+            ],
+            "extras": {
+                "n_macc": 470640,
+                "n_params": 9840,
+                "psize": 10560,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 10560
+            },
+            "id": 56,
+            "inputs": [
+                "conv2d_55"
+            ],
+            "name": "conv2d_56",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 56,
+            "inputs": [
+                "conv2d_56"
+            ],
+            "name": "nl_56_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                67,
+                68
+            ],
+            "extras": {
+                "n_macc": 106080,
+                "n_params": 2400,
+                "psize": 3120,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 3120
+            },
+            "id": 57,
+            "inputs": [
+                "nl_56_nl"
+            ],
+            "name": "conv2d_57",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 57,
+            "inputs": [
+                "conv2d_57"
+            ],
+            "name": "nl_57_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                69
+            ],
+            "extras": {
+                "n_macc": 470440,
+                "n_params": 9640,
+                "psize": 9760,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 9760
+            },
+            "id": 58,
+            "inputs": [
+                "nl_57_nl"
+            ],
+            "name": "conv2d_58",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                70
+            ],
+            "extras": {
+                "n_macc": 1960,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 59,
+            "inputs": [
+                "conv2d_55",
+                "conv2d_58"
+            ],
+            "name": "eltwise_59",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                71
+            ],
+            "extras": {
+                "n_macc": 470640,
+                "n_params": 9840,
+                "psize": 10560,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 10560
+            },
+            "id": 60,
+            "inputs": [
+                "eltwise_59"
+            ],
+            "name": "conv2d_60",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 60,
+            "inputs": [
+                "conv2d_60"
+            ],
+            "name": "nl_60_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                72,
+                73
+            ],
+            "extras": {
+                "n_macc": 106080,
+                "n_params": 2400,
+                "psize": 3120,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 3120
+            },
+            "id": 61,
+            "inputs": [
+                "nl_60_nl"
+            ],
+            "name": "conv2d_61",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 61,
+            "inputs": [
+                "conv2d_61"
+            ],
+            "name": "nl_61_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                74
+            ],
+            "extras": {
+                "n_macc": 470440,
+                "n_params": 9640,
+                "psize": 9760,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 9760
+            },
+            "id": 62,
+            "inputs": [
+                "nl_61_nl"
+            ],
+            "name": "conv2d_62",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                75
+            ],
+            "extras": {
+                "n_macc": 1960,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 63,
+            "inputs": [
+                "eltwise_59",
+                "conv2d_62"
+            ],
+            "name": "eltwise_63",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                76
+            ],
+            "extras": {
+                "n_macc": 470640,
+                "n_params": 9840,
+                "psize": 10560,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 10560
+            },
+            "id": 64,
+            "inputs": [
+                "eltwise_63"
+            ],
+            "name": "conv2d_64",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 64,
+            "inputs": [
+                "conv2d_64"
+            ],
+            "name": "nl_64_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                77,
+                78
+            ],
+            "extras": {
+                "n_macc": 106080,
+                "n_params": 2400,
+                "psize": 3120,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 3120
+            },
+            "id": 65,
+            "inputs": [
+                "nl_64_nl"
+            ],
+            "name": "conv2d_65",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 65,
+            "inputs": [
+                "conv2d_65"
+            ],
+            "name": "nl_65_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                79
+            ],
+            "extras": {
+                "n_macc": 940880,
+                "n_params": 19280,
+                "psize": 19520,
+                "rom_output": {
+                    "c_size": 3920,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        80,
+                        1
+                    ]
+                },
+                "rom_size": 19520
+            },
+            "id": 66,
+            "inputs": [
+                "nl_65_nl"
+            ],
+            "name": "conv2d_66",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                80
+            ],
+            "extras": {
+                "n_macc": 5018880,
+                "n_params": 103680,
+                "psize": 107520,
+                "rom_output": {
+                    "c_size": 62720,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        1280,
+                        1
+                    ]
+                },
+                "rom_size": 107520
+            },
+            "id": 67,
+            "inputs": [
+                "conv2d_66"
+            ],
+            "name": "conv2d_67",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 62720,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 67,
+            "inputs": [
+                "conv2d_67"
+            ],
+            "name": "nl_67_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                81
+            ],
+            "extras": {
+                "n_macc": 62720,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 1280,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        1,
+                        1,
+                        1280,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 68,
+            "inputs": [
+                "nl_67_nl"
+            ],
+            "name": "pool_68",
+            "original": "MEAN",
+            "type": "Pool"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 68,
+            "inputs": [
+                "pool_68"
+            ],
+            "name": "reshape_68_reshape",
+            "original": "MEAN",
+            "type": "Reshape"
+        },
+        {
+            "c_id": [
+                82
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 49920,
+                "psize": 49920,
+                "rom_size": 50076
+            },
+            "id": 69,
+            "inputs": [],
+            "name": "mobilenet_v2_alpha_0_25_dense_MatMul",
+            "original": "",
+            "type": "Placeholder"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 39,
+                "psize": 156,
+                "rom_size": 0
+            },
+            "id": 69,
+            "inputs": [],
+            "name": "dense_bias",
+            "original": "",
+            "type": "Placeholder"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 49959,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 39,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        39,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 69,
+            "inputs": [
+                "reshape_68_reshape",
+                "mobilenet_v2_alpha_0_25_dense_MatMul",
+                "dense_bias"
+            ],
+            "name": "gemm_69",
+            "original": "FULLY_CONNECTED",
+            "type": "Gemm"
+        },
+        {
+            "c_id": [
+                83
+            ],
+            "extras": {
+                "n_macc": 585,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 39,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        39,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 70,
+            "inputs": [
+                "gemm_69"
+            ],
+            "name": "nl_70",
+            "original": "SOFTMAX",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                84
+            ],
+            "extras": {
+                "n_macc": 78,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 156,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        39,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 71,
+            "inputs": [
+                "nl_70"
+            ],
+            "name": "conversion_71",
+            "original": "DEQUANTIZE",
+            "type": "Conversion"
+        }
+    ],
+    "model_files": [
+        "E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20\\quantized_models\\quantized_model.tflite"
+    ],
+    "model_n_params": 282743,
+    "model_name": "quantized_model",
+    "model_size": 298844,
+    "model_type": "tflite",
+    "name": "network",
+    "outputs": [
+        "conversion_71"
+    ],
+    "ram_io_size": [
+        150528,
+        156
+    ],
+    "ram_size": [
+        621488,
+        621488
+    ],
+    "report_version": 1.1,
+    "rom_cfact": 1.0,
+    "rom_heap_inspector": 2048,
+    "rom_inputs": [
+        {
+            "c_size": 150528,
+            "c_type": "uint8_t",
+            "name": "serving_default_input_10"
+        }
+    ],
+    "rom_n_macc": 36501758,
+    "rom_outputs": [
+        {
+            "c_size": 156,
+            "c_type": "float",
+            "name": "conversion_71"
+        }
+    ],
+    "rom_size": 298844,
+    "strategy": "heap_overlay",
+    "tools_api_version": {
+        "major": 1,
+        "micro": 0,
+        "minor": 7
+    },
+    "tools_version": {
+        "extra": "19520",
+        "major": 8,
+        "micro": 0,
+        "minor": 1
+    },
+    "val_error": -1.0,
+    "val_error_desc": "None (None) #-1",
+    "val_metrics": []
+=======
+{
+    "_allocate_inputs": 4,
+    "_allocate_outputs": 4,
+    "cli_parameters": "generate -m E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20\\quantized_models\\quantized_model.tflite -v 0 --allocate-inputs --allocate-outputs --output E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20/stm32ai_files --workspace E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20/stm32ai_files --optimization balanced",
+    "cli_version": {
+        "major": 1,
+        "micro": 0,
+        "minor": 7
+    },
+    "cli_version_str": "1.7.0",
+    "code_size": 0,
+    "compression": {
+        "factor": null,
+        "layers": {}
+    },
+    "date_time": "Tue Jul 22 14:01:15 2025",
+    "error": 0,
+    "error_str": [],
+    "exec_cmd": "generate",
+    "exec_duration": 0.0,
+    "hash": "fe2606fefccd7018d914b0037df5a7f1",
+    "inputs": [
+        "serving_default_input_10"
+    ],
+    "layers": [
+        {
+            "c_id": [
+                0
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "uint8_t"
+                    },
+                    "shape": [
+                        224,
+                        224,
+                        3,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [],
+            "name": "serving_default_input_10",
+            "original": "",
+            "type": "Input"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 301056,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 150529,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        224,
+                        224,
+                        3,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 0,
+            "inputs": [
+                "serving_default_input_10"
+            ],
+            "name": "conversion_0",
+            "original": "QUANTIZE",
+            "type": "Conversion"
+        },
+        {
+            "c_id": [
+                1
+            ],
+            "extras": {
+                "n_macc": 2709512,
+                "n_params": 224,
+                "psize": 248,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 248
+            },
+            "id": 1,
+            "inputs": [
+                "conversion_0"
+            ],
+            "name": "conv2d_1",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 100352,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 1,
+            "inputs": [
+                "conv2d_1"
+            ],
+            "name": "nl_1_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                2,
+                3
+            ],
+            "extras": {
+                "n_macc": 903176,
+                "n_params": 80,
+                "psize": 104,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 104
+            },
+            "id": 2,
+            "inputs": [
+                "nl_1_nl"
+            ],
+            "name": "conv2d_2",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 100352,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 2,
+            "inputs": [
+                "conv2d_2"
+            ],
+            "name": "nl_2_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                4
+            ],
+            "extras": {
+                "n_macc": 802824,
+                "n_params": 72,
+                "psize": 96,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 96
+            },
+            "id": 3,
+            "inputs": [
+                "nl_2_nl"
+            ],
+            "name": "conv2d_3",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                5
+            ],
+            "extras": {
+                "n_macc": 100352,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 100352,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 4,
+            "inputs": [
+                "nl_1_nl",
+                "conv2d_3"
+            ],
+            "name": "eltwise_4",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                6
+            ],
+            "extras": {
+                "n_macc": 4816944,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 602112,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        112,
+                        112,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 5,
+            "inputs": [
+                "eltwise_4"
+            ],
+            "name": "conv2d_5",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 602112,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 5,
+            "inputs": [
+                "conv2d_5"
+            ],
+            "name": "nl_5_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                8
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 624
+            },
+            "id": 6,
+            "inputs": [
+                "nl_5_nl"
+            ],
+            "name": "pad_6",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                7
+            ],
+            "extras": {
+                "n_macc": 1354800,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 7,
+            "inputs": [
+                "pad_6"
+            ],
+            "name": "conv2d_7",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 7,
+            "inputs": [
+                "conv2d_7"
+            ],
+            "name": "nl_7_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                9
+            ],
+            "extras": {
+                "n_macc": 1204232,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 25088,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 8,
+            "inputs": [
+                "nl_7_nl"
+            ],
+            "name": "conv2d_8",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                10
+            ],
+            "extras": {
+                "n_macc": 1204272,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 9,
+            "inputs": [
+                "conv2d_8"
+            ],
+            "name": "conv2d_9",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 9,
+            "inputs": [
+                "conv2d_9"
+            ],
+            "name": "nl_9_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                11,
+                12
+            ],
+            "extras": {
+                "n_macc": 1354800,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 624
+            },
+            "id": 10,
+            "inputs": [
+                "nl_9_nl"
+            ],
+            "name": "conv2d_10",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 10,
+            "inputs": [
+                "conv2d_10"
+            ],
+            "name": "nl_10_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                13
+            ],
+            "extras": {
+                "n_macc": 1204232,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 25088,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 11,
+            "inputs": [
+                "nl_10_nl"
+            ],
+            "name": "conv2d_11",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                14
+            ],
+            "extras": {
+                "n_macc": 25088,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 25088,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 12,
+            "inputs": [
+                "conv2d_8",
+                "conv2d_11"
+            ],
+            "name": "eltwise_12",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                15
+            ],
+            "extras": {
+                "n_macc": 1204272,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 150528,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        56,
+                        56,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 13,
+            "inputs": [
+                "eltwise_12"
+            ],
+            "name": "conv2d_13",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 150528,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 13,
+            "inputs": [
+                "conv2d_13"
+            ],
+            "name": "nl_13_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                17
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 624
+            },
+            "id": 14,
+            "inputs": [
+                "nl_13_nl"
+            ],
+            "name": "pad_14",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                16
+            ],
+            "extras": {
+                "n_macc": 338736,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 15,
+            "inputs": [
+                "pad_14"
+            ],
+            "name": "conv2d_15",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 15,
+            "inputs": [
+                "conv2d_15"
+            ],
+            "name": "nl_15_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                18
+            ],
+            "extras": {
+                "n_macc": 301064,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 16,
+            "inputs": [
+                "nl_15_nl"
+            ],
+            "name": "conv2d_16",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                19
+            ],
+            "extras": {
+                "n_macc": 301104,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 17,
+            "inputs": [
+                "conv2d_16"
+            ],
+            "name": "conv2d_17",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 17,
+            "inputs": [
+                "conv2d_17"
+            ],
+            "name": "nl_17_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                20,
+                21
+            ],
+            "extras": {
+                "n_macc": 338736,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 624
+            },
+            "id": 18,
+            "inputs": [
+                "nl_17_nl"
+            ],
+            "name": "conv2d_18",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 18,
+            "inputs": [
+                "conv2d_18"
+            ],
+            "name": "nl_18_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                22
+            ],
+            "extras": {
+                "n_macc": 301064,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 19,
+            "inputs": [
+                "nl_18_nl"
+            ],
+            "name": "conv2d_19",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                23
+            ],
+            "extras": {
+                "n_macc": 6272,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 20,
+            "inputs": [
+                "conv2d_16",
+                "conv2d_19"
+            ],
+            "name": "eltwise_20",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                24
+            ],
+            "extras": {
+                "n_macc": 301104,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 21,
+            "inputs": [
+                "eltwise_20"
+            ],
+            "name": "conv2d_21",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 21,
+            "inputs": [
+                "conv2d_21"
+            ],
+            "name": "nl_21_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                25,
+                26
+            ],
+            "extras": {
+                "n_macc": 338736,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 624
+            },
+            "id": 22,
+            "inputs": [
+                "nl_21_nl"
+            ],
+            "name": "conv2d_22",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 22,
+            "inputs": [
+                "conv2d_22"
+            ],
+            "name": "nl_22_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                27
+            ],
+            "extras": {
+                "n_macc": 301064,
+                "n_params": 392,
+                "psize": 416,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 416
+            },
+            "id": 23,
+            "inputs": [
+                "nl_22_nl"
+            ],
+            "name": "conv2d_23",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                28
+            ],
+            "extras": {
+                "n_macc": 6272,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 6272,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        8,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 24,
+            "inputs": [
+                "eltwise_20",
+                "conv2d_23"
+            ],
+            "name": "eltwise_24",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                29
+            ],
+            "extras": {
+                "n_macc": 301104,
+                "n_params": 432,
+                "psize": 576,
+                "rom_output": {
+                    "c_size": 37632,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        28,
+                        28,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 576
+            },
+            "id": 25,
+            "inputs": [
+                "eltwise_24"
+            ],
+            "name": "conv2d_25",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 37632,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 25,
+            "inputs": [
+                "conv2d_25"
+            ],
+            "name": "nl_25_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                31
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 624
+            },
+            "id": 26,
+            "inputs": [
+                "nl_25_nl"
+            ],
+            "name": "pad_26",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                30
+            ],
+            "extras": {
+                "n_macc": 84720,
+                "n_params": 480,
+                "psize": 624,
+                "rom_output": {
+                    "c_size": 9408,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        48,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 27,
+            "inputs": [
+                "pad_26"
+            ],
+            "name": "conv2d_27",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 9408,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 27,
+            "inputs": [
+                "conv2d_27"
+            ],
+            "name": "nl_27_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                32
+            ],
+            "extras": {
+                "n_macc": 150544,
+                "n_params": 784,
+                "psize": 832,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 832
+            },
+            "id": 28,
+            "inputs": [
+                "nl_27_nl"
+            ],
+            "name": "conv2d_28",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                33
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 29,
+            "inputs": [
+                "conv2d_28"
+            ],
+            "name": "conv2d_29",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 29,
+            "inputs": [
+                "conv2d_29"
+            ],
+            "name": "nl_29_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                34,
+                35
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 30,
+            "inputs": [
+                "nl_29_nl"
+            ],
+            "name": "conv2d_30",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 30,
+            "inputs": [
+                "conv2d_30"
+            ],
+            "name": "nl_30_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                36
+            ],
+            "extras": {
+                "n_macc": 301072,
+                "n_params": 1552,
+                "psize": 1600,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 1600
+            },
+            "id": 31,
+            "inputs": [
+                "nl_30_nl"
+            ],
+            "name": "conv2d_31",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                37
+            ],
+            "extras": {
+                "n_macc": 3136,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 32,
+            "inputs": [
+                "conv2d_28",
+                "conv2d_31"
+            ],
+            "name": "eltwise_32",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                38
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 33,
+            "inputs": [
+                "eltwise_32"
+            ],
+            "name": "conv2d_33",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 33,
+            "inputs": [
+                "conv2d_33"
+            ],
+            "name": "nl_33_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                39,
+                40
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 34,
+            "inputs": [
+                "nl_33_nl"
+            ],
+            "name": "conv2d_34",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 34,
+            "inputs": [
+                "conv2d_34"
+            ],
+            "name": "nl_34_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                41
+            ],
+            "extras": {
+                "n_macc": 301072,
+                "n_params": 1552,
+                "psize": 1600,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 1600
+            },
+            "id": 35,
+            "inputs": [
+                "nl_34_nl"
+            ],
+            "name": "conv2d_35",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                42
+            ],
+            "extras": {
+                "n_macc": 3136,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 36,
+            "inputs": [
+                "eltwise_32",
+                "conv2d_35"
+            ],
+            "name": "eltwise_36",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                43
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 37,
+            "inputs": [
+                "eltwise_36"
+            ],
+            "name": "conv2d_37",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 37,
+            "inputs": [
+                "conv2d_37"
+            ],
+            "name": "nl_37_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                44,
+                45
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 38,
+            "inputs": [
+                "nl_37_nl"
+            ],
+            "name": "conv2d_38",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 38,
+            "inputs": [
+                "conv2d_38"
+            ],
+            "name": "nl_38_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                46
+            ],
+            "extras": {
+                "n_macc": 301072,
+                "n_params": 1552,
+                "psize": 1600,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 1600
+            },
+            "id": 39,
+            "inputs": [
+                "nl_38_nl"
+            ],
+            "name": "conv2d_39",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                47
+            ],
+            "extras": {
+                "n_macc": 3136,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 3136,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        16,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 40,
+            "inputs": [
+                "eltwise_36",
+                "conv2d_39"
+            ],
+            "name": "eltwise_40",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                48
+            ],
+            "extras": {
+                "n_macc": 301152,
+                "n_params": 1632,
+                "psize": 1920,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1920
+            },
+            "id": 41,
+            "inputs": [
+                "eltwise_40"
+            ],
+            "name": "conv2d_41",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 41,
+            "inputs": [
+                "conv2d_41"
+            ],
+            "name": "nl_41_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                49,
+                50
+            ],
+            "extras": {
+                "n_macc": 169440,
+                "n_params": 960,
+                "psize": 1248,
+                "rom_output": {
+                    "c_size": 18816,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        96,
+                        1
+                    ]
+                },
+                "rom_size": 1248
+            },
+            "id": 42,
+            "inputs": [
+                "nl_41_nl"
+            ],
+            "name": "conv2d_42",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 18816,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 42,
+            "inputs": [
+                "conv2d_42"
+            ],
+            "name": "nl_42_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                51
+            ],
+            "extras": {
+                "n_macc": 451608,
+                "n_params": 2328,
+                "psize": 2400,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 2400
+            },
+            "id": 43,
+            "inputs": [
+                "nl_42_nl"
+            ],
+            "name": "conv2d_43",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                52
+            ],
+            "extras": {
+                "n_macc": 677520,
+                "n_params": 3600,
+                "psize": 4032,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 4032
+            },
+            "id": 44,
+            "inputs": [
+                "conv2d_43"
+            ],
+            "name": "conv2d_44",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 44,
+            "inputs": [
+                "conv2d_44"
+            ],
+            "name": "nl_44_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                53,
+                54
+            ],
+            "extras": {
+                "n_macc": 254160,
+                "n_params": 1440,
+                "psize": 1872,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 1872
+            },
+            "id": 45,
+            "inputs": [
+                "nl_44_nl"
+            ],
+            "name": "conv2d_45",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 45,
+            "inputs": [
+                "conv2d_45"
+            ],
+            "name": "nl_45_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                55
+            ],
+            "extras": {
+                "n_macc": 677400,
+                "n_params": 3480,
+                "psize": 3552,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 3552
+            },
+            "id": 46,
+            "inputs": [
+                "nl_45_nl"
+            ],
+            "name": "conv2d_46",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                56
+            ],
+            "extras": {
+                "n_macc": 4704,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 47,
+            "inputs": [
+                "conv2d_43",
+                "conv2d_46"
+            ],
+            "name": "eltwise_47",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                57
+            ],
+            "extras": {
+                "n_macc": 677520,
+                "n_params": 3600,
+                "psize": 4032,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 4032
+            },
+            "id": 48,
+            "inputs": [
+                "eltwise_47"
+            ],
+            "name": "conv2d_48",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 48,
+            "inputs": [
+                "conv2d_48"
+            ],
+            "name": "nl_48_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                58,
+                59
+            ],
+            "extras": {
+                "n_macc": 254160,
+                "n_params": 1440,
+                "psize": 1872,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 1872
+            },
+            "id": 49,
+            "inputs": [
+                "nl_48_nl"
+            ],
+            "name": "conv2d_49",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 49,
+            "inputs": [
+                "conv2d_49"
+            ],
+            "name": "nl_49_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                60
+            ],
+            "extras": {
+                "n_macc": 677400,
+                "n_params": 3480,
+                "psize": 3552,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 3552
+            },
+            "id": 50,
+            "inputs": [
+                "nl_49_nl"
+            ],
+            "name": "conv2d_50",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                61
+            ],
+            "extras": {
+                "n_macc": 4704,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 4704,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        24,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 51,
+            "inputs": [
+                "eltwise_47",
+                "conv2d_50"
+            ],
+            "name": "eltwise_51",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                62
+            ],
+            "extras": {
+                "n_macc": 677520,
+                "n_params": 3600,
+                "psize": 4032,
+                "rom_output": {
+                    "c_size": 28224,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        14,
+                        14,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 4032
+            },
+            "id": 52,
+            "inputs": [
+                "eltwise_51"
+            ],
+            "name": "conv2d_52",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 28224,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 52,
+            "inputs": [
+                "conv2d_52"
+            ],
+            "name": "nl_52_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                64
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 1872
+            },
+            "id": 53,
+            "inputs": [
+                "nl_52_nl"
+            ],
+            "name": "pad_53",
+            "original": "PAD",
+            "type": "Pad"
+        },
+        {
+            "c_id": [
+                63
+            ],
+            "extras": {
+                "n_macc": 63648,
+                "n_params": 1440,
+                "psize": 1872,
+                "rom_output": {
+                    "c_size": 7056,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        144,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 54,
+            "inputs": [
+                "pad_53"
+            ],
+            "name": "conv2d_54",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 7056,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 54,
+            "inputs": [
+                "conv2d_54"
+            ],
+            "name": "nl_54_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                65
+            ],
+            "extras": {
+                "n_macc": 282280,
+                "n_params": 5800,
+                "psize": 5920,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 5920
+            },
+            "id": 55,
+            "inputs": [
+                "nl_54_nl"
+            ],
+            "name": "conv2d_55",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                66
+            ],
+            "extras": {
+                "n_macc": 470640,
+                "n_params": 9840,
+                "psize": 10560,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 10560
+            },
+            "id": 56,
+            "inputs": [
+                "conv2d_55"
+            ],
+            "name": "conv2d_56",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 56,
+            "inputs": [
+                "conv2d_56"
+            ],
+            "name": "nl_56_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                67,
+                68
+            ],
+            "extras": {
+                "n_macc": 106080,
+                "n_params": 2400,
+                "psize": 3120,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 3120
+            },
+            "id": 57,
+            "inputs": [
+                "nl_56_nl"
+            ],
+            "name": "conv2d_57",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 57,
+            "inputs": [
+                "conv2d_57"
+            ],
+            "name": "nl_57_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                69
+            ],
+            "extras": {
+                "n_macc": 470440,
+                "n_params": 9640,
+                "psize": 9760,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 9760
+            },
+            "id": 58,
+            "inputs": [
+                "nl_57_nl"
+            ],
+            "name": "conv2d_58",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                70
+            ],
+            "extras": {
+                "n_macc": 1960,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 59,
+            "inputs": [
+                "conv2d_55",
+                "conv2d_58"
+            ],
+            "name": "eltwise_59",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                71
+            ],
+            "extras": {
+                "n_macc": 470640,
+                "n_params": 9840,
+                "psize": 10560,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 10560
+            },
+            "id": 60,
+            "inputs": [
+                "eltwise_59"
+            ],
+            "name": "conv2d_60",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 60,
+            "inputs": [
+                "conv2d_60"
+            ],
+            "name": "nl_60_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                72,
+                73
+            ],
+            "extras": {
+                "n_macc": 106080,
+                "n_params": 2400,
+                "psize": 3120,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 3120
+            },
+            "id": 61,
+            "inputs": [
+                "nl_60_nl"
+            ],
+            "name": "conv2d_61",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 61,
+            "inputs": [
+                "conv2d_61"
+            ],
+            "name": "nl_61_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                74
+            ],
+            "extras": {
+                "n_macc": 470440,
+                "n_params": 9640,
+                "psize": 9760,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 9760
+            },
+            "id": 62,
+            "inputs": [
+                "nl_61_nl"
+            ],
+            "name": "conv2d_62",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                75
+            ],
+            "extras": {
+                "n_macc": 1960,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 1960,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        40,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 63,
+            "inputs": [
+                "eltwise_59",
+                "conv2d_62"
+            ],
+            "name": "eltwise_63",
+            "original": "ADD",
+            "type": "Eltwise"
+        },
+        {
+            "c_id": [
+                76
+            ],
+            "extras": {
+                "n_macc": 470640,
+                "n_params": 9840,
+                "psize": 10560,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 10560
+            },
+            "id": 64,
+            "inputs": [
+                "eltwise_63"
+            ],
+            "name": "conv2d_64",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 64,
+            "inputs": [
+                "conv2d_64"
+            ],
+            "name": "nl_64_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                77,
+                78
+            ],
+            "extras": {
+                "n_macc": 106080,
+                "n_params": 2400,
+                "psize": 3120,
+                "rom_output": {
+                    "c_size": 11760,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        240,
+                        1
+                    ]
+                },
+                "rom_size": 3120
+            },
+            "id": 65,
+            "inputs": [
+                "nl_64_nl"
+            ],
+            "name": "conv2d_65",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 11760,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 65,
+            "inputs": [
+                "conv2d_65"
+            ],
+            "name": "nl_65_nl",
+            "original": "DEPTHWISE_CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                79
+            ],
+            "extras": {
+                "n_macc": 940880,
+                "n_params": 19280,
+                "psize": 19520,
+                "rom_output": {
+                    "c_size": 3920,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        80,
+                        1
+                    ]
+                },
+                "rom_size": 19520
+            },
+            "id": 66,
+            "inputs": [
+                "nl_65_nl"
+            ],
+            "name": "conv2d_66",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [
+                80
+            ],
+            "extras": {
+                "n_macc": 5018880,
+                "n_params": 103680,
+                "psize": 107520,
+                "rom_output": {
+                    "c_size": 62720,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        7,
+                        7,
+                        1280,
+                        1
+                    ]
+                },
+                "rom_size": 107520
+            },
+            "id": 67,
+            "inputs": [
+                "conv2d_66"
+            ],
+            "name": "conv2d_67",
+            "original": "CONV_2D",
+            "type": "Conv2D"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 62720,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 67,
+            "inputs": [
+                "conv2d_67"
+            ],
+            "name": "nl_67_nl",
+            "original": "CONV_2D",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                81
+            ],
+            "extras": {
+                "n_macc": 62720,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 1280,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        1,
+                        1,
+                        1280,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 68,
+            "inputs": [
+                "nl_67_nl"
+            ],
+            "name": "pool_68",
+            "original": "MEAN",
+            "type": "Pool"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 0,
+                "psize": 0,
+                "rom_size": 0
+            },
+            "id": 68,
+            "inputs": [
+                "pool_68"
+            ],
+            "name": "reshape_68_reshape",
+            "original": "MEAN",
+            "type": "Reshape"
+        },
+        {
+            "c_id": [
+                82
+            ],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 49920,
+                "psize": 49920,
+                "rom_size": 50076
+            },
+            "id": 69,
+            "inputs": [],
+            "name": "mobilenet_v2_alpha_0_25_dense_MatMul",
+            "original": "",
+            "type": "Placeholder"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 0,
+                "n_params": 39,
+                "psize": 156,
+                "rom_size": 0
+            },
+            "id": 69,
+            "inputs": [],
+            "name": "dense_bias",
+            "original": "",
+            "type": "Placeholder"
+        },
+        {
+            "c_id": [],
+            "extras": {
+                "n_macc": 49959,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 39,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        39,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 69,
+            "inputs": [
+                "reshape_68_reshape",
+                "mobilenet_v2_alpha_0_25_dense_MatMul",
+                "dense_bias"
+            ],
+            "name": "gemm_69",
+            "original": "FULLY_CONNECTED",
+            "type": "Gemm"
+        },
+        {
+            "c_id": [
+                83
+            ],
+            "extras": {
+                "n_macc": 585,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 39,
+                    "fmt": {
+                        "format": "int8_t"
+                    },
+                    "shape": [
+                        39,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 70,
+            "inputs": [
+                "gemm_69"
+            ],
+            "name": "nl_70",
+            "original": "SOFTMAX",
+            "type": "Nonlinearity"
+        },
+        {
+            "c_id": [
+                84
+            ],
+            "extras": {
+                "n_macc": 78,
+                "n_params": 0,
+                "psize": 0,
+                "rom_output": {
+                    "c_size": 156,
+                    "fmt": {
+                        "format": "float"
+                    },
+                    "shape": [
+                        39,
+                        1
+                    ]
+                },
+                "rom_size": 0
+            },
+            "id": 71,
+            "inputs": [
+                "nl_70"
+            ],
+            "name": "conversion_71",
+            "original": "DEQUANTIZE",
+            "type": "Conversion"
+        }
+    ],
+    "model_files": [
+        "E:\\hjTan\\Documents\\CODE_SPACE\\stm32ai-modelzoo-2.0.0\\experiments_outputs\\2025_07_22_12_52_20\\quantized_models\\quantized_model.tflite"
+    ],
+    "model_n_params": 282743,
+    "model_name": "quantized_model",
+    "model_size": 298844,
+    "model_type": "tflite",
+    "name": "network",
+    "outputs": [
+        "conversion_71"
+    ],
+    "ram_io_size": [
+        150528,
+        156
+    ],
+    "ram_size": [
+        621488,
+        621488
+    ],
+    "report_version": 1.1,
+    "rom_cfact": 1.0,
+    "rom_heap_inspector": 2048,
+    "rom_inputs": [
+        {
+            "c_size": 150528,
+            "c_type": "uint8_t",
+            "name": "serving_default_input_10"
+        }
+    ],
+    "rom_n_macc": 36501758,
+    "rom_outputs": [
+        {
+            "c_size": 156,
+            "c_type": "float",
+            "name": "conversion_71"
+        }
+    ],
+    "rom_size": 298844,
+    "strategy": "heap_overlay",
+    "tools_api_version": {
+        "major": 1,
+        "micro": 0,
+        "minor": 7
+    },
+    "tools_version": {
+        "extra": "19520",
+        "major": 8,
+        "micro": 0,
+        "minor": 1
+    },
+    "val_error": -1.0,
+    "val_error_desc": "None (None) #-1",
+    "val_metrics": []
+>>>>>>> 1460700 (com)
+}

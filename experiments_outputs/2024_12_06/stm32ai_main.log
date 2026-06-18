@@ -1,0 +1,27 @@
+Model name : squeezenet
+Dataset : Rice2
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['99', '0.8605149984359741', '0.36309292912483215', '0.001', '0.8848039507865906', '0.3467674255371094']
+
+Training runtime : 11115 s
+Average time per epoch : 111.15 s
+
+Float model :
+Accuracy of float model : 88.73 %
+Loss of float model : 0.34 
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 3152.38 KiB
+Flash weights : 2830.27 KiB
+MACCs : 268.366 M
+[2024-12-06 14:40:23,524][absl][WARNING] - Found untraced functions such as _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op while saving (showing 5 of 26). These functions will not be directly callable after loading.
+
+Quantized model :
+Accuracy of quantized model : 56.62 %
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 756.25 KiB
+Flash weights : 716.2 KiB
+MACCs : 266.246 M

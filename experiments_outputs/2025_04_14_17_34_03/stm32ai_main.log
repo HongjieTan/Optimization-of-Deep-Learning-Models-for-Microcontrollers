@@ -1,0 +1,27 @@
+Model name : EmbeddedNetV1
+Dataset : Rice_Single_leaf_blade
+
+The last epoch history :
+['epoch', 'accuracy', 'loss', 'lr', 'val_accuracy', 'val_loss']
+['99', '0.8418148159980774', '0.4085596203804016', '0.001', '0.8370097875595093', '0.43477025628089905']
+
+Training runtime : 9893 s
+Average time per epoch : 98.93 s
+
+Float model :
+Accuracy of float model : 84.93 %
+Loss of float model : 0.41 
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 798.06 KiB
+Flash weights : 986.46 KiB
+MACCs : 14.844 M
+[2025-04-14 20:20:26,493][absl][WARNING] - Found untraced functions such as _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op, _jit_compiled_convolution_op while saving (showing 5 of 45). These functions will not be directly callable after loading.
+
+Quantized model :
+Accuracy of quantized model : 84.07 %
+Stm32ai version : 8.1.0
+Benchmarking board : NUCLEO-H743ZI2
+RAM Activations : 245.64 KiB
+Flash weights : 256.87 KiB
+MACCs : 13.684 M
